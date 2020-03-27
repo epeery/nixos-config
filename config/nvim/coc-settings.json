@@ -1,0 +1,27 @@
+{
+  "diagnostic.displayByAle": true,
+  "coc.preferences.hoverTarget": "float",
+
+  "languageserver": {
+    "haskell": {
+      "command": "ghcide",
+      "args": [
+        "--lsp"
+      ],
+      "rootPatterns": [
+        ".stack.yaml",
+        ".hie-bios",
+        "hie.yaml",
+        "BUILD.bazel",
+        "cabal.config",
+        "cabal.project",
+        "package.yaml"
+      ],
+      "filetypes": [
+        "hs",
+        "lhs",
+        "haskell"
+      ]
+    }
+  }
+}
