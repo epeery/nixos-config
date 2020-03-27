@@ -101,6 +101,7 @@ in
   home = {
     file = {
       ".xinitrc".text = "exec xmonad";
+      "Pictures/Wallpapers".source = ./home/Pictures/Wallpapers;
       ".config/Xresources".text = ''
         *foreground:   #ffffff
         *background:   #000000
