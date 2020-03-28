@@ -41,7 +41,7 @@ in
       shellAliases = {
         startx = "sx"; # Modified version of startx that doesn't pollute $HOME
         v = "$EDITOR";
-        cfv = "$EDITOR ${config}/nixpkgs/nvim/init.vim";
+        cfv = "$EDITOR ${config}/nixpkgs/config/nvim/init.vim";
         P = "cd ~/Projects";
         G = "cd ~/Git";
         D = "cd ~/Downloads";
