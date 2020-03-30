@@ -43,7 +43,7 @@ main = do
 --                             Autostart                              --
 ------------------------------------------------------------------------
 myStartupHook = do
-  spawnOnce "feh -B \"#CDCBCD\" --bg-center ~/.config/wallpaper.png &"
+  spawnOnce "feh -B \"#CDCBCD\" --bg-center ~/.config/wallpaper.png --no-fehbg &"
   spawnOnce "xrdb ~/.config/Xresources &"
 
 ------------------------------------------------------------------------
