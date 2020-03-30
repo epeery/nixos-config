@@ -172,6 +172,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 Plug 'junegunn/goyo.vim'
 Plug 'sheerun/vim-polyglot'
 " Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'chrisbra/Colorizer'
 Plug 'reedes/vim-colors-pencil'
 Plug 'pgdouyon/vim-yin-yang'
 "" Convenience

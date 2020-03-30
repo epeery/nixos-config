@@ -1,24 +1,41 @@
-import System.Exit
-import XMonad
-import XMonad.Actions.CycleWS
-import XMonad.Hooks.InsertPosition
-import XMonad.Layout.NoBorders
-import XMonad.Util.EZConfig (additionalKeysP)
-import XMonad.Util.SpawnOnce
+import Control.Applicative (liftA2)
+import Graphics.X11.Xinerama (getScreenInfo)
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
+import System.Exit
+import System.IO
+import XMonad
+import XMonad.Actions.CycleWS
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.InsertPosition
+import XMonad.Hooks.ManageDocks
+import XMonad.Layout.NoBorders
+import XMonad.Util.EZConfig (additionalKeysP)
+import XMonad.Util.Run (spawnPipe)
+import XMonad.Util.SpawnOnce
 
-main =
+main = do
+  -- xmproc <- spawnPipe ("xmobar " ++ myXmobarConfig)
   xmonad $
     def
-      { manageHook         = insertPosition End Newer
+      {
+      -- logHook =
+      --     dynamicLogWithPP $
+      --       xmobarPP
+      --         { ppOutput = hPutStrLn xmproc
+      --         , ppTitle = xmobarColor color4 "" . shorten 100
+      --         , ppCurrent = xmobarColor color4 ""
+      --         , ppSep = "   "
+      --         }
+        manageHook         = manageDocks <+> insertPosition End Newer
       , layoutHook         = myLayout
+      , handleEventHook    = docksEventHook
       , startupHook        = myStartupHook
       , modMask            = myModMask
       , terminal           = myTerminal
       , borderWidth        = myBorderWidth
-      , normalBorderColor  = color2
-      , focusedBorderColor = color5
+      , normalBorderColor  = color1
+      , focusedBorderColor = color4
       }
       `additionalKeysP` myKeys
 
@@ -26,17 +43,17 @@ main =
 --                             Autostart                              --
 ------------------------------------------------------------------------
 myStartupHook = do
-  spawnOnce "nitrogen --restore &"
+  spawnOnce "feh -B \"#CDCBCD\" --bg-center ~/.config/wallpaper.png &"
   spawnOnce "xrdb ~/.config/Xresources &"
 
 ------------------------------------------------------------------------
 --                             Variables                              --
 ------------------------------------------------------------------------
-color1 = "#000000"
-color2 = "#7f7f7f"
-color3 = "#D9D9D9"
-color4 = "#ffffff"
-color5 = "#D56162"
+color0 = "#000000"
+color1 = "#7f7f7f"
+color2 = "#D9D9D9"
+color3 = "#ffffff"
+color4 = "#D56162"
 
 myBorderWidth = 4
 
@@ -44,15 +61,17 @@ myTerminal = "xst"
 myFileManager = myTerminal ++ " -e ranger"
 myBrowser = "brave"
 
+myXmobarConfig = "~/.xmonad/xmobar.hs"
+
 myDmenu =
   "dmenu_run -nb "
-    ++ show color1
+    ++ show color0
     ++ " -nf "
-    ++ show color3
+    ++ show color2
     ++ " -sb "
-    ++ show color5
-    ++ " -sf "
     ++ show color4
+    ++ " -sf "
+    ++ show color3
 
 myModMask = mod4Mask
 
@@ -95,13 +114,11 @@ myKeys =
 ------------------------------------------------------------------------
 --                              Layouts                               --
 ------------------------------------------------------------------------
-myLayout = tiled ||| noBorders Full
-  where
-    -- default tiling algorithm partitions the screen into two panes
-    tiled = Tall nmaster delta ratio
-    -- The default number of windows in the master pane
-    nmaster = 1
-    -- Default proportion of screen occupied by master pane
-    ratio = 0.618
-    -- Percent of screen to increment by when resizing panes
-    delta = 3 / 100
+myLayout = avoidStruts $ Tall 1 (3 / 100) (61.8 / 100) ||| noBorders Full
+
+getScreens :: IO [Int]
+getScreens = openDisplay "" >>= liftA2 (<*) f closeDisplay
+    where f = fmap (zipWith const [0..]) . getScreenInfo
+
+xmobarScreen :: Int -> IO Handle
+xmobarScreen = spawnPipe . ("xmobar -x " ++) . show

@@ -86,7 +86,10 @@ in
     };
 
     lorri.enable = true;
+
+    picom.enable = true;
   };
+
 
   xsession.windowManager.xmonad = {
     enable = true;
@@ -97,8 +100,10 @@ in
   xdg = {
     enable = true;
     configFile = {
+      "wallpaper.png".source = ./config/wallpaper.png;
       "zsh_custom".source =./config/zsh_custom;
       "pulse/default.pa".text = builtins.readFile ./config/pulse/default.pa;
+      "fontconfig/fonts.conf".text = builtins.readFile ./config/fontconfig/fonts.conf;
       "nvim/init.vim".text = builtins.readFile ./config/nvim/init.vim;
       "nvim/colors".source = ./config/nvim/colors;
       "nvim/autoload".source = ./config/nvim/autoload;
@@ -110,7 +115,6 @@ in
   home = {
     file = {
       ".xinitrc".text = "exec xmonad";
-      "Pictures/Wallpapers".source = ./home/Pictures/Wallpapers;
       ".config/Xresources".text = ''
         *foreground:   #ffffff
         *background:   #000000
@@ -154,6 +158,9 @@ in
     };
 
     packages = with pkgs; [
+      haskellPackages.xmobar
+      feh
+      electron
       ranger
       dmenu
       silver-searcher
@@ -173,6 +180,8 @@ in
       spotify
       zoom-us
       slack
+      gimp
+      unzip
     ];
   };
 }
