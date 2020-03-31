@@ -155,6 +155,7 @@ in
 
       # Cleaning up $HOME
       XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority";
+      STACK_ROOT="$XDG_DATA_HOME/stack";
       LESSHISTFILE="-";
       HISTFILE="${share}/bash/history";
       WGETRC="${config}/wget/wgetrc";
