@@ -45,6 +45,7 @@ main = do
 myStartupHook = do
   spawnOnce "feh -B \"#CDCBCD\" --bg-center ~/.config/wallpaper.png --no-fehbg &"
   spawnOnce "xrdb ~/.config/Xresources &"
+  spawnOnce "panel &"
 
 ------------------------------------------------------------------------
 --                             Variables                              --

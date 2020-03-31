@@ -39,7 +39,10 @@ in
       };
 
       shellAliases = {
-        startx = "sx"; # Modified version of startx that doesn't pollute $HOME
+        # Modified versions of programs that don't pollute $HOME
+        startx = "sx";
+        wget = "wget --hsts-file=\"$XDG_CACHE_HOME/wget-hsts\"";
+
         v = "$EDITOR";
         cfv = "$EDITOR ${config}/nixpkgs/config/nvim/init.vim";
         P = "cd ~/Projects";
@@ -103,6 +106,7 @@ in
       "wallpaper.png".source = ./config/wallpaper.png;
       "zsh_custom".source =./config/zsh_custom;
       "pulse/default.pa".text = builtins.readFile ./config/pulse/default.pa;
+      "wget/wgetrc".text = builtins.readFile ./config/wget/wgetrc;
       "fontconfig/fonts.conf".text = builtins.readFile ./config/fontconfig/fonts.conf;
       "nvim/init.vim".text = builtins.readFile ./config/nvim/init.vim;
       "nvim/colors".source = ./config/nvim/colors;
