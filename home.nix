@@ -107,6 +107,7 @@ in
       "zsh_custom".source =./config/zsh_custom;
       "pulse/default.pa".text = builtins.readFile ./config/pulse/default.pa;
       "wget/wgetrc".text = builtins.readFile ./config/wget/wgetrc;
+      "npm/npmrc".text = builtins.readFile ./config/npm/npmrc;
       "fontconfig/fonts.conf".text = builtins.readFile ./config/fontconfig/fonts.conf;
       "nvim/init.vim".text = builtins.readFile ./config/nvim/init.vim;
       "nvim/colors".source = ./config/nvim/colors;
@@ -156,6 +157,7 @@ in
       # Cleaning up $HOME
       XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority";
       STACK_ROOT="$XDG_DATA_HOME/stack";
+      NPM_CONFIG_USERCONFIG= "$XDG_CONFIG_HOME/npm/npmrc";
       LESSHISTFILE="-";
       HISTFILE="${share}/bash/history";
       WGETRC="${config}/wget/wgetrc";
