@@ -181,7 +181,7 @@ in
       nix-prefetch-git
       insomnia
       pavucontrol
-      vlc
+      mpv
       sxiv
       brave
       spotify
