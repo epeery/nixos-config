@@ -105,15 +105,15 @@ in
     configFile = {
       "wallpaper.png".source = ./config/wallpaper.png;
       "zsh_custom".source =./config/zsh_custom;
-      "pulse/default.pa".text = builtins.readFile ./config/pulse/default.pa;
+      "pulse/default.pa".source = ./config/pulse/default.pa;
       "wget".source = ./config/wget;
       "npm".source = ./config/npm;
-      "fontconfig/fonts.conf".text = builtins.readFile ./config/fontconfig/fonts.conf;
-      "nvim/init.vim".text = builtins.readFile ./config/nvim/init.vim;
+      "fontconfig/fonts.conf".source = ./config/fontconfig/fonts.conf;
+      "nvim/init.vim".source = ./config/nvim/init.vim;
       "nvim/colors".source = ./config/nvim/colors;
       "nvim/autoload".source = ./config/nvim/autoload;
       "nvim/ftplugin".source = ./config/nvim/ftplugin;
-      "nvim/coc-settings.json".text = builtins.readFile ./config/nvim/coc-settings.json;
+      "nvim/coc-settings.json".source = ./config/nvim/coc-settings.json;
     };
   };
 
