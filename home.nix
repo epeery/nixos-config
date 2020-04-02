@@ -114,7 +114,7 @@ in
       "nvim/ftplugin".source = ./config/nvim/ftplugin;
       "nvim/coc-settings.json".source = ./config/nvim/coc-settings.json;
       "nvim/autoload/plug.vim".source = pkgs.fetchurl {
-        url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim";
+        url = "https://raw.githubusercontent.com/junegunn/vim-plug/c3b6b7c2971da730d66f6955d5c467db8dae536b/plug.vim";
         sha256 = "1wqbcqriba20khlx1khj1ndxbffcppd1ffw6an8n644zg1gv5r29";
       };
     };
