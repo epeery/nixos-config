@@ -104,7 +104,7 @@ in
     enable = true;
     configFile = {
       "wallpaper.png".source = ./config/wallpaper.png;
-      "zsh_custom".source =./config/zsh_custom;
+      "zsh_custom".source = ./config/zsh_custom;
       "pulse/default.pa".source = ./config/pulse/default.pa;
       "wget".source = ./config/wget;
       "npm".source = ./config/npm;
