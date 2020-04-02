@@ -169,6 +169,7 @@ call plug#begin('~/.config/nvim/plugged')
 " Plug 'vimwiki/vimwiki'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 "" UI
+Plug 'epeery/ugly'
 Plug 'junegunn/goyo.vim'
 Plug 'sheerun/vim-polyglot'
 " Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
