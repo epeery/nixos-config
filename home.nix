@@ -8,13 +8,6 @@ let
   config = "$HOME/.config";
   share = "$HOME/.local/share";
 
-  ugly = pkgs.fetchFromGitHub {
-    name = "ugly-colorscheme-1.0";
-    owner = "epeery";
-    repo = "vim-ugly";
-    rev = "v1.0";
-    sha256 = "11rn3nsqyc9fa1g7l4y4wlip3yfw4z4cklhj5mmz8nqsgm8sjay1";
-  };
 in
 {
   imports = [
@@ -118,9 +111,12 @@ in
       "npm".source = ./config/npm;
       "fontconfig/fonts.conf".source = ./config/fontconfig/fonts.conf;
       "nvim/init.vim".source = ./config/nvim/init.vim;
-      "nvim/autoload".source = ./config/nvim/autoload;
       "nvim/ftplugin".source = ./config/nvim/ftplugin;
       "nvim/coc-settings.json".source = ./config/nvim/coc-settings.json;
+      "nvim/autoload/plug.vim".source = pkgs.fetchurl {
+        url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim";
+        sha256 = "1wqbcqriba20khlx1khj1ndxbffcppd1ffw6an8n644zg1gv5r29";
+      };
     };
   };
 
