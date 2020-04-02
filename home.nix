@@ -46,6 +46,8 @@ in
 
         v = "$EDITOR";
         cfv = "$EDITOR ${config}/nixpkgs/config/nvim/init.vim";
+
+        h = "cd ~/.config/nixpkgs";
         P = "cd ~/Projects";
         G = "cd ~/Git";
         D = "cd ~/Downloads";
