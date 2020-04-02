@@ -115,10 +115,13 @@ in
       "nvim/init.vim".source = ./config/nvim/init.vim;
       "nvim/ftplugin".source = ./config/nvim/ftplugin;
       "nvim/coc-settings.json".source = ./config/nvim/coc-settings.json;
-      "nvim/autoload/plug.vim".source = pkgs.fetchurl {
-        url = "https://raw.githubusercontent.com/junegunn/vim-plug/c3b6b7c2971da730d66f6955d5c467db8dae536b/plug.vim";
-        sha256 = "1wqbcqriba20khlx1khj1ndxbffcppd1ffw6an8n644zg1gv5r29";
-      };
+      "nvim/autoload/plug.vim".source =
+        let
+          vim-plug = builtins.fetchGit {
+            url = "https://github.com/junegunn/vim-plug";
+            rev = "b6050d6f03f3e2792589535249e3c997d3e94461";
+          };
+        in "${vim-plug}/plug.vim";
     };
   };
 
