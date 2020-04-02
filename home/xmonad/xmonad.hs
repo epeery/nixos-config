@@ -1,35 +1,17 @@
-import Control.Applicative (liftA2)
-import Graphics.X11.Xinerama (getScreenInfo)
-import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 import System.Exit
-import System.IO
 import XMonad
 import XMonad.Actions.CycleWS
-import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.InsertPosition
-import XMonad.Hooks.ManageDocks
 import XMonad.Layout.NoBorders
 import XMonad.Util.EZConfig (additionalKeysP)
-import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.SpawnOnce
 
 main = do
-  -- xmproc <- spawnPipe ("xmobar " ++ myXmobarConfig)
   xmonad $
     def
-      {
-      -- logHook =
-      --     dynamicLogWithPP $
-      --       xmobarPP
-      --         { ppOutput = hPutStrLn xmproc
-      --         , ppTitle = xmobarColor color4 "" . shorten 100
-      --         , ppCurrent = xmobarColor color4 ""
-      --         , ppSep = "   "
-      --         }
-        manageHook         = manageDocks <+> insertPosition End Newer
+      { manageHook         = insertPosition End Newer
       , layoutHook         = myLayout
-      , handleEventHook    = docksEventHook
       , startupHook        = myStartupHook
       , modMask            = myModMask
       , terminal           = myTerminal
@@ -115,11 +97,4 @@ myKeys =
 ------------------------------------------------------------------------
 --                              Layouts                               --
 ------------------------------------------------------------------------
-myLayout = avoidStruts $ Tall 1 (3 / 100) (61.8 / 100) ||| noBorders Full
-
-getScreens :: IO [Int]
-getScreens = openDisplay "" >>= liftA2 (<*) f closeDisplay
-    where f = fmap (zipWith const [0..]) . getScreenInfo
-
-xmobarScreen :: Int -> IO Handle
-xmobarScreen = spawnPipe . ("xmobar -x " ++) . show
+myLayout = Tall 1 (3 / 100) (61.8 / 100) ||| noBorders Full
