@@ -16,6 +16,7 @@
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.enp7s0.useDHCP = true;
+  networking.networkmanager.enable = true;
 
   time.timeZone = "America/New_York";
 
@@ -65,7 +66,7 @@
     users.eli = {
       isNormalUser = true;
       uid = 1000;
-      extraGroups = [ "wheel" ];
+      extraGroups = [ "wheel" "networkmanager" ];
       openssh.authorizedKeys.keys = [
         (builtins.readFile (builtins.fetchurl {
           url = "https://github.com/epeery.keys";
