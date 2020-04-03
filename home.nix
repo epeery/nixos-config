@@ -110,7 +110,7 @@ in
           geometry = "300x5-30+50";
           padding = 32;
           horizontal_padding = 8;
-          transparency = 10;
+          transparency = 20;
           frame_color = "#CDCBCD";
           separator_color = "frame";
           vertical_alighment = "center";
