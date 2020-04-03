@@ -45,7 +45,7 @@ in
         wget = "wget --hsts-file=\"$XDG_CACHE_HOME/wget-hsts\"";
 
         v = "$EDITOR";
-        cfv = "$EDITOR ${config}/nixpkgs/config/nvim/init.vim";
+        cfv = "$EDITOR ~/Git/neovim-config/init.vim";
 
         h = "cd ${config}/nixpkgs";
         P = "cd ~/Projects";
