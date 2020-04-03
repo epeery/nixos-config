@@ -93,12 +93,17 @@ in
 
     lorri.enable = true;
 
-    picom.enable = true;
+    picom = {
+      enable = true;
+      blur = true;
+      shadow = true;
+    };
   };
 
 
   xsession = {
     enable = true;
+    scriptPath = ".xinitrc";
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
@@ -135,7 +140,7 @@ in
 
   home = {
     file = {
-      ".xinitrc".text = "exec ~/.xsession";
+      # ".xinitrc".text = "exec ~/.xsession";
       ".config/Xresources".text = ''
         *foreground:   #ffffff
         *background:   #000000
