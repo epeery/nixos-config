@@ -137,6 +137,11 @@ in
     };
 
     unclutter.enable = true;
+
+    screen-locker = {
+      enable = true;
+      lockCmd = "\${pkgs.i3lock}/bin/i3lock -n -c CDCBCD";
+    };
   };
 
 
@@ -225,13 +230,14 @@ in
 
     packages = with pkgs; [
       brave
-      cabal2nix
       cabal-install
+      cabal2nix
       dmenu
       electron
       feh
       gimp
       haskellPackages.xmobar
+      i3lock
       insomnia
       killall
       libnotify
@@ -242,6 +248,8 @@ in
       papirus-icon-theme
       pavucontrol
       ranger
+      rofi
+      rofi-custom
       silver-searcher
       slack
       spotify
