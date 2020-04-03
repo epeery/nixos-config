@@ -148,6 +148,8 @@ in
   xsession = {
     enable = true;
     scriptPath = ".xinitrc";
+    initExtra = "exec dbus-launch --exit-with-session xmonad";
+
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
