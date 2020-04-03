@@ -3,7 +3,6 @@
 {
   imports = [
     /etc/nixos/hardware-configuration.nix
-    # ../eli-home.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
