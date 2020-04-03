@@ -47,6 +47,11 @@
   services.xserver = {
     enable = true;
     displayManager.startx.enable = true;
+
+    synaptics = {
+      enable = true;
+      twoFingerScroll = true;
+    };
   };
 
 
