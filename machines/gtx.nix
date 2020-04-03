@@ -21,7 +21,6 @@
 
   environment.systemPackages = with pkgs; [
     bash
-    git
     xst
   ];
 
