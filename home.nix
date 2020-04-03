@@ -7,6 +7,11 @@ let
   # Paths
   config = "$HOME/.config";
   share = "$HOME/.local/share";
+
+  nvim = builtins.fetchGit {
+    url = "https://github.com/epeery/neovim-config";
+    rev = "a402fc5ee5f84fce1b7e54378a8c915eec9f8491";
+  };
 in
 {
   imports = [
@@ -111,9 +116,9 @@ in
       "wget".source = ./config/wget;
       "npm".source = ./config/npm;
       "fontconfig/fonts.conf".source = ./config/fontconfig/fonts.conf;
-      "nvim/init.vim".source = ./config/nvim/init.vim;
-      "nvim/ftplugin".source = ./config/nvim/ftplugin;
-      "nvim/coc-settings.json".source = ./config/nvim/coc-settings.json;
+      "nvim/init.vim".source = "${nvim}/init.vim";
+      "nvim/ftplugin".source = "${nvim}/ftplugin";
+      "nvim/coc-settings.json".source = "${nvim}/coc-settings.json";
       "nvim/autoload/plug.vim".source =
         let
           vim-plug = builtins.fetchGit {
