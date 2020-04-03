@@ -2,5 +2,7 @@
 
 ## To install
 ```bash
-sudo ln -sfr ./machines/gtx.nix /etc/nixos/configuration.nix
+git clone https://github.com/epeery/nixos-config
+mv -f nixos-config ~/.config/nixpkgs
+sudo ln -sfr ~/.config/nixpkgs/machines/gtx.nix /etc/nixos/configuration.nix
 ```
