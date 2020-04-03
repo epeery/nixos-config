@@ -212,6 +212,7 @@ in
       unzip
       rofi
       libnotify
+      papirus-icon-theme
     ];
   };
 }
