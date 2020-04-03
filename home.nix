@@ -98,7 +98,14 @@ in
 
     lorri.enable = true;
 
-    dunst.enable = true;
+    dunst = {
+      enable = true;
+      iconTheme = {
+        package = pkgs.papirus-icon-theme;
+        name = "papirus";
+        size = "32x32";
+      };
+    };
 
     unclutter.enable = true;
   };
@@ -206,7 +213,6 @@ in
       papirus-icon-theme
       pavucontrol
       ranger
-      rofi
       silver-searcher
       slack
       spotify
