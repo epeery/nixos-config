@@ -252,6 +252,7 @@ in
       brave
       cabal-install
       cabal2nix
+      cachix
       dmenu
       electron
       feh
@@ -273,6 +274,7 @@ in
       slack
       spotify
       sxiv
+      transmission-gtk
       unzip
       wget
       xclip
