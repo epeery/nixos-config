@@ -109,7 +109,6 @@ in
       let
         nvim = builtins.fetchGit {
           url = "https://github.com/epeery/neovim-config";
-          rev = "a402fc5ee5f84fce1b7e54378a8c915eec9f8491";
         };
 
         vim-plug = builtins.fetchGit {
