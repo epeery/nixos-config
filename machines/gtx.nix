@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
+
 {
   imports = [
-    ./hardware-configuration.nix
+    /etc/nixos/hardware-configuration.nix
+    ../eli-home.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -19,6 +21,7 @@
 
   environment.systemPackages = with pkgs; [
     bash
+    git
     xst
   ];
 

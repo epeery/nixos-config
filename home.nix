@@ -7,7 +7,6 @@ let
   # Paths
   config = "$HOME/.config";
   share = "$HOME/.local/share";
-
 in
 {
   imports = [
@@ -18,7 +17,7 @@ in
   nixpkgs.config.firefox.enableAdobeFlash = false;
   nixpkgs.config.pulseaudio = true;
 
-  fonts.fontconfig.enable = true;
+  # fonts.fontconfig.enable = true;
 
   programs = {
     home-manager = {
@@ -47,7 +46,7 @@ in
         v = "$EDITOR";
         cfv = "$EDITOR ${config}/nixpkgs/config/nvim/init.vim";
 
-        h = "cd ~/.config/nixpkgs";
+        h = "cd ${config}/nixpkgs";
         P = "cd ~/Projects";
         G = "cd ~/Git";
         D = "cd ~/Downloads";
