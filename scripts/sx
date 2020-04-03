@@ -4,7 +4,7 @@
 
 unset DBUS_SESSION_BUS_ADDRESS
 unset SESSION_MANAGER
-userclientrc=$HOME/.config/xinitrc
+userclientrc=$HOME/.xinitrc
 sysclientrc=/nix/store/z6fh72rd2mrwbh4aw7lkx6sn32ggdpvn-xinit-1.4.1/etc/X11/xinit/xinitrc
 
 userserverrc=$HOME/.xserverrc

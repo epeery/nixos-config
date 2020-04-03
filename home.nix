@@ -104,7 +104,7 @@ in
 
   xsession = {
     enable = true;
-    scriptPath = ".config/xinitrc";
+    scriptPath = ".xinitrc";
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
