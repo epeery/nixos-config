@@ -186,33 +186,33 @@ in
     };
 
     packages = with pkgs; [
-      haskellPackages.xmobar
-      feh
-      electron
-      ranger
-      dmenu
-      silver-searcher
-      nitrogen
-      xclip
-      killall
-      wget
-      nodejs
-      cabal-install
-      cabal2nix
-      nix-prefetch-git
-      insomnia
-      pavucontrol
-      mpv
-      sxiv
       brave
-      spotify
-      zoom-us
-      slack
+      cabal2nix
+      cabal-install
+      dmenu
+      electron
+      feh
       gimp
-      unzip
-      rofi
+      haskellPackages.xmobar
+      insomnia
+      killall
       libnotify
+      mpv
+      nitrogen
+      nix-prefetch-git
+      nodejs
       papirus-icon-theme
+      pavucontrol
+      ranger
+      rofi
+      silver-searcher
+      slack
+      spotify
+      sxiv
+      unzip
+      wget
+      xclip
+      zoom-us
     ];
   };
 }

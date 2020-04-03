@@ -22,8 +22,8 @@
 
   environment.systemPackages = with pkgs; [
     bash
-    xst
     git
+    xst
   ];
 
   fonts = {
