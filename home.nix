@@ -107,18 +107,22 @@ in
       };
       settings = {
         global = {
-          geometry = "300x5-30+50";
-          padding = 32;
+          geometry = "400x5-30+30";
+          padding = 8;
           horizontal_padding = 8;
-          transparency = 20;
-          frame_color = "#CDCBCD";
+          transparency = 10;
+          frame_color = "#ffffff";
           separator_color = "frame";
           vertical_alighment = "center";
           font = "Inter 12";
+          word_wrap = "yes";
+          line_height = 4;
+          icon_position = "left";
+          max_icon_size = 128;
         };
 
         urgency_low = {
-          background = "#CDCBCD";
+          background = "#ffffff";
           foreground = "#000000";
           timeout = 5;
         };
