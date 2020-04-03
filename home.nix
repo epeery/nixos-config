@@ -98,6 +98,8 @@ in
       blur = true;
       shadow = true;
     };
+
+    dunst.enable = true;
   };
 
 
