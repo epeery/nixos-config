@@ -5,6 +5,7 @@ let
   email = "eli.g.peery@gmail.com";
 
   # Paths
+  home = "/home/eli";
   config = "$HOME/.config";
   share = "$HOME/.local/share";
 
@@ -96,8 +97,6 @@ in
       blur = true;
     };
 
-    lorri.enable = true;
-
     dunst = {
       enable = true;
       iconTheme = {
@@ -140,12 +139,25 @@ in
       };
     };
 
-    unclutter.enable = true;
-
     screen-locker = {
       enable = true;
       lockCmd = "\${pkgs.i3lock}/bin/i3lock -n -c CDCBCD";
     };
+
+    mpd = {
+      enable = true;
+      network = {
+        listenAddress = "127.0.0.1";
+        port = 6600;
+      };
+      musicDirectory = "${home}/Music";
+    };
+
+    udiskie.enable = true;
+
+    unclutter.enable = true;
+
+    lorri.enable = true;
   };
 
 
@@ -178,6 +190,8 @@ in
       "wallpaper.png".source = ./config/wallpaper.png;
       "zsh_custom".source = ./config/zsh_custom;
       "pulse/default.pa".source = ./config/pulse/default.pa;
+      "ncmpcpp/config".source = ./config/ncmpcpp/config;
+      "ncmpcpp/bindings".source = ./config/ncmpcpp/bindings;
       "wget".source = ./config/wget;
       "npm".source = ./config/npm;
       "fontconfig/fonts.conf".source = ./config/fontconfig/fonts.conf;
@@ -248,6 +262,7 @@ in
       killall
       libnotify
       mpv
+      ncmpcpp
       nix-prefetch-git
       nodejs
       papirus-icon-theme
