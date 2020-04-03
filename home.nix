@@ -242,7 +242,6 @@ in
       killall
       libnotify
       mpv
-      nitrogen
       nix-prefetch-git
       nodejs
       papirus-icon-theme
