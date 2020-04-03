@@ -210,6 +210,8 @@ in
       slack
       gimp
       unzip
+      rofi
+      libnotify
     ];
   };
 }
