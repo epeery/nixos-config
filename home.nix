@@ -91,14 +91,16 @@ in
       temperature.day = 6000;
     };
 
-    lorri.enable = true;
-
     picom = {
       enable = true;
       blur = true;
     };
 
+    lorri.enable = true;
+
     dunst.enable = true;
+
+    unclutter.enable = true;
   };
 
 
