@@ -96,7 +96,6 @@ in
     picom = {
       enable = true;
       blur = true;
-      shadow = true;
     };
 
     dunst.enable = true;
