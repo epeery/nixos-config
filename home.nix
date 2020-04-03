@@ -19,7 +19,7 @@ in
   nixpkgs.config.firefox.enableAdobeFlash = false;
   nixpkgs.config.pulseaudio = true;
 
-  # fonts.fontconfig.enable = true;
+  fonts.fontconfig.enable = true;
 
   programs = {
     home-manager = {
@@ -278,6 +278,7 @@ in
       unzip
       wget
       xclip
+      yarn
       zathura
       zoom-us
     ];
