@@ -104,7 +104,7 @@ in
 
   xsession = {
     enable = true;
-    scriptPath = ".xinitrc";
+    scriptPath = ".config/xinitrc";
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
@@ -141,7 +141,6 @@ in
 
   home = {
     file = {
-      # ".xinitrc".text = "exec ~/.xsession";
       ".config/Xresources".text = ''
         *foreground:   #ffffff
         *background:   #000000
