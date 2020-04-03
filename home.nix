@@ -249,7 +249,6 @@ in
       pavucontrol
       ranger
       rofi
-      rofi-custom
       silver-searcher
       slack
       spotify
@@ -257,6 +256,7 @@ in
       unzip
       wget
       xclip
+      zathura
       zoom-us
     ];
   };
