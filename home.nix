@@ -105,6 +105,35 @@ in
         name = "papirus";
         size = "32x32";
       };
+      settings = {
+        global = {
+          geometry = "300x5-30+50";
+          padding = 32;
+          horizontal_padding = 8;
+          transparency = 10;
+          frame_color = "#CDCBCD";
+          separator_color = "frame";
+          vertical_alighment = "center";
+          font = "Inter 12";
+        };
+
+        urgency_low = {
+          background = "#CDCBCD";
+          foreground = "#000000";
+          timeout = 5;
+        };
+
+        urgency_normal = {
+          background = "#ffffff";
+          foreground = "#000000";
+          timeout = 10;
+        };
+
+        urgency_critical = {
+          background = "#D56162";
+          foreground = "#ffffff";
+        };
+      };
     };
 
     unclutter.enable = true;

@@ -32,6 +32,7 @@
 
     fonts = with pkgs; [
       gohufont
+      inter-ui
       emacs-all-the-icons-fonts
     ];
   };
