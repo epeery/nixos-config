@@ -8,7 +8,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "eliPC"; # Define your hostname.
+  networking.hostName = "eliPC";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -36,29 +36,20 @@
     ];
   };
 
-  # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
-
-  # Enable the X11 windowing system.
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
 
   services.xserver = {
     enable = true;
     displayManager.startx.enable = true;
 
+    # Enable touchpad support.
     synaptics = {
       enable = true;
       twoFingerScroll = true;
     };
   };
 
-
-  # Enable touchpad support.
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
     defaultUserShell = "/var/run/current-system/sw/bin/zsh";
 
