@@ -8,10 +8,6 @@ let
   config = "$HOME/.config";
   share = "$HOME/.local/share";
 
-  nvim = builtins.fetchGit {
-    url = "https://github.com/epeery/neovim-config";
-    rev = "a402fc5ee5f84fce1b7e54378a8c915eec9f8491";
-  };
 in
 {
   imports = [
@@ -109,7 +105,19 @@ in
 
   xdg = {
     enable = true;
-    configFile = {
+    configFile =
+      let
+        nvim = builtins.fetchGit {
+          url = "https://github.com/epeery/neovim-config";
+          rev = "a402fc5ee5f84fce1b7e54378a8c915eec9f8491";
+        };
+
+        vim-plug = builtins.fetchGit {
+          url = "https://github.com/junegunn/vim-plug";
+          rev = "b6050d6f03f3e2792589535249e3c997d3e94461";
+        };
+      in
+      {
       "wallpaper.png".source = ./config/wallpaper.png;
       "zsh_custom".source = ./config/zsh_custom;
       "pulse/default.pa".source = ./config/pulse/default.pa;
@@ -119,13 +127,7 @@ in
       "nvim/init.vim".source = "${nvim}/init.vim";
       "nvim/ftplugin".source = "${nvim}/ftplugin";
       "nvim/coc-settings.json".source = "${nvim}/coc-settings.json";
-      "nvim/autoload/plug.vim".source =
-        let
-          vim-plug = builtins.fetchGit {
-            url = "https://github.com/junegunn/vim-plug";
-            rev = "b6050d6f03f3e2792589535249e3c997d3e94461";
-          };
-        in "${vim-plug}/plug.vim";
+      "nvim/autoload/plug.vim".source = "${vim-plug}/plug.vim";
     };
   };
 
