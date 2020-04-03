@@ -97,10 +97,13 @@ in
   };
 
 
-  xsession.windowManager.xmonad = {
+  xsession = {
     enable = true;
-    enableContribAndExtras = true;
-    config = pkgs.writeText "xmonad.hs" (builtins.readFile ./home/xmonad/xmonad.hs);
+    windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+      config = pkgs.writeText "xmonad.hs" (builtins.readFile ./home/xmonad/xmonad.hs);
+    };
   };
 
   xdg = {
@@ -132,7 +135,7 @@ in
 
   home = {
     file = {
-      ".xinitrc".text = "exec xmonad";
+      ".xinitrc".text = "exec ~/.xsession";
       ".config/Xresources".text = ''
         *foreground:   #ffffff
         *background:   #000000
