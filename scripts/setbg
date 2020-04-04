@@ -1,3 +1,3 @@
 #!/bin/sh
 
-feh -B "#FFFFFF" --bg-center ~/.config/wallpaper.png --no-fehbg
+feh -B "#CDCBCD" --bg-center ~/.config/wallpaper.png --no-fehbg
