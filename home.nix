@@ -124,7 +124,7 @@ in
         urgency_low = {
           background = "#ffffff";
           foreground = "#000000";
-          timeout = 5;
+          timeout = 10;
         };
 
         urgency_normal = {
