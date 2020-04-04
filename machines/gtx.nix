@@ -63,9 +63,16 @@
     defaultUserShell = "/var/run/current-system/sw/bin/zsh";
 
     motd = with config; ''
-      OS:      NixOS ${system.nixos.release} (${system.nixos.codeName})
-      Version: ${system.nixos.version}
-      Kernel:  ${boot.kernelPackages.kernel.version}
+
+        \\  \\ //
+       ==\\__\\/ //    Welcome back, Eli
+         //   \\//     OS:      NixOS ${system.nixos.release} (${system.nixos.codeName})
+      ==//     //==    Version: ${system.nixos.version}
+       //\\___//       Kernel:  ${boot.kernelPackages.kernel.version}
+      // /\\  \\==
+        // \\  \\
+
+
     '';
 
     users.eli = {
