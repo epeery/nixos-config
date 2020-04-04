@@ -87,8 +87,8 @@ in
       enable = true;
       latitude = "42.443962";
       longitude = "-76.501884";
-      brightness.night = "0.7";
-      temperature.night = 4000;
+      brightness.night = "0.5";
+      temperature.night = 2000;
       temperature.day = 6000;
     };
 
