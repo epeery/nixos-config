@@ -8,7 +8,6 @@ let
   home = "/home/eli";
   config = "$HOME/.config";
   share = "$HOME/.local/share";
-
 in
 {
   imports = [
@@ -180,7 +179,7 @@ in
       let
         nvim = builtins.fetchGit {
           url = "https://github.com/epeery/neovim-config";
-          rev = "ebeefc98c11e860669d19cce554f7d586c181bb9";
+          rev = "71bcce176e58c05cea840338db0ac81f7928ca06";
         };
 
         vim-plug = builtins.fetchGit {
