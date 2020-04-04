@@ -135,6 +135,7 @@ in
         urgency_critical = {
           background = "#D56162";
           foreground = "#ffffff";
+          frame_color = "#D56162";
         };
       };
     };
