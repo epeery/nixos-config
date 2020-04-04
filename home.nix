@@ -109,7 +109,6 @@ in
           geometry = "400x5-30+30";
           padding = 8;
           horizontal_padding = 8;
-          transparency = 10;
           frame_color = "#CDCBCD";
           frame_width = 1;
           separator_color = "frame";
