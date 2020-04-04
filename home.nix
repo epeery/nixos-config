@@ -110,7 +110,8 @@ in
           padding = 8;
           horizontal_padding = 8;
           transparency = 10;
-          frame_color = "#ffffff";
+          frame_color = "#CDCBCD";
+          frame_width = 1;
           separator_color = "frame";
           vertical_alighment = "center";
           font = "Inter 12";
