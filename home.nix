@@ -188,16 +188,16 @@ in
         };
       in
       {
-      "wallpaper.png".source = ./config/wallpaper.png;
-      "zsh_custom".source = ./config/zsh_custom;
-      "pulse/default.pa".source = ./config/pulse/default.pa;
-      "ncmpcpp/config".source = ./config/ncmpcpp/config;
-      "ncmpcpp/bindings".source = ./config/ncmpcpp/bindings;
-      "wget".source = ./config/wget;
-      "npm".source = ./config/npm;
-      "fontconfig/fonts.conf".source = ./config/fontconfig/fonts.conf;
-      "nvim/init.vim".source = "${nvim}/init.vim";
-      "nvim/ftplugin".source = "${nvim}/ftplugin";
+      "wallpaper.png"         .source = ./config/wallpaper.png;
+      "zsh_custom"            .source = ./config/zsh_custom;
+      "pulse/default.pa"      .source = ./config/pulse/default.pa;
+      "ncmpcpp/config"        .source = ./config/ncmpcpp/config;
+      "ncmpcpp/bindings"      .source = ./config/ncmpcpp/bindings;
+      "wget"                  .source = ./config/wget;
+      "npm"                   .source = ./config/npm;
+      "fontconfig/fonts.conf" .source = ./config/fontconfig/fonts.conf;
+      "nvim/init.vim"         .source = "${nvim}/init.vim";
+      "nvim/ftplugin"         .source = "${nvim}/ftplugin";
       "nvim/coc-settings.json".source = "${nvim}/coc-settings.json";
       "nvim/autoload/plug.vim".source = "${vim-plug}/plug.vim";
     };
