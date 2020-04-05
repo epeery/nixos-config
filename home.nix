@@ -357,6 +357,7 @@ in
       papirus-icon-theme
       pavucontrol
       ranger
+      ripgrep
       rofi
       slack
       spotify
