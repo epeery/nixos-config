@@ -237,7 +237,7 @@ in
 
     screen-locker = {
       enable = true;
-      lockCmd = "\${pkgs.i3lock}/bin/i3lock -n -c CDCBCD";
+      lockCmd = "${pkgs.i3lock}/bin/i3lock -n -c CDCBCD";
     };
 
     mpd = {
