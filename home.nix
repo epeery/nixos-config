@@ -272,6 +272,12 @@ in
   xdg = {
     enable = true;
     configFile =
+      let
+        ugly = builtins.fetchGit {
+          url = "https://github.com/epeery/vim-ugly";
+          rev = "9e00e2207adeea1cd237d574f4ca023ba539eb8c";
+        };
+      in
       {
       "wallpaper.png"         .source = ./config/wallpaper.png;
       "zsh_custom"            .source = ./config/zsh_custom;
@@ -281,7 +287,7 @@ in
       "wget"                  .source = ./config/wget;
       "npm"                   .source = ./config/npm;
       "fontconfig/fonts.conf" .source = ./config/fontconfig/fonts.conf;
-      "nvim/colors"           .source = ./config/nvim/colors;
+      "nvim/colors/ugly.vim"  .source = "${ugly}/colors/ugly.vim";
     };
   };
 
@@ -311,7 +317,6 @@ in
         st*bold_font:  0
         st.borderpx:   20
       '';
-
     };
 
     sessionVariables = {
