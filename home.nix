@@ -86,7 +86,7 @@ in
       enable = true;
       latitude = "42.443962";
       longitude = "-76.501884";
-      brightness.night = "0.5";
+      brightness.night = "0.55";
       temperature.night = 2000;
       temperature.day = 6000;
     };
@@ -267,6 +267,7 @@ in
       ncmpcpp
       nix-prefetch-git
       nodejs
+      pandoc
       papirus-icon-theme
       pavucontrol
       ranger
@@ -275,6 +276,7 @@ in
       slack
       spotify
       sxiv
+      texlive.combined.scheme-small
       transmission-gtk
       unzip
       wget
