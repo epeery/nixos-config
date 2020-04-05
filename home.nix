@@ -91,8 +91,10 @@ in
           " Toggle spellcheck
           map <leader>s :setlocal spell! spelllang=en_us<CR>
 
-          " Prettify current document
-          map <leader>p :w<CR> mpggVG:!ormolu<CR>`p
+          " Prettify block
+          map <leader>p mpvip:!ormolu<CR>`p
+          " Prettify whole document
+          map <leader>P mpggVG:!ormolu<CR>`p
 
           " Toggle hidden
           function! ToggleHiddenAll()
@@ -237,7 +239,8 @@ in
 
     screen-locker = {
       enable = true;
-      lockCmd = "${pkgs.i3lock}/bin/i3lock -n -c CDCBCD";
+      lockCmd = "${pkgs.i3lock}/bin/i3lock -n -c 000000 -i ${home}/.config/lockscreen.png -p win";
+      inactiveInterval = 1;
     };
 
     mpd = {
@@ -280,6 +283,7 @@ in
       in
       {
       "wallpaper.png"         .source = ./config/wallpaper.png;
+      "lockscreen.png"         .source = ./config/lockscreen.png;
       "zsh_custom"            .source = ./config/zsh_custom;
       "pulse/default.pa"      .source = ./config/pulse/default.pa;
       "ncmpcpp/config"        .source = ./config/ncmpcpp/config;
