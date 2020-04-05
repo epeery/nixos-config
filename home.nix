@@ -8,6 +8,8 @@ let
   home = "/home/eli";
   config = "$HOME/.config";
   share = "$HOME/.local/share";
+
+  dunst = pkgs.dunst.override { dunstify = true; };
 in
 {
   imports = [
@@ -24,6 +26,125 @@ in
     home-manager = {
       enable = true;
       path = "$HOME/.config/home-manager";
+    };
+
+    git = {
+      enable = true;
+      userName = name;
+      userEmail = email;
+    };
+
+    direnv.enable = true;
+
+    neovim = {
+      enable = true;
+      viAlias = true;
+      vimAlias = true;
+      withNodeJs = true;
+      configure = {
+        customRC = ''
+          let mapleader=","
+
+          set clipboard=unnamedplus
+          set nocompatible
+
+          set undofile
+          set undodir=~/.config/nvim/undodir
+
+          set nobackup
+          set nowritebackup
+
+          filetype plugin on
+          set encoding=utf-8
+
+          colorscheme ugly
+          set termguicolors
+
+          set tabstop=4
+          set expandtab
+          set softtabstop=2
+          set shiftwidth=2
+          set shiftround
+
+          set splitbelow splitright
+
+          " Make whitespace visible
+          set list
+          set listchars=tab:··,trail:·
+
+          " Enable Normal more inside of :terminal
+          tnoremap <Esc> <C-\><C-n>
+
+          " Scroll faster
+          nnoremap <C-e> 3<C-e>
+          nnoremap <C-y> 3<C-y>
+
+          " Replace all
+          nnoremap S :%s//g<Left><Left>
+
+          " Delete whitespace on save
+          autocmd BufWritePre * %s/\s\+$//e
+
+          map <leader>f :Files<CR>
+          map <leader>b :Buffers<CR>
+
+          " Toggle spellcheck
+          map <leader>s :setlocal spell! spelllang=en_us<CR>
+
+          " Prettify current document
+          map <leader>p :w<CR> mpggVG:!ormolu<CR>`p
+
+          " Toggle hidden
+          function! ToggleHiddenAll()
+              if s:hidden_all  == 0
+                  let s:hidden_all = 1
+                  set nonumber
+                  set relativenumber!
+                  set noshowmode
+                  set noruler
+                  set laststatus=0
+                  set noshowcmd
+              else
+                  let s:hidden_all = 0
+                  set number relativenumber
+                  set showmode
+                  set ruler
+                  set laststatus=2
+                  set showcmd
+              endif
+          endfunction
+          nnoremap <M-h> :call ToggleHiddenAll()<CR>:<Del>
+
+          let s:hidden_all = 0
+          set number relativenumber
+          call ToggleHiddenAll()
+    '';
+        packages.customVim = with pkgs.vimPlugins; {
+          start = [
+            ReplaceWithRegister
+            fzf-vim
+            haskell-vim
+            ultisnips
+            vim-easy-align
+            vim-exchange
+            vim-nix
+            vim-slash
+            vim-surround
+          ];
+	  opt = [ ];
+        };
+      };
+
+    };
+
+    emacs = {
+      enable = true;
+      extraPackages = epkgs:
+        with epkgs; [
+          nix-mode
+          magit
+          evil
+        ];
     };
 
     zsh = {
@@ -53,31 +174,6 @@ in
         D = "cd ~/Downloads";
         d = "cd ~/Documents";
       };
-    };
-
-    git = {
-      enable = true;
-      userName = name;
-      userEmail = email;
-    };
-
-    direnv.enable = true;
-
-    neovim = {
-      enable = true;
-      viAlias = true;
-      vimAlias = true;
-      withNodeJs = true;
-    };
-
-    emacs = {
-      enable = true;
-      extraPackages = epkgs:
-        with epkgs; [
-          nix-mode
-          magit
-          evil
-        ];
     };
   };
 
@@ -176,17 +272,6 @@ in
   xdg = {
     enable = true;
     configFile =
-      let
-        nvim = builtins.fetchGit {
-          url = "https://github.com/epeery/neovim-config";
-          rev = "71bcce176e58c05cea840338db0ac81f7928ca06";
-        };
-
-        vim-plug = builtins.fetchGit {
-          url = "https://github.com/junegunn/vim-plug";
-          rev = "b6050d6f03f3e2792589535249e3c997d3e94461";
-        };
-      in
       {
       "wallpaper.png"         .source = ./config/wallpaper.png;
       "zsh_custom"            .source = ./config/zsh_custom;
@@ -196,10 +281,7 @@ in
       "wget"                  .source = ./config/wget;
       "npm"                   .source = ./config/npm;
       "fontconfig/fonts.conf" .source = ./config/fontconfig/fonts.conf;
-      "nvim/init.vim"         .source = "${nvim}/init.vim";
-      "nvim/ftplugin"         .source = "${nvim}/ftplugin";
-      "nvim/coc-settings.json".source = "${nvim}/coc-settings.json";
-      "nvim/autoload/plug.vim".source = "${vim-plug}/plug.vim";
+      "nvim/colors"           .source = ./config/nvim/colors;
     };
   };
 
@@ -224,8 +306,9 @@ in
         *color13:      #AC61FF
         *color14:      #00D2D5
         *color15:      #ffffff
-        st*font:       GohuFont:size=11
-        st*bold_font:  1
+        st*font:       Iosevka:size=12:antialias=true:autohint=true
+        st*opacity:    200
+        st*bold_font:  0
         st.borderpx:   20
       '';
 
@@ -255,11 +338,14 @@ in
       cabal2nix
       cachix
       dmenu
+      dunst
       electron
       feh
+      fzf
       gimp
       haskellPackages.xmobar
       i3lock
+      inkscape
       insomnia
       killall
       libnotify
@@ -272,7 +358,6 @@ in
       pavucontrol
       ranger
       rofi
-      silver-searcher
       slack
       spotify
       sxiv

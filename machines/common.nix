@@ -29,6 +29,7 @@
 
     fonts = with pkgs; [
       gohufont
+      iosevka
       inter-ui
       emacs-all-the-icons-fonts
     ];
