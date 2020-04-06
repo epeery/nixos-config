@@ -23,6 +23,7 @@ color2 = "blue"
 current_item_prefix = "$(blue)$r"
 current_item_suffix = "$/r$(end)"
 progressbar_color = "yellow"
+progressbar_look = "▃▃▃"
 progressbar_elapsed_color = blue
 statusbar_color = "blue"
 current_item_inactive_column_prefix = "$(blue)"
