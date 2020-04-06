@@ -248,7 +248,7 @@ in
         listenAddress = "127.0.0.1";
         port = 6600;
       };
-      musicDirectory = "${home}/Music";
+      musicDirectory = "${home}/files/Music";
     };
 
     udiskie.enable = true;
@@ -273,6 +273,18 @@ in
 
   xdg = {
     enable = true;
+    userDirs = {
+      enable = true;
+      desktop = "$HOME/files/Desktop";
+      documents = "$HOME/files/Documents";
+      download = "$HOME/files/Downloads";
+      pictures = "$HOME/files/Pictures";
+      videos = "$HOME/files/Videos";
+      music = "$HOME/files/Music";
+      publicShare = "$HOME/files/Public";
+      templates = "$HOME/files/Templates";
+    };
+
     configFile =
       let
         ugly = builtins.fetchGit {
@@ -282,7 +294,7 @@ in
       in
       {
       "wallpaper.png"         .source = ./config/wallpaper.png;
-      "lockscreen.png"         .source = ./config/lockscreen.png;
+      "lockscreen.png"        .source = ./config/lockscreen.png;
       "zsh_custom"            .source = ./config/zsh_custom;
       "pulse/default.pa"      .source = ./config/pulse/default.pa;
       "ncmpcpp/config"        .source = ./config/ncmpcpp/config;
