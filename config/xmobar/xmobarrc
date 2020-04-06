@@ -1,7 +1,7 @@
 Config {
-       font = "xft:Iosevka:pixelsize=11",
+       font = "xft:Iosevka:pixelsize=14",
        fgColor = "#000000"
-       bgColor = "#CDCBCD"
+       bgColor = "#ffffff"
        commands = [
                 -- Ithaca, NY
                 Run Weather "KITH" ["-t"," <tempF>F"] 36000,

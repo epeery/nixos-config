@@ -42,7 +42,7 @@ myStartupHook = do
 ------------------------------------------------------------------------
 color0 = "#000000"
 color1 = "#7f7f7f"
-color2 = "#D9D9D9"
+color2 = "#CDCBCD"
 color3 = "#ffffff"
 color4 = "#D56162"
 
@@ -56,11 +56,11 @@ myXmobarConfig = "~/.xmonad/xmobar.hs"
 
 myDmenu =
   "dmenu_run -nb "
-    ++ show color0
+    ++ show color3
     ++ " -nf "
-    ++ show color2
+    ++ show color0
     ++ " -sb "
-    ++ show color4
+    ++ show color0
     ++ " -sf "
     ++ show color3
 
