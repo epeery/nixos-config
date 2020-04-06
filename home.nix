@@ -291,6 +291,7 @@ in
       "wget"                  .source = ./config/wget;
       "npm"                   .source = ./config/npm;
       "fontconfig/fonts.conf" .source = ./config/fontconfig/fonts.conf;
+      "xmobar"                .source = ./config/xmobar;
       "nvim/colors/ugly.vim"  .source = "${ugly}/colors/ugly.vim";
     };
   };

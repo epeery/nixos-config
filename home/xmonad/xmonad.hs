@@ -1,18 +1,27 @@
-import qualified XMonad.StackSet as W
 import System.Exit
 import XMonad
 import XMonad.Actions.CycleWS
+import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.InsertPosition
+import XMonad.Hooks.ManageDocks
 import XMonad.Layout.NoBorders
+import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig (additionalKeysP)
+import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
 
 main = do
-  xmonad $
+  h <- spawnPipe "xmobar"
+  xmonad $ docks $
     def
-      { manageHook         = insertPosition End Newer
+      { manageHook         = manageDocks <+> insertPosition End Newer
       , layoutHook         = myLayout
       , startupHook        = myStartupHook
+      , logHook            = dynamicLogWithPP $ def
+          { ppOutput = hPutStrLn h
+          , ppTitle  = const ""
+          , ppLayout = const ""
+          }
       , modMask            = myModMask
       , terminal           = myTerminal
       , borderWidth        = myBorderWidth
@@ -96,4 +105,4 @@ myKeys =
 ------------------------------------------------------------------------
 --                              Layouts                               --
 ------------------------------------------------------------------------
-myLayout = Tall 1 (3 / 100) (61.8 / 100) ||| noBorders Full
+myLayout = avoidStruts $ Tall 1 (3 / 100) (61.8 / 100) ||| noBorders Full

@@ -1,0 +1,15 @@
+Config {
+       font = "xft:Iosevka:pixelsize=11",
+       fgColor = "#000000"
+       bgColor = "#CDCBCD"
+       commands = [
+                -- Ithaca, NY
+                Run Weather "KITH" ["-t"," <tempF>F"] 36000,
+                Run Date "%a %b %_d %l:%M" "date" 10,
+                Run StdinReader
+                ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ %date%  |  %KITH%   "
+       }
+
