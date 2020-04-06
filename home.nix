@@ -171,10 +171,10 @@ in
         cfv = "$EDITOR ~/Git/neovim-config/init.vim";
 
         h = "cd ${config}/nixpkgs";
-        P = "cd ~/Projects";
-        G = "cd ~/Git";
-        D = "cd ~/Downloads";
-        d = "cd ~/Documents";
+        P = "cd ~/files/Projects";
+        G = "cd ~/files/Git";
+        D = "cd ~/files/Downloads";
+        d = "cd ~/files/Documents";
       };
     };
   };
