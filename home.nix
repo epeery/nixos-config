@@ -239,7 +239,7 @@ in
 
     screen-locker = {
       enable = true;
-      lockCmd = "${pkgs.i3lock}/bin/i3lock -n -c 000000 -i ${home}/.config/lockscreen.png -p win";
+      lockCmd = "${pkgs.i3lock}/bin/i3lock -n -c CDCBCD -i ${home}/.config/lockscreen.png -p win";
       inactiveInterval = 1;
     };
 
