@@ -206,8 +206,7 @@ in
           geometry = "400x5-30+30";
           padding = 8;
           horizontal_padding = 8;
-          frame_color = "#CDCBCD";
-          frame_width = 1;
+          frame_width = 0;
           separator_color = "frame";
           vertical_alighment = "center";
           font = "Inter 12";
