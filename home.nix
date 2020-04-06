@@ -6,8 +6,9 @@ let
 
   # Paths
   home = "/home/eli";
-  config = "$HOME/.config";
-  share = "$HOME/.local/share";
+  files = "$HOME/files";
+  config = "$XDG_CONFIG_HOME";
+  share = "$XDG_DATA_HOME";
 
   dunst = pkgs.dunst.override { dunstify = true; };
 in
@@ -25,7 +26,7 @@ in
   programs = {
     home-manager = {
       enable = true;
-      path = "$HOME/.config/home-manager";
+      path = "$XDG_CONFIG_HOME/home-manager";
     };
 
     git = {
@@ -168,14 +169,17 @@ in
         wget = "wget --hsts-file=\"$XDG_CACHE_HOME/wget-hsts\"";
 
         v = "$EDITOR";
-        cfv = "$EDITOR ~/Git/neovim-config/init.vim";
 
         h = "cd ${config}/nixpkgs";
-        P = "cd ~/files/Projects";
-        G = "cd ~/files/Git";
-        D = "cd ~/files/Downloads";
-        d = "cd ~/files/Documents";
+        P = "cd ${files}/Projects";
+        G = "cd ${files}/Git";
+        D = "cd $XDG_DOWNLOAD_DIR";
+        d = "cd $XDG_DOCUMENTS_DIR";
       };
+
+      initExtra = ''
+        source $XDG_CONFIG_HOME/user-dirs.dirs
+      '';
     };
   };
 
