@@ -4,12 +4,21 @@ Config {
        bgColor = "#ffffff"
        commands = [
                 -- Ithaca, NY
-                Run Weather "KITH" ["-t"," <tempF>F"] 36000,
-                Run Date "%a %b %_d %l:%M" "date" 10,
-                Run StdinReader
-                ]
+                Run Weather "KITH" ["-t"," <tempF>°F"] 36000,
+                Run Date "%a %b %d %H:%M" "date" 10,
+                Run StdinReader,
+                Run Battery [ "-t" , "Battery: <acstatus>"
+                             , "--" -- battery specific options
+                                       -- discharging status
+                                       , "-o"	, "<left>% - <timeleft>"
+                                       -- AC "on" status
+                                       , "-O"	, "Charging"
+                                       -- charged status
+                                       , "-i"	, "Charged"
+                             ] 50
+                ],
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %date%  |  %KITH%   "
+       , template = "%StdinReader% }{ %date%   |  %KITH%   |   %battery%    "
        }
 
