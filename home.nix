@@ -370,6 +370,7 @@ in
       insomnia
       killall
       libnotify
+      mpc_cli
       mpv
       ncmpcpp
       nix-prefetch-git
