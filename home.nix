@@ -203,7 +203,7 @@ in
       };
       settings = {
         global = {
-          geometry = "400x5-30+30";
+          geometry = "400x5-9+30";
           padding = 8;
           horizontal_padding = 8;
           frame_width = 0;
