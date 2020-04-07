@@ -98,6 +98,12 @@ in
           " Prettify whole document
           map <leader>P mpggVG:!ormolu<CR>`p
 
+          " Start interactive EasyAlign in visual mode (e.g. vipga)
+          xmap ga <Plug>(EasyAlign)
+
+          " Start interactive EasyAlign for a motion/text object (e.g. gaip)
+          nmap ga <Plug>(EasyAlign)
+
           " Toggle hidden
           function! ToggleHiddenAll()
               if s:hidden_all  == 0
@@ -122,7 +128,8 @@ in
           let s:hidden_all = 0
           set number relativenumber
           call ToggleHiddenAll()
-    '';
+        '';
+
         packages.customVim = with pkgs.vimPlugins; {
           start = [
             ReplaceWithRegister
@@ -135,10 +142,9 @@ in
             vim-slash
             vim-surround
           ];
-	  opt = [ ];
+          opt = [ ];
         };
       };
-
     };
 
     emacs = {
