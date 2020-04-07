@@ -74,6 +74,10 @@ in
           set list
           set listchars=tab:··,trail:·
 
+          " Better searching
+          set ignorecase
+          set smartcase
+
           " Enable Normal more inside of :terminal
           tnoremap <Esc> <C-\><C-n>
 
@@ -103,6 +107,9 @@ in
 
           " Start interactive EasyAlign for a motion/text object (e.g. gaip)
           nmap ga <Plug>(EasyAlign)
+
+          " Center view after search
+          noremap <Plug>(slash-after) zz
 
           " Toggle hidden
           function! ToggleHiddenAll()
