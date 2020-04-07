@@ -11,6 +11,7 @@ let
   share = "$XDG_DATA_HOME";
 
   dunst = pkgs.dunst.override { dunstify = true; };
+  trigger = pkgs.callPackage ./packages/trigger { };
 in
 {
   imports = [
@@ -396,6 +397,7 @@ in
       yarn
       zathura
       zoom-us
+      trigger
     ];
   };
 }
