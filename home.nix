@@ -171,7 +171,7 @@ in
       };
 
       shellAliases = {
-        # Modified versions of programs that don't pollute $HOME
+        # Modified versions of programs so they don't pollute $HOME
         startx = "sx";
         wget = "wget --hsts-file=\"$XDG_CACHE_HOME/wget-hsts\"";
 
