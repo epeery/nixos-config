@@ -1,56 +1,47 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -p imagemagick -i bash
+#!/usr/bin/env sh
 
-# Script intended to be executed from ncmpcpp (execute_on_song_change
-# preference) running from urxvt to set album cover as background image
+#-------------------------------#
+# Generate current song cover   #
+# ffmpeg version                #
+#-------------------------------#
 
-# Copyright (c) 2013  Vyacheslav Levit
-# Licensed under The MIT License: http://opensource.org/licenses/MIT
+MUSIC_DIR="$HOME/files/Music"
+COVER="/tmp/cover.png"
+COVER_SIZE=300
 
-MUSIC_DIR=$HOME/files/Music
-DARKEN=50         # 0 - original image colors, 100 - absolutely black background
+BORDERS=false
+BORDER_WIDTH=5
+BORDER_COLOR="white"
 
-TMP=/tmp
-COVER=/tmp/cover.jpg
-IM_ARGS=(-limit memory 32mb -limit map 64mb)
+function ffmpeg_cover {
+    if $BORDERS; then
+        ffmpeg -loglevel 0 -y -i "$1" -vf "scale=$COVER_SIZE:-1,pad=$COVER_SIZE+$BORDER_WIDTH:ow:(ow-iw)/2:(oh-ih)/2:$BORDER_COLOR" "$COVER"
+    else
+        ffmpeg -loglevel 0 -y -i "$1" -vf "scale=$COVER_SIZE:-1" "$COVER"
+    fi
+}
 
-function reset_background
-{
-    # is there any better way?
-    printf "\e]20;;100x100+1000+1000\a"
+function fallback_find_cover {
+    album="${file%/*}"
+    album_cover="$(find "$album" -type d -exec find {} -maxdepth 1 -type f -iregex ".*\(cover?s\|folder?s\|artwork?s\|front?s\|scan?s\).*[.]\(jpe?g\|png\|gif\|bmp\)" \;)"
+    if [ "$album_cover" == "" ]; then
+        album_cover="$(find "$album" -type d -exec find {} -maxdepth 1 -type f -iregex ".*[.]\(jpe?g\|png\|gif\|bmp\)" \;)"
+    fi
+    if [ "$album_cover" == "" ]; then
+        album_cover="$(find "$album/.." -type d -exec find {} -maxdepth 1 -type f -iregex ".*\(cover?s\|folder?s\|artwork?s\|front?s\|scan?s\|booklet\).*?1[.]\(jpe?g\|png\|gif\|bmp\)" \;)"
+    fi
+    album_cover="$(echo -n "$album_cover" | head -n1)"
 }
 
 {
-    album="$(mpc --format %album% current)"
-    file="$(mpc --format %file% current)"
-    album_dir="${file%/*}"
-    [[ -z "$album_dir" ]] && exit 1
-    album_dir="$MUSIC_DIR/$album_dir"
+    file="$MUSIC_DIR/$(mpc --format %file% current)"
 
-    covers="$(find "$album_dir" -type d -exec find {} -maxdepth 1 -type f -iregex ".*/.*\(${album}\|cover\|folder\|artwork\|front\).*[.]\(jpe?g\|png\|gif\|bmp\)" \; )"
-    src="$(echo -n "$covers" | head -n1)"
-    darkenimg="$TMP/darken.jpg"
-    rm -f "$COVER" "$darkenimg"
-    if [[ -n "$src" ]] ; then
-        light="$((100 - $DARKEN))"
-        convert "${IM_ARGS[@]}" "$src" -fill "gray${light}" +level ${light}%,${light}% \
-            +matte "$darkenimg"
-        composite "${IM_ARGS[@]}" "$darkenimg" -compose Multiply "$src" "$COVER"
-        if [[ -f "$COVER" ]] ; then
-            bgcolor=$(convert "${IM_ARGS[@]}" "$COVER" -scale 1x1 -format \
-                '%[fx:int(255*r+.5)] %[fx:int(255*g+.5)] %[fx:int(255*b+.5)]' info:-)
-            for c in $bgcolor ; do
-                bghex=$bghex/$(printf %02x $c)
-            done
-            bghex=${bghex:1}
-
-            printf "\e]11;rgb:${bghex}\a"
-            printf "\e]708;rgb:${bghex}\a"
-            printf "\e]20;${COVER};100x100+50+50:op=keep-aspect\a"
+    if [[ -n "$file" ]] ; then
+        if ffmpeg_cover "$file"; then
+            exit
         else
-            reset_background
+            fallback_find_cover
+            ffmpeg_cover "$album_cover"
         fi
-    else
-        reset_background
     fi
-} &
+}
