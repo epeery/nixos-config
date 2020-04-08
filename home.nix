@@ -7,8 +7,6 @@ let
   # Paths
   home = "/home/eli";
   files = "$HOME/files";
-  config = "$XDG_CONFIG_HOME";
-  share = "$XDG_DATA_HOME";
 
   dunst = pkgs.dunst.override { dunstify = true; };
   trigger = pkgs.callPackage ./packages/trigger { };
