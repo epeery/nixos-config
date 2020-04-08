@@ -170,7 +170,7 @@ in
       dotDir = ".config/zsh";
       oh-my-zsh = {
         enable = true;
-        custom = "${config}/zsh_custom";
+        custom = "$HOME/.config/zsh_custom";
         theme = "terminalpartied";
         plugins = [
           "extract"
@@ -184,9 +184,9 @@ in
 
         v = "$EDITOR";
 
-        h = "cd ${config}/nixpkgs";
-        P = "cd ${files}/Projects";
-        G = "cd ${files}/Git";
+        h = "cd $HOME/.config/nixpkgs";
+        P = "cd $HOME/files/Projects";
+        G = "cd $HOME/files/Git";
         D = "cd $XDG_DOWNLOAD_DIR";
         d = "cd $XDG_DOCUMENTS_DIR";
       };
@@ -366,9 +366,9 @@ in
       STACK_ROOT="$XDG_DATA_HOME/stack";
       NPM_CONFIG_USERCONFIG= "$XDG_CONFIG_HOME/npm/npmrc";
       LESSHISTFILE="-";
-      HISTFILE="${share}/bash/history";
-      WGETRC="${config}/wget/wgetrc";
-      INPUTRC="${config}/inputrc";
+      HISTFILE="$HOME/.local/share/bash/history";
+      WGETRC="$HOME/.config/wget/wgetrc";
+      INPUTRC="$HOME/.config/inputrc";
     };
 
     packages = with pkgs; [
@@ -404,13 +404,13 @@ in
       sxiv
       texlive.combined.scheme-small
       transmission-gtk
+      trigger
       unzip
       wget
       xclip
       yarn
       zathura
       zoom-us
-      trigger
     ];
   };
 }
