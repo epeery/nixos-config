@@ -17,7 +17,6 @@ in
   ];
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.firefox.enableAdobeFlash = false;
   nixpkgs.config.pulseaudio = true;
 
   fonts.fontconfig.enable = true;
@@ -310,17 +309,17 @@ in
         };
       in
       {
-      "wallpaper.png"         .source = ./config/wallpaper.png;
-      "lockscreen.png"        .source = ./config/lockscreen.png;
-      "zsh_custom"            .source = ./config/zsh_custom;
-      "pulse/default.pa"      .source = ./config/pulse/default.pa;
-      "ncmpcpp/config"        .source = ./config/ncmpcpp/config;
-      "ncmpcpp/bindings"      .source = ./config/ncmpcpp/bindings;
-      "wget"                  .source = ./config/wget;
-      "npm"                   .source = ./config/npm;
-      "fontconfig/fonts.conf" .source = ./config/fontconfig/fonts.conf;
-      "xmobar"                .source = ./config/xmobar;
-      "nvim/colors/ugly.vim"  .source = "${ugly}/colors/ugly.vim";
+      "wallpaper.png".source = ./config/wallpaper.png;
+      "lockscreen.png".source = ./config/lockscreen.png;
+      "zsh_custom".source = ./config/zsh_custom;
+      "pulse/default.pa".source = ./config/pulse/default.pa;
+      "ncmpcpp/config".source = ./config/ncmpcpp/config;
+      "ncmpcpp/bindings".source = ./config/ncmpcpp/bindings;
+      "wget".source = ./config/wget;
+      "npm".source = ./config/npm;
+      "fontconfig/fonts.conf".source = ./config/fontconfig/fonts.conf;
+      "xmobar".source = ./config/xmobar;
+      "nvim/colors/ugly.vim".source = "${ugly}/colors/ugly.vim";
     };
   };
 
