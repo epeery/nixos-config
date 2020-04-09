@@ -144,6 +144,7 @@ in
             vim-easy-align
             vim-exchange
             vim-nix
+            vim-pencil
             vim-slash
             vim-surround
           ];
