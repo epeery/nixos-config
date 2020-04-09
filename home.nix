@@ -185,8 +185,8 @@ in
         h = "cd $HOME/.config/nixpkgs";
         P = "cd $HOME/files/Projects";
         G = "cd $HOME/files/Git";
-        D = "cd $XDG_DOWNLOAD_DIR";
-        d = "cd $XDG_DOCUMENTS_DIR";
+        D = "cd $XDG_DOCUMENTS_DIR";
+        d = "cd $XDG_DOWNLOAD_DIR";
       };
 
       initExtra = ''
