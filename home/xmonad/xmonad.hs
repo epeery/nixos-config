@@ -19,8 +19,8 @@ main = do
       , layoutHook         = myLayout
       , startupHook        = myStartupHook
       , logHook            = dynamicLogWithPP $ def
-          { ppCurrent      = (toUpper <$>)
-          , ppVisible      = wrap "<" ">"
+          { ppCurrent      = wrap "<fc=#0081D5>" "</fc>"
+          , ppVisible      = wrap "<fc=#CDCBCD>" "</fc>"
           , ppTitle        = const ""
           , ppLayout       = const ""
           , ppOutput       = hPutStrLn h
