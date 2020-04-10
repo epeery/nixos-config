@@ -1,4 +1,5 @@
 import System.Exit
+import Data.Char
 import XMonad
 import XMonad.Actions.CycleWS
 import XMonad.Hooks.DynamicLog
@@ -18,10 +19,14 @@ main = do
       , layoutHook         = myLayout
       , startupHook        = myStartupHook
       , logHook            = dynamicLogWithPP $ def
-          { ppOutput = hPutStrLn h
-          , ppTitle  = const ""
-          , ppLayout = const ""
+          { ppCurrent      = (toUpper <$>)
+          , ppVisible      = wrap "<" ">"
+          , ppTitle        = const ""
+          , ppLayout       = const ""
+          , ppOutput       = hPutStrLn h
+          , ppWsSep        = " "
           }
+      , workspaces         = myWorkspaces
       , modMask            = myModMask
       , terminal           = myTerminal
       , borderWidth        = myBorderWidth
@@ -63,6 +68,12 @@ myDmenu =
     ++ show color0
     ++ " -sf "
     ++ show color3
+
+-- Apply a function to an argument n times
+applyN :: Int -> (a -> a) -> a -> a
+applyN n f = foldr (.) id (replicate n f)
+
+myWorkspaces = applyN 3 pad <$> ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
 
 myModMask = mod4Mask
 
