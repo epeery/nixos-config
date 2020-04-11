@@ -145,6 +145,7 @@ in
             vim-nix
             vim-pencil
             vim-slash
+            vim-snippets
             vim-surround
           ];
           opt = [ ];
