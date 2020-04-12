@@ -75,6 +75,9 @@ in
           set ignorecase
           set smartcase
 
+          " Enable background buffers
+          set hidden
+
           " Enable Normal more inside of :terminal
           tnoremap <Esc> <C-\><C-n>
 
