@@ -1,7 +1,8 @@
 Config {
        font = "xft:Iosevka:pixelsize=14",
-       fgColor = "#000000"
-       bgColor = "#ffffff"
+       fgColor = "#000000",
+       bgColor = "#ffffff",
+       position = Static { xpos = 0 , ypos = 0, width = 1920, height = 30 },
        commands = [
                 -- Ithaca, NY
                 Run Weather "KITH" ["-t"," <tempF>°F"] 36000,
