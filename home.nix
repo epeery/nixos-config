@@ -382,6 +382,7 @@ in
       dunst
       electron
       feh
+      ffmpeg
       fzf
       gimp
       haskellPackages.xmobar
