@@ -380,7 +380,6 @@ in
       cachix
       dmenu
       dunst
-      electron
       feh
       ffmpeg
       fzf
