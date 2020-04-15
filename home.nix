@@ -185,6 +185,7 @@ in
         wget = "wget --hsts-file=\"$XDG_CACHE_HOME/wget-hsts\"";
 
         v = "$EDITOR";
+        m = "$MUSIC";
 
         h = "cd $HOME/.config/nixpkgs";
         P = "cd $HOME/files/Projects";
@@ -362,6 +363,7 @@ in
       FILE = "ranger";
       READER = "zathura";
       EDITOR = "nvim";
+      MUSIC = "ncmpcpp";
 
       # Cleaning up $HOME
       XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority";
