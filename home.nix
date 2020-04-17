@@ -133,7 +133,7 @@ in
           set number relativenumber
           call ToggleHiddenAll()
 
-          "" Rearrange lines
+          " Rearrange lines
           xmap <DOWN> <Plug>(textmanip-move-down)
           xmap <UP> <Plug>(textmanip-move-up)
           xmap <LEFT> <Plug>(textmanip-move-left)
