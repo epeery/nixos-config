@@ -7,9 +7,6 @@ let
   # Paths
   home = "/home/eli";
   files = "$HOME/files";
-
-  dunst = pkgs.dunst.override { dunstify = true; };
-  trigger = pkgs.callPackage ./packages/trigger { };
 in
 {
   imports = [
@@ -135,24 +132,42 @@ in
           let s:hidden_all = 0
           set number relativenumber
           call ToggleHiddenAll()
+
+          "" Rearrange lines
+          xmap <DOWN> <Plug>(textmanip-move-down)
+          xmap <UP> <Plug>(textmanip-move-up)
+          xmap <LEFT> <Plug>(textmanip-move-left)
+          xmap <RIGHT> <Plug>(textmanip-move-right)
         '';
 
-        packages.customVim = with pkgs.vimPlugins; {
-          start = [
-            ReplaceWithRegister
-            fzf-vim
-            haskell-vim
-            ultisnips
-            vim-easy-align
-            vim-exchange
-            vim-nix
-            vim-pencil
-            vim-slash
-            vim-snippets
-            vim-surround
-          ];
-          opt = [ ];
-        };
+        packages.customVim =
+          let
+            vim-textmanip = pkgs.vimUtils.buildVimPlugin {
+              pname = "vim-textmanip";
+              version = "2.0";
+              src = builtins.fetchGit {
+                url = "https://github.com/t9md/vim-textmanip";
+                rev = "1948542d12e37f286ef4edd87db4f29e4c7fd771";
+              };
+            };
+          in
+          with pkgs.vimPlugins; {
+            start = [
+              ReplaceWithRegister
+              fzf-vim
+              haskell-vim
+              ultisnips
+              vim-easy-align
+              vim-exchange
+              vim-nix
+              vim-pencil
+              vim-slash
+              vim-snippets
+              vim-surround
+              vim-textmanip
+            ];
+            opt = [ ];
+          };
       };
     };
 
@@ -375,46 +390,51 @@ in
       INPUTRC="$HOME/.config/inputrc";
     };
 
-    packages = with pkgs; [
-      brave
-      cabal-install
-      cabal2nix
-      cachix
-      dmenu
-      dunst
-      feh
-      ffmpeg
-      fzf
-      gimp
-      haskellPackages.xmobar
-      i3lock
-      inkscape
-      insomnia
-      killall
-      libnotify
-      mpc_cli
-      mpv
-      ncmpcpp
-      nix-prefetch-git
-      nodejs
-      pandoc
-      papirus-icon-theme
-      pavucontrol
-      ranger
-      ripgrep
-      rofi
-      slack
-      spotify
-      sxiv
-      texlive.combined.scheme-small
-      transmission-gtk
-      trigger
-      unzip
-      wget
-      xclip
-      yarn
-      zathura
-      zoom-us
-    ];
+    packages =
+      let
+        dunst = pkgs.dunst.override { dunstify = true; };
+        trigger = pkgs.callPackage ./packages/trigger { };
+      in
+      with pkgs; [
+        brave
+        cabal-install
+        cabal2nix
+        cachix
+        dmenu
+        dunst
+        feh
+        ffmpeg
+        fzf
+        gimp
+        haskellPackages.xmobar
+        i3lock
+        inkscape
+        insomnia
+        killall
+        libnotify
+        mpc_cli
+        mpv
+        ncmpcpp
+        nix-prefetch-git
+        nodejs
+        pandoc
+        papirus-icon-theme
+        pavucontrol
+        ranger
+        ripgrep
+        rofi
+        slack
+        spotify
+        sxiv
+        texlive.combined.scheme-small
+        transmission-gtk
+        trigger
+        unzip
+        wget
+        xclip
+        yarn
+        zathura
+        zoom-us
+      ];
   };
 }
