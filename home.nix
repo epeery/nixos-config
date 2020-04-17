@@ -157,6 +157,7 @@ in
               fzf-vim
               haskell-vim
               ultisnips
+              vim-commentary
               vim-easy-align
               vim-exchange
               vim-nix
