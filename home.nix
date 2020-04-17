@@ -156,6 +156,7 @@ in
               ReplaceWithRegister
               fzf-vim
               haskell-vim
+              targets-vim
               ultisnips
               vim-commentary
               vim-easy-align
