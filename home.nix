@@ -156,6 +156,7 @@ in
               ReplaceWithRegister
               fzf-vim
               haskell-vim
+              neoformat
               targets-vim
               ultisnips
               vim-commentary
