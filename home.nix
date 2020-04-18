@@ -91,10 +91,8 @@ in {
           " Toggle spellcheck
           map <leader>s :setlocal spell! spelllang=en_us<CR>
 
-          " Prettify block
-          map <leader>p mpvip:!ormolu<CR>`p
-          " Prettify whole document
-          map <leader>P mpggVG:!ormolu<CR>`p
+          " Prettify
+          map <leader>p :Neoformat<CR>
 
           " Start interactive EasyAlign in visual mode (e.g. vipga)
           xmap ga <Plug>(EasyAlign)
