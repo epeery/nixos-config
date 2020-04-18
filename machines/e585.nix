@@ -1,9 +1,7 @@
 { ... }:
 
 {
-  imports = [
-    ./common.nix
-  ];
+  imports = [ ./common.nix ];
 
   networking.hostName = "eliLaptop";
 

@@ -1,9 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    /etc/nixos/hardware-configuration.nix
-  ];
+  imports = [ /etc/nixos/hardware-configuration.nix /etc/nixos/cachix.nix ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -17,22 +15,13 @@
 
   time.timeZone = "America/New_York";
 
-  environment.systemPackages = with pkgs; [
-    bash
-    git
-    xst
-  ];
+  environment.systemPackages = with pkgs; [ bash git xst ];
 
   fonts = {
     enableFontDir = true;
     fontconfig.enable = true;
 
-    fonts = with pkgs; [
-      gohufont
-      iosevka
-      inter-ui
-      emacs-all-the-icons-fonts
-    ];
+    fonts = with pkgs; [ gohufont iosevka inter-ui emacs-all-the-icons-fonts ];
   };
 
   sound.enable = true;
@@ -68,7 +57,7 @@
           url = "https://github.com/epeery.keys";
           sha256 = "1kf1b883iwnx0bqpvyad80vwpnlg912pbr1jmi07lyyy768h2ryn";
         }))
-    ];
+      ];
 
     };
   };
@@ -79,4 +68,3 @@
 
   system.stateVersion = "19.09";
 }
-
