@@ -7,11 +7,8 @@ let
   # Paths
   home = "/home/eli";
   files = "$HOME/files";
-in
-{
-  imports = [
-    ./scripts.nix
-  ];
+in {
+  imports = [ ./scripts.nix ];
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.pulseaudio = true;
@@ -140,48 +137,41 @@ in
           xmap <RIGHT> <Plug>(textmanip-move-right)
         '';
 
-        packages.customVim =
-          let
-            vim-textmanip = pkgs.vimUtils.buildVimPlugin {
-              pname = "vim-textmanip";
-              version = "2.0";
-              src = builtins.fetchGit {
-                url = "https://github.com/t9md/vim-textmanip";
-                rev = "1948542d12e37f286ef4edd87db4f29e4c7fd771";
-              };
+        packages.customVim = let
+          vim-textmanip = pkgs.vimUtils.buildVimPlugin {
+            pname = "vim-textmanip";
+            version = "2.0";
+            src = builtins.fetchGit {
+              url = "https://github.com/t9md/vim-textmanip";
+              rev = "1948542d12e37f286ef4edd87db4f29e4c7fd771";
             };
-          in
-          with pkgs.vimPlugins; {
-            start = [
-              ReplaceWithRegister
-              fzf-vim
-              haskell-vim
-              neoformat
-              targets-vim
-              ultisnips
-              vim-commentary
-              vim-easy-align
-              vim-exchange
-              vim-nix
-              vim-pencil
-              vim-slash
-              vim-snippets
-              vim-surround
-              vim-textmanip
-            ];
-            opt = [ ];
           };
+        in with pkgs.vimPlugins; {
+          start = [
+            ReplaceWithRegister
+            fzf-vim
+            haskell-vim
+            neoformat
+            targets-vim
+            ultisnips
+            vim-commentary
+            vim-easy-align
+            vim-exchange
+            vim-nix
+            vim-pencil
+            vim-slash
+            vim-snippets
+            vim-surround
+            vim-textmanip
+          ];
+          opt = [ ];
+        };
       };
     };
 
     emacs = {
       enable = true;
-      extraPackages = epkgs:
-        with epkgs; [
-          nix-mode
-          magit
-          evil
-        ];
+      extraPackages = epkgs: with epkgs; [ nix-mode magit evil ];
     };
 
     zsh = {
@@ -192,15 +182,13 @@ in
         enable = true;
         custom = "$HOME/.config/zsh_custom";
         theme = "terminalpartied";
-        plugins = [
-          "extract"
-        ];
+        plugins = [ "extract" ];
       };
 
       shellAliases = {
         # Modified versions of programs so they don't pollute $HOME
         startx = "sx";
-        wget = "wget --hsts-file=\"$XDG_CACHE_HOME/wget-hsts\"";
+        wget = ''wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"'';
 
         v = "$EDITOR";
         m = "$MUSIC";
@@ -277,7 +265,8 @@ in
 
     screen-locker = {
       enable = true;
-      lockCmd = "${pkgs.i3lock}/bin/i3lock -n -c CDCBCD -i ${home}/.config/lockscreen.png -p win";
+      lockCmd =
+        "${pkgs.i3lock}/bin/i3lock -n -c CDCBCD -i ${home}/.config/lockscreen.png -p win";
       inactiveInterval = 5;
     };
 
@@ -297,7 +286,6 @@ in
     lorri.enable = true;
   };
 
-
   xsession = {
     enable = true;
     scriptPath = ".xinitrc";
@@ -306,7 +294,8 @@ in
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
-      config = pkgs.writeText "xmonad.hs" (builtins.readFile ./home/xmonad/xmonad.hs);
+      config =
+        pkgs.writeText "xmonad.hs" (builtins.readFile ./home/xmonad/xmonad.hs);
     };
   };
 
@@ -324,14 +313,12 @@ in
       templates = "$HOME/files/Templates";
     };
 
-    configFile =
-      let
-        ugly = builtins.fetchGit {
-          url = "https://github.com/epeery/vim-ugly";
-          rev = "9e00e2207adeea1cd237d574f4ca023ba539eb8c";
-        };
-      in
-      {
+    configFile = let
+      ugly = builtins.fetchGit {
+        url = "https://github.com/epeery/vim-ugly";
+        rev = "9e00e2207adeea1cd237d574f4ca023ba539eb8c";
+      };
+    in {
       "wallpaper.png".source = ./config/wallpaper.png;
       "lockscreen.png".source = ./config/lockscreen.png;
       "zsh_custom".source = ./config/zsh_custom;
@@ -384,60 +371,58 @@ in
       MUSIC = "ncmpcpp";
 
       # Cleaning up $HOME
-      XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority";
-      STACK_ROOT="$XDG_DATA_HOME/stack";
-      NPM_CONFIG_USERCONFIG= "$XDG_CONFIG_HOME/npm/npmrc";
-      LESSHISTFILE="-";
-      HISTFILE="$HOME/.local/share/bash/history";
-      WGETRC="$HOME/.config/wget/wgetrc";
-      INPUTRC="$HOME/.config/inputrc";
+      XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
+      STACK_ROOT = "$XDG_DATA_HOME/stack";
+      NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc";
+      LESSHISTFILE = "-";
+      HISTFILE = "$HOME/.local/share/bash/history";
+      WGETRC = "$HOME/.config/wget/wgetrc";
+      INPUTRC = "$HOME/.config/inputrc";
     };
 
-    packages =
-      let
-        dunst = pkgs.dunst.override { dunstify = true; };
-        trigger = pkgs.callPackage ./packages/trigger { };
-      in
-      with pkgs; [
-        brave
-        cabal-install
-        cabal2nix
-        cachix
-        dmenu
-        dunst
-        feh
-        ffmpeg
-        fzf
-        gimp
-        haskellPackages.xmobar
-        i3lock
-        inkscape
-        insomnia
-        killall
-        libnotify
-        mpc_cli
-        mpv
-        ncmpcpp
-        nix-prefetch-git
-        nodejs
-        pandoc
-        papirus-icon-theme
-        pavucontrol
-        ranger
-        ripgrep
-        rofi
-        slack
-        spotify
-        sxiv
-        texlive.combined.scheme-small
-        transmission-gtk
-        trigger
-        unzip
-        wget
-        xclip
-        yarn
-        zathura
-        zoom-us
-      ];
+    packages = let
+      dunst = pkgs.dunst.override { dunstify = true; };
+      trigger = pkgs.callPackage ./packages/trigger { };
+    in with pkgs; [
+      brave
+      cabal-install
+      cabal2nix
+      cachix
+      dmenu
+      dunst
+      feh
+      ffmpeg
+      fzf
+      gimp
+      haskellPackages.xmobar
+      i3lock
+      inkscape
+      insomnia
+      killall
+      libnotify
+      mpc_cli
+      mpv
+      ncmpcpp
+      nix-prefetch-git
+      nodejs
+      pandoc
+      papirus-icon-theme
+      pavucontrol
+      ranger
+      ripgrep
+      rofi
+      slack
+      spotify
+      sxiv
+      texlive.combined.scheme-small
+      transmission-gtk
+      trigger
+      unzip
+      wget
+      xclip
+      yarn
+      zathura
+      zoom-us
+    ];
   };
 }
