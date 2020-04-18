@@ -404,6 +404,7 @@ in {
       mpv
       ncmpcpp
       nix-prefetch-git
+      nixfmt
       nodejs
       pandoc
       papirus-icon-theme
