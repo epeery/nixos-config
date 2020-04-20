@@ -369,7 +369,7 @@ in {
       MUSIC = "ncmpcpp";
 
       # Cleaning up $HOME
-      XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
+      # XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority"; # Messes up LightDM but works fine for startx
       STACK_ROOT = "$XDG_DATA_HOME/stack";
       NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc";
       LESSHISTFILE = "-";

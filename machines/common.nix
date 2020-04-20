@@ -29,7 +29,17 @@
 
   services.xserver = {
     enable = true;
-    displayManager.startx.enable = true;
+    displayManager.lightdm.enable = true;
+    desktopManager.session = [
+      {
+        name = "home-manager";
+        start = ''
+          ${pkgs.runtimeShell} $HOME/.xinitrc &
+          waitPID=$!
+        '';
+      }
+    ];
+    # displayManager.startx.enable = true;
   };
 
   users = {
