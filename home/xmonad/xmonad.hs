@@ -53,7 +53,7 @@ color4 = "#D56162"
 
 myBorderWidth = 4
 
-myTerminal = "alacritty"
+myTerminal = "xst"
 myFileManager = myTerminal ++ " -e ranger"
 myBrowser = "brave"
 

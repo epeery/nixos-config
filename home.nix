@@ -36,11 +36,8 @@ in {
           x = 20;
           y = 20;
         };
-        background_opacity = 0.5;
+        background_opacity = 0.6;
         colors = {
-          cursor = {
-            cursor = "#ffffff";
-          };
           primary = {
             background = "#000000";
             foreground = "#ffffff";
@@ -74,7 +71,7 @@ in {
           };
           bold = {
             family = style.font-term;
-            style = "Bold";
+            style = "Regular";
           };
           italic = {
             family = style.font-term;
@@ -409,10 +406,37 @@ in {
   };
 
   home = {
+    file = {
+      ".config/Xresources".text = ''
+        *foreground:   #ffffff
+        *background:   #000000
+        *color0:       #000000
+        *color1:       #D56162
+        *color2:       #83FA62
+        *color3:       #D5D2FF
+        *color4:       #0081D5
+        *color5:       #cd00cd
+        *color6:       #00A9AC
+        *color7:       #e5e5e5
+        *color8:       #7f7f7f
+        *color9:       #D56162
+        *color10:      #00A900
+        *color11:      #D5D2FF
+        *color12:      #00A9FF
+        *color13:      #AC61FF
+        *color14:      #00D2D5
+        *color15:      #ffffff
+        st*font:       Iosevka:size=12:antialias=true:autohint=true
+        st*opacity:    150
+        st*bold_font:  0
+        st.borderpx:   20
+      '';
+    };
+
     sessionVariables = {
       # Default tools
       BROWSER = "brave";
-      TERMINAL = "alacritty";
+      TERMINAL = "xst";
       FILE = "ranger";
       READER = "zathura";
       EDITOR = "nvim";
