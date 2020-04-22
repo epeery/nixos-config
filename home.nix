@@ -29,62 +29,6 @@ in {
       userEmail = email;
     };
 
-    alacritty = {
-      enable = true;
-      settings = {
-        window.padding = {
-          x = 20;
-          y = 20;
-        };
-        background_opacity = 0.6;
-        colors = {
-          primary = {
-            background = "#000000";
-            foreground = "#ffffff";
-          };
-          normal = {
-            black = "#000000";
-            red = "#d56162";
-            green = "#83fa62";
-            yellow = "#d5d2ff";
-            blue = "#0081d5";
-            magenta = "#cd00cd";
-            cyan = "#00a9ac";
-            white = "#e5e5e5";
-          };
-          bright = {
-            black = "#7f7f7f";
-            red = "#d56162";
-            green = "#00a900";
-            yellow = "#d5d2ff";
-            blue = "#00a9ff";
-            magenta = "#ac61ff";
-            cyan = "#00d2d5";
-            white = "#ffffff";
-          };
-        };
-        font = {
-          size = 11;
-          normal = {
-            family = style.font-term;
-            style = "Regular";
-          };
-          bold = {
-            family = style.font-term;
-            style = "Regular";
-          };
-          italic = {
-            family = style.font-term;
-            style = "Italic";
-          };
-          bold_italic = {
-            family = style.font-term;
-            style = "Bold Italic";
-          };
-        };
-      };
-    };
-
     direnv.enable = true;
 
     neovim = {
