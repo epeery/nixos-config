@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 let
+  style = import ./style.nix;
+
   name = "Eli Peery";
   email = "eli.g.peery@gmail.com";
 
@@ -25,6 +27,32 @@ in {
       enable = true;
       userName = name;
       userEmail = email;
+    };
+
+    alacritty = {
+      enable = true;
+      settings = {
+        window.padding = { x = 20; y = 20; };
+        font = {
+          size = 11;
+          normal = {
+            family = style.font-fixed;
+            style = "Regular";
+          };
+          bold = {
+            family = style.font-fixed;
+            style = "Bold";
+          };
+          italic = {
+            family = style.font-fixed;
+            style = "Italic";
+          };
+          bold_italic = {
+            family = style.font-fixed;
+            style = "Bold Italic";
+          };
+        };
+      };
     };
 
     direnv.enable = true;

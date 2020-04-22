@@ -17,11 +17,109 @@
 
   environment.systemPackages = with pkgs; [ bash git xst ];
 
-  fonts = {
+  fonts = let
+    cv = [
+      "v-f-tailed"
+      "v-i-italic"
+      "v-l-italic"
+      "v-k-curly"
+      "v-w-curly"
+      "v-x-curly"
+      "v-y-straight"
+      "v-turn-v-curly"
+      "v-capital-g-toothless"
+      "v-capital-r-curly"
+      "v-capital-y-curly"
+      "v-nine-turned-six"
+      "v-lambda-curly"
+      "v-lig-ltgteq-slanted"
+    ];
+  in {
     enableFontDir = true;
     fontconfig.enable = true;
+    fontconfig.defaultFonts = {
+      monospace = [ "Iosevka" ];
+      sansSerif = [ "Iosevka Sparkle" ];
+      serif = [ "Iosevka Etoile" ];
+      emoji = [ "Material Icons" ];
+    };
+    fonts = with pkgs; [
+      (iosevka.override {
+        set = "custom";
+        privateBuildPlan = {
+          family = "Iosevka";
+          design = [ "common styles" "sans" "ligset-haskell" ] ++ cv;
+        };
+      })
 
-    fonts = with pkgs; [ gohufont iosevka inter-ui emacs-all-the-icons-fonts ];
+      (iosevka.override {
+        set = "term";
+        privateBuildPlan = {
+          family = "Iosevka Term";
+          design = [ "common styles" "sans" "sp-term" "ligset-haskell" ] ++ cv;
+        };
+      })
+
+      (iosevka.override {
+        set = "fixed";
+        privateBuildPlan = {
+          family = "Iosevka Fixed";
+          design = [ "common styles" "sans" "sp-fixed" ] ++ cv;
+        };
+      })
+
+      (iosevka.override {
+        set = "etoile";
+        privateBuildPlan = {
+          family = "Iosevka Etoile";
+          design = [
+            "type"
+            "slab"
+            "v-at-fourfold"
+            "v-j-serifed"
+            "no-cv-ss"
+            "no-ligation"
+          ];
+          upright = [ "v-i-serifed" "v-l-serifed" ];
+          italic = [ "v-i-italic" "v-l-italic" ];
+          oblique = [ "v-i-serifed" "v-l-serifed" ];
+          post.design = [ "diversity-1" ];
+          widths.normal = {
+            shape = 7;
+            menu = 5;
+            css = "normal";
+          };
+        };
+      })
+
+      (iosevka.override {
+        set = "sparkle";
+        privateBuildPlan = {
+          family = "Iosevka Sparkle";
+          design = [
+            "type"
+            "v-at-fourfold"
+            "v-j-narrow-serifed"
+            "no-cv-ss"
+            "no-ligation"
+          ];
+          upright = [ "v-i-serifed" "v-l-serifed" "v-f-serifed" "v-r-serifed" ];
+          italic = [ "v-i-italic" "v-l-italic" "v-f-tailed" "v-r-top-serifed" ];
+          oblique = [ "v-i-serifed" "v-l-serifed" "v-f-serifed" "v-r-serifed" ];
+          post.design = [ "diversity-1" ];
+          widths.normal = {
+            shape = 7;
+            menu = 5;
+            css = "normal";
+          };
+        };
+      })
+
+      gohufont
+      iosevka
+      inter-ui
+      emacs-all-the-icons-fonts
+    ];
   };
 
   sound.enable = true;
