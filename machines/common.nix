@@ -26,7 +26,7 @@
         set = "custom";
         privateBuildPlan = {
           family = "Iosevka";
-          design = [ "common styles" "sans" "ligset-haskell" ]
+          design = [ "common styles" "sans" "ligset-haskell" ];
         };
       })
 
