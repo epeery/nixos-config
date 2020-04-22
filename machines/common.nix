@@ -18,22 +18,6 @@
   environment.systemPackages = with pkgs; [ bash git xst ];
 
   fonts = let
-    cv = [
-      "v-f-tailed"
-      "v-i-italic"
-      "v-l-italic"
-      "v-k-curly"
-      "v-w-curly"
-      "v-x-curly"
-      "v-y-straight"
-      "v-turn-v-curly"
-      "v-capital-g-toothless"
-      "v-capital-r-curly"
-      "v-capital-y-curly"
-      "v-nine-turned-six"
-      "v-lambda-curly"
-      "v-lig-ltgteq-slanted"
-    ];
   in {
     enableFontDir = true;
     fontconfig.enable = true;
@@ -42,15 +26,7 @@
         set = "custom";
         privateBuildPlan = {
           family = "Iosevka";
-          design = [ "common styles" "sans" "ligset-haskell" ] ++ cv;
-        };
-      })
-
-      (iosevka.override {
-        set = "term";
-        privateBuildPlan = {
-          family = "Iosevka Term";
-          design = [ "common styles" "sans" "sp-term" "ligset-haskell" ] ++ cv;
+          design = [ "common styles" "sans" "ligset-haskell" ]
         };
       })
 
