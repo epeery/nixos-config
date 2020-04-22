@@ -214,9 +214,24 @@ in {
       temperature.day = 6000;
     };
 
-    picom = {
+    picom = let
+      picomBlur = pkgs.picom.overrideAttrs (old: rec {
+        name = "picom-custom";
+        version = "1.0";
+        src = builtins.fetchGit {
+          url = "https://github.com/tryone144/compton";
+          ref = "feature/dual_kawase";
+          rev = "c67d7d7b2c36f29846c6693a2f39a2e191a2fcc4";
+        };
+      });
+    in {
+      package = picomBlur;
       enable = true;
       blur = true;
+      experimentalBackends = true;
+      extraOptions = ''
+        blur-method = "dual_kawase";
+      '';
     };
 
     dunst = {
@@ -353,7 +368,7 @@ in {
         *color14:      #00D2D5
         *color15:      #ffffff
         st*font:       Iosevka:size=12:antialias=true:autohint=true
-        st*opacity:    200
+        st*opacity:    150
         st*bold_font:  0
         st.borderpx:   20
       '';
