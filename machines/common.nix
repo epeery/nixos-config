@@ -37,12 +37,6 @@
   in {
     enableFontDir = true;
     fontconfig.enable = true;
-    fontconfig.defaultFonts = {
-      monospace = [ "Iosevka" ];
-      sansSerif = [ "Iosevka Sparkle" ];
-      serif = [ "Iosevka Etoile" ];
-      emoji = [ "Material Icons" ];
-    };
     fonts = with pkgs; [
       (iosevka.override {
         set = "custom";
