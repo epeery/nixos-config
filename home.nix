@@ -36,19 +36,19 @@ in {
         font = {
           size = 11;
           normal = {
-            family = style.font-fixed;
+            family = style.font-term;
             style = "Regular";
           };
           bold = {
-            family = style.font-fixed;
+            family = style.font-term;
             style = "Bold";
           };
           italic = {
-            family = style.font-fixed;
+            family = style.font-term;
             style = "Italic";
           };
           bold_italic = {
-            family = style.font-fixed;
+            family = style.font-term;
             style = "Bold Italic";
           };
         };
@@ -277,7 +277,7 @@ in {
           frame_width = 0;
           separator_color = "frame";
           vertical_alighment = "center";
-          font = "Inter 12";
+          font = "Suisse Int'l 12";
           word_wrap = "yes";
           line_height = 4;
           icon_position = "left";
