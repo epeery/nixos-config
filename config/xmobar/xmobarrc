@@ -1,11 +1,11 @@
 Config {
-       font = "xft:Iosevka:pixelsize=14",
+       font = "xft:Inter UI:pixelsize=14",
        fgColor = "#000000",
        bgColor = "#ffffff",
        commands = [
                 -- Ithaca, NY
                 Run Weather "KITH" ["-t"," <tempF>°F"] 36000,
-                Run Date "%a %b %d %H:%M" "date" 10,
+                Run Date "%a %-I:%M %p" "date" 10,
                 Run StdinReader,
                 Run Battery [ "-t" , "Battery: <acstatus>"
                              , "--" -- battery specific options
@@ -19,6 +19,6 @@ Config {
                 ],
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %date%   |  %KITH%   |   %battery%    "
+       , template = "%StdinReader% }{ %date%        %battery%        %KITH%    "
        }
 
