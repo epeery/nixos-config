@@ -31,6 +31,8 @@ in {
 
     direnv.enable = true;
 
+    zathura.enable = true;
+
     neovim = {
       enable = true;
       viAlias = true;
@@ -439,7 +441,6 @@ in {
       wget
       xclip
       yarn
-      zathura
       zoom-us
     ];
   };
