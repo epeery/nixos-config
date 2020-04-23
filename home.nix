@@ -234,6 +234,7 @@ in {
       extraOptions = ''
         blur-method = "dual_kawase";
         blur-strength = 10;
+        frame-opacity = 0.7;
       '';
     };
 
