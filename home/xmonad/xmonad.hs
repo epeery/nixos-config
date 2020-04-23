@@ -51,7 +51,7 @@ color2 = "#CDCBCD"
 color3 = "#ffffff"
 color4 = "#D56162"
 
-myBorderWidth = 4
+myBorderWidth = 3
 
 myTerminal = "xst"
 myFileManager = myTerminal ++ " -e ranger"
@@ -69,11 +69,8 @@ myDmenu =
     ++ " -sf "
     ++ show color3
 
--- Apply a function to an argument n times
-applyN :: Int -> (a -> a) -> a -> a
-applyN n f = foldr (.) id (replicate n f)
-
-myWorkspaces = applyN 3 pad <$> ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+-- myWorkspaces = applyN 4 pad <$> ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+myWorkspaces = ("    " <>) . show <$> [1..9]
 
 myModMask = mod4Mask
 

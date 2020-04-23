@@ -253,7 +253,7 @@ in {
           frame_width = 0;
           separator_color = "frame";
           vertical_alighment = "center";
-          font = "Suisse Int'l 12";
+          font = "Inter UI 12";
           word_wrap = "yes";
           line_height = 4;
           icon_position = "left";
