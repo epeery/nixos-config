@@ -184,7 +184,6 @@ in {
         enable = true;
         custom = "$HOME/.config/zsh_custom";
         theme = "terminalpartied";
-        plugins = [ "extract" ];
       };
 
       shellAliases = {
@@ -203,7 +202,7 @@ in {
       };
 
       initExtra = ''
-        [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+        [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec sx
 
         source $XDG_CONFIG_HOME/user-dirs.dirs
 
@@ -330,7 +329,16 @@ in {
   xsession = {
     enable = true;
     scriptPath = ".xinitrc";
-    initExtra = "exec dbus-launch --exit-with-session xmonad";
+    initExtra = ''
+      if test -z "$DBUS_SESSION_BUS_ADDRESS"; then
+          eval $(dbus-launch --exit-with-session --sh-syntax)
+      fi
+      systemctl --user import-environment DISPLAY XAUTHORITY
+
+      if command -v dbus-update-activation-environment >/dev/null 2>&1; then
+              dbus-update-activation-environment DISPLAY XAUTHORITY
+      fi
+    '';
 
     windowManager.xmonad = {
       enable = true;
