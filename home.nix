@@ -203,6 +203,8 @@ in {
       };
 
       initExtra = ''
+        [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+
         source $XDG_CONFIG_HOME/user-dirs.dirs
 
         function extract() {
