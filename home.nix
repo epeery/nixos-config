@@ -1,8 +1,6 @@
 { pkgs, ... }:
 
 let
-  style = import ./style.nix;
-
   name = "Eli Peery";
   email = "eli.g.peery@gmail.com";
 
