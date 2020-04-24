@@ -1,5 +1,5 @@
 Config {
-       font = "xft:Inter UI:pixelsize=14",
+       font = "xft:Inter UI:pixelsize=14,FontAwesome:pixelsize=14",
        fgColor = "#000000",
        bgColor = "#ffffff",
        commands = [
@@ -7,18 +7,18 @@ Config {
                 Run Weather "KITH" ["-t"," <tempF>°F"] 36000,
                 Run Date "%a %-I:%M %p" "date" 10,
                 Run StdinReader,
-                Run Battery [ "-t" , "Battery: <acstatus>"
+                Run Battery [ "-t" , "<acstatus>"
                              , "--" -- battery specific options
                                        -- discharging status
-                                       , "-o"	, "<left>% - <timeleft>"
+                                       , "-o"	, "  <left>% - <timeleft>"
                                        -- AC "on" status
-                                       , "-O"	, "Charging"
+                                       , "-O"	, " "
                                        -- charged status
-                                       , "-i"	, "Charged"
+                                       , "-i"	, " "
                              ] 50
                 ],
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %date%        %battery%        %KITH%    "
+       , template = "%StdinReader% }{ %battery%    %date%    %KITH%    "
        }
 
