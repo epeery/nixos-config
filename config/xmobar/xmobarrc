@@ -10,7 +10,7 @@ Config {
                 Run Battery [ "-t" , "<acstatus>"
                              , "--" -- battery specific options
                                        -- discharging status
-                                       , "-o"	, "  <left>% - <timeleft>"
+                                       , "-o"	, "  <left>%"
                                        -- AC "on" status
                                        , "-O"	, " "
                                        -- charged status
