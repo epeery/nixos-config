@@ -383,7 +383,7 @@ in {
         *color14:      #00D2D5
         *color15:      #ffffff
         st*font:       Iosevka:size=12:antialias=true:autohint=true
-        st*opacity:    150
+        st*opacity:    125
         st*bold_font:  0
         st.borderpx:   20
       '';
