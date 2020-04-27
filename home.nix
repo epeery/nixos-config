@@ -364,24 +364,24 @@ in {
   home = {
     file = {
       ".config/Xresources".text = ''
-        *foreground:   #ffffff
+        *foreground:   #FFFFFF
         *background:   #000000
         *color0:       #000000
         *color1:       #D56162
         *color2:       #83FA62
         *color3:       #D5D2FF
         *color4:       #0081D5
-        *color5:       #cd00cd
+        *color5:       #CD00CD
         *color6:       #00A9AC
-        *color7:       #e5e5e5
-        *color8:       #7f7f7f
+        *color7:       #E5E5E5
+        *color8:       #A7A7A7
         *color9:       #D56162
         *color10:      #00A900
         *color11:      #D5D2FF
         *color12:      #00A9FF
         *color13:      #AC61FF
         *color14:      #00D2D5
-        *color15:      #ffffff
+        *color15:      #FFFFFF
         st*font:       Iosevka:size=12:antialias=true:autohint=true
         st*opacity:    125
         st*bold_font:  0
