@@ -347,17 +347,17 @@ in {
         rev = "9e00e2207adeea1cd237d574f4ca023ba539eb8c";
       };
     in {
-      "wallpaper.png".source = ./config/wallpaper.png;
-      "lockscreen.png".source = ./config/lockscreen.png;
-      "zsh_custom".source = ./config/zsh_custom;
-      "pulse/default.pa".source = ./config/pulse/default.pa;
-      "ncmpcpp/config".source = ./config/ncmpcpp/config;
-      "ncmpcpp/bindings".source = ./config/ncmpcpp/bindings;
-      "wget".source = ./config/wget;
-      "npm".source = ./config/npm;
       "fontconfig/fonts.conf".source = ./config/fontconfig/fonts.conf;
-      "xmobar".source = ./config/xmobar;
+      "lockscreen.png".source = ./config/lockscreen.png;
+      "ncmpcpp/bindings".source = ./config/ncmpcpp/bindings;
+      "ncmpcpp/config".source = ./config/ncmpcpp/config;
+      "npm".source = ./config/npm;
       "nvim/colors/ugly.vim".source = "${ugly}/colors/ugly.vim";
+      "pulse/default.pa".source = ./config/pulse/default.pa;
+      "wallpaper.png".source = ./config/wallpaper.png;
+      "wget".source = ./config/wget;
+      "xmobar".source = ./config/xmobar;
+      "zsh_custom".source = ./config/zsh_custom;
     };
   };
 
