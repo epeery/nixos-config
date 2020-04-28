@@ -371,13 +371,13 @@ in rec {
           *color1:       #D56162
           *color2:       #83FA62
           *color3:       #D5D2FF
-          *color4:       #0081D5
+          *color4:       #00A9FF
           *color5:       #AC61FF
-          *color6:       #00A9AC
+          *color6:       #00D2D5
           *color7:       #E5E5E5
           *color8:       #A7A7A7
           *color9:       #D56162
-          *color10:      #00A900
+          *color10:      #83FA62
           *color11:      #D5D2FF
           *color12:      #00A9FF
           *color13:      #AC61FF
