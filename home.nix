@@ -374,8 +374,8 @@ in rec {
           *color4:       #00A9FF
           *color5:       #AC61FF
           *color6:       #00D2D5
-          *color7:       #A7A7A7
-          *color8:       #A7A7A7
+          *color7:       #ACA9AC
+          *color8:       #ACA9AC
           *color9:       #D56162
           *color10:      #83FA62
           *color11:      #D5D2FF
