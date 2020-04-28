@@ -181,7 +181,7 @@ in rec {
 
       oh-my-zsh = {
         enable = true;
-        custom = "${xdg.configHome}/zsh_custom";
+        custom = "${./config/zsh_custom}";
         theme = "terminalpartied";
         plugins = [ "extract" ];
       };
@@ -362,7 +362,6 @@ in rec {
       "wallpaper.png".source = ./config/wallpaper.png;
       "wget".source = ./config/wget;
       "xmobar".source = ./config/xmobar;
-      "zsh_custom".source = ./config/zsh_custom;
     };
   };
 
