@@ -150,6 +150,7 @@ in rec {
           start = [
             ReplaceWithRegister
             fzf-vim
+            goyo
             haskell-vim
             neoformat
             targets-vim
