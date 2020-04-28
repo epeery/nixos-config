@@ -349,7 +349,7 @@ in rec {
     configFile = let
       ugly = builtins.fetchGit {
         url = "https://github.com/epeery/vim-ugly";
-        rev = "d9a9e5ab6e3be5567247777d85d677ba3eabe98c";
+        rev = "b51914ee33bd26c9ef3d6ea9a231b8e9466eaf88";
       };
     in {
       "fontconfig/fonts.conf".source = ./config/fontconfig/fonts.conf;
