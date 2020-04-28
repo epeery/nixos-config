@@ -384,7 +384,7 @@ in rec {
           *color14:      #00D2D5
           *color15:      #FFFFFF
           st*font:       Iosevka:size=12:antialias=true:autohint=true
-          st*opacity:    125
+          st*opacity:    150
           st*bold_font:  0
           st.borderpx:   20
         '';
