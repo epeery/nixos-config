@@ -5,9 +5,9 @@ let
   email = "eli.g.peery@gmail.com";
 
   # Paths
-  home = "/home/eli";
-  files = "$HOME/files";
-in {
+  home_directory = builtins.getEnv "HOME";
+  files = "${home_directory}/files";
+in rec {
   imports = [ ./scripts.nix ];
 
   nixpkgs.config.allowUnfree = true;
@@ -18,7 +18,7 @@ in {
   programs = {
     home-manager = {
       enable = true;
-      path = "$XDG_CONFIG_HOME/home-manager";
+      path = "${xdg.configHome}/home-manager";
     };
 
     git = {
@@ -44,7 +44,7 @@ in {
           set nocompatible
 
           set undofile
-          set undodir=~/.config/nvim/undodir
+          set undodir=~/${xdg.configHome}/nvim/undodir
 
           set nobackup
           set nowritebackup
@@ -178,9 +178,10 @@ in {
       enable = true;
       enableAutosuggestions = true;
       dotDir = ".config/zsh";
+
       oh-my-zsh = {
         enable = true;
-        custom = "$HOME/.config/zsh_custom";
+        custom = "${xdg.configHome}/zsh_custom";
         theme = "terminalpartied";
         plugins = [ "extract" ];
       };
@@ -188,22 +189,22 @@ in {
       shellAliases = {
         # Modified versions of programs so they don't pollute $HOME
         startx = "sx";
-        wget = ''wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"'';
+        wget = ''wget --hsts-file="${xdg.cacheHome}/wget-hsts"'';
 
         v = "$EDITOR";
         m = "$MUSIC";
 
-        h = "cd $HOME/.config/nixpkgs";
-        P = "cd $HOME/files/Projects";
-        G = "cd $HOME/files/Git";
-        D = "cd $XDG_DOCUMENTS_DIR";
-        d = "cd $XDG_DOWNLOAD_DIR";
+        h = "cd ${xdg.configHome}/nixpkgs";
+        P = "cd ${files}/Projects";
+        G = "cd ${files}/Git";
+        D = "cd ${xdg.userDirs.documents}";
+        d = "cd ${xdg.userDirs.download}";
       };
 
       initExtra = ''
         [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec sx
 
-        source $XDG_CONFIG_HOME/user-dirs.dirs
+        source ${xdg.configHome}/user-dirs.dirs
       '';
     };
   };
@@ -285,7 +286,7 @@ in {
     screen-locker = {
       enable = true;
       lockCmd =
-        "${pkgs.i3lock}/bin/i3lock -n -c CDCBCD -i ${home}/.config/lockscreen.png -p win";
+        "${pkgs.i3lock}/bin/i3lock -n -c CDCBCD -i ${xdg.configHome}/lockscreen.png -p win";
       inactiveInterval = 5;
     };
 
@@ -295,7 +296,7 @@ in {
         listenAddress = "127.0.0.1";
         port = 6600;
       };
-      musicDirectory = "${home}/files/Music";
+      musicDirectory = xdg.userDirs.music;
     };
 
     udiskie.enable = true;
@@ -329,16 +330,20 @@ in {
 
   xdg = {
     enable = true;
+    configHome = "${home_directory}/.config";
+    dataHome = "${home_directory}/.local/share";
+    cacheHome = "${home_directory}/.cache";
+
     userDirs = {
       enable = true;
-      desktop = "$HOME/files/Desktop";
-      documents = "$HOME/files/Documents";
-      download = "$HOME/files/Downloads";
-      pictures = "$HOME/files/Pictures";
-      videos = "$HOME/files/Videos";
-      music = "$HOME/files/Music";
-      publicShare = "$HOME/files/Public";
-      templates = "$HOME/files/Templates";
+      desktop = "${files}/Desktop";
+      documents = "${files}/Documents";
+      download = "${files}/Downloads";
+      pictures = "${files}/Pictures";
+      videos = "${files}/Videos";
+      music = "${files}/Music";
+      publicShare = "${files}/Public";
+      templates = "${files}/Templates";
     };
 
     configFile = let
@@ -400,12 +405,12 @@ in {
 
       # Cleaning up $HOME
       XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
-      STACK_ROOT = "$XDG_DATA_HOME/stack";
-      NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc";
+      STACK_ROOT = "${xdg.dataHome}/stack";
+      NPM_CONFIG_USERCONFIG = "${xdg.configHome}/npm/npmrc";
       LESSHISTFILE = "-";
-      HISTFILE = "$HOME/.local/share/bash/history";
-      WGETRC = "$HOME/.config/wget/wgetrc";
-      INPUTRC = "$HOME/.config/inputrc";
+      HISTFILE = "${xdg.dataHome}/bash/history";
+      WGETRC = "${xdg.configHome}/wget/wgetrc";
+      INPUTRC = "${xdg.configHome}/inputrc";
     };
 
     packages = let
