@@ -187,10 +187,6 @@ in rec {
       };
 
       shellAliases = {
-        # Modified versions of programs so they don't pollute $HOME
-        startx = "sx";
-        wget = ''wget --hsts-file="${xdg.cacheHome}/wget-hsts"'';
-
         v = "$EDITOR";
         m = "$MUSIC";
 
@@ -199,6 +195,10 @@ in rec {
         G = "cd ${files}/Git";
         D = "cd ${xdg.userDirs.documents}";
         d = "cd ${xdg.userDirs.download}";
+
+        # Modified versions of programs that don't pollute $HOME
+        startx = "sx";
+        wget = ''wget --hsts-file="${xdg.cacheHome}/wget-hsts"'';
       };
 
       initExtra = ''
