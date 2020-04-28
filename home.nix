@@ -362,12 +362,8 @@ in rec {
       "wallpaper.png".source = ./config/wallpaper.png;
       "wget".source = ./config/wget;
       "xmobar".source = ./config/xmobar;
-    };
-  };
 
-  home = {
-    file = {
-      ".config/Xresources".text = ''
+      "Xresources".text = ''
         *foreground:   #FFFFFF
         *background:   #000000
         *color0:       #000000
@@ -392,7 +388,9 @@ in rec {
         st.borderpx:   20
       '';
     };
+  };
 
+  home = {
     sessionVariables = {
       # Default tools
       BROWSER = "brave";
