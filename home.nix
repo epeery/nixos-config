@@ -44,7 +44,7 @@ in rec {
           set nocompatible
 
           set undofile
-          set undodir=~/${xdg.configHome}/nvim/undodir
+          set undodir=${xdg.configHome}/nvim/undodir
 
           set nobackup
           set nowritebackup
