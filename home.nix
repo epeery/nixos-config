@@ -349,7 +349,7 @@ in rec {
     configFile = let
       ugly = builtins.fetchGit {
         url = "https://github.com/epeery/vim-ugly";
-        rev = "b51914ee33bd26c9ef3d6ea9a231b8e9466eaf88";
+        rev = "cf7bb2c943cd251eca81ff5e542cc14a046f827e";
       };
     in {
       "fontconfig/fonts.conf".source = ./config/fontconfig/fonts.conf;
@@ -359,9 +359,17 @@ in rec {
       "npm".source = ./config/npm;
       "nvim/colors/ugly.vim".source = "${ugly}/colors/ugly.vim";
       "pulse/default.pa".source = ./config/pulse/default.pa;
-      "wallpaper.png".source = ./config/wallpaper.png;
       "wget".source = ./config/wget;
       "xmobar".source = ./config/xmobar;
+
+      "wallpaper.png" = {
+        source = ./config/wallpaper.png;
+        onChange = ''
+          if [[ -v DISPLAY ]] ; then
+            $DRY_RUN_CMD setbg
+          fi
+        '';
+      };
 
       "Xresources" = {
         text = ''
