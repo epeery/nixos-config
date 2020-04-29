@@ -135,6 +135,15 @@ in rec {
           xmap <UP> <Plug>(textmanip-move-up)
           xmap <LEFT> <Plug>(textmanip-move-left)
           xmap <RIGHT> <Plug>(textmanip-move-right)
+
+          let g:pencil#wrapModeDefault = 'soft'
+
+          " Enable writer mode
+          augroup pencil
+            autocmd!
+            autocmd FileType markdown,mkd call pencil#init()
+            autocmd FileType text         call pencil#init()
+          augroup END
         '';
 
         packages.customVim = let
