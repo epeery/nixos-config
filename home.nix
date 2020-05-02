@@ -203,6 +203,7 @@ in rec {
         h = "cd ${xdg.configHome}/nixpkgs";
         P = "cd ${files}/Projects";
         G = "cd ${files}/Git";
+        M = "cd ${files}/Music";
         D = "cd ${xdg.userDirs.documents}";
         d = "cd ${xdg.userDirs.download}";
 
