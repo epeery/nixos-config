@@ -75,6 +75,8 @@
     };
   };
 
+  nix.trustedUsers = [ "root" "@wheel" ];
+
   programs.zsh.enable = true;
 
   services.openssh.enable = true;
