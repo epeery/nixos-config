@@ -218,6 +218,11 @@ in rec {
         source ${xdg.configHome}/user-dirs.dirs
       '';
     };
+
+    pazi = {
+      enable = true;
+      enableZshIntegration = true;
+    };
   };
 
   services = {
@@ -459,6 +464,7 @@ in rec {
       mpc_cli
       mpv
       ncmpcpp
+      niv
       nix-prefetch-git
       nixfmt
       nodejs
