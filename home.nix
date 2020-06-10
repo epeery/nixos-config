@@ -207,6 +207,8 @@ in rec {
         D = "cd ${xdg.userDirs.documents}";
         d = "cd ${xdg.userDirs.download}";
 
+        cp = "cp -iv";
+
         # Modified versions of programs that don't pollute $HOME
         startx = "sx";
         wget = ''wget --hsts-file="${xdg.cacheHome}/wget-hsts"'';
@@ -365,7 +367,7 @@ in rec {
     configFile = let
       ugly = builtins.fetchGit {
         url = "https://github.com/epeery/vim-ugly";
-        rev = "cf7bb2c943cd251eca81ff5e542cc14a046f827e";
+        rev = "35d269b55c9b4e1649dab497c53d8dcde894bda0";
       };
     in {
       "fontconfig/fonts.conf".source = ./config/fontconfig/fonts.conf;
@@ -376,10 +378,18 @@ in rec {
       "nvim/colors/ugly.vim".source = "${ugly}/colors/ugly.vim";
       "pulse/default.pa".source = ./config/pulse/default.pa;
       "wget".source = ./config/wget;
-      "xmobar".source = ./config/xmobar;
 
-      "wallpaper.png" = {
-        source = ./config/wallpaper.png;
+      "xmobar" = {
+        source = ./config/xmobar;
+        onChange = ''
+          if [[ -v DISPLAY ]] ; then
+            $DRY_RUN_CMD xmonad --restart
+          fi
+        '';
+      };
+
+      "wallpaper" = {
+        source = ./config/wallpaper;
         onChange = ''
           if [[ -v DISPLAY ]] ; then
             $DRY_RUN_CMD setbg
@@ -457,6 +467,7 @@ in rec {
       gimp
       haskellPackages.xmobar
       i3lock
+      imagemagick
       inkscape
       insomnia
       killall
