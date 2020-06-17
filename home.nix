@@ -317,11 +317,13 @@ in rec {
       musicDirectory = xdg.userDirs.music;
     };
 
+    clipmenu.enable = true;
+
+    lorri.enable = true;
+
     udiskie.enable = true;
 
     unclutter.enable = true;
-
-    lorri.enable = true;
   };
 
   xsession = {
@@ -493,7 +495,6 @@ in rec {
       trigger
       unzip
       wget
-      xclip
       yarn
       zoom-us
     ];
