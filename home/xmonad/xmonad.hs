@@ -19,8 +19,8 @@ main = do
       , layoutHook         = myLayout
       , startupHook        = myStartupHook
       , logHook            = dynamicLogWithPP $ def
-          { ppCurrent      = wrap "<fc=#0081D5>" "</fc>"
-          , ppVisible      = wrap "<fc=#CDCBCD>" "</fc>"
+          { ppCurrent      = wrap ("<fc=" <> color5 <> ">") "</fc>"
+          , ppVisible      = wrap ("<fc=" <> color2 <> ">") "</fc>"
           , ppTitle        = const ""
           , ppLayout       = const ""
           , ppOutput       = hPutStrLn h
@@ -50,6 +50,7 @@ color1 = "#7f7f7f"
 color2 = "#CDCBCD"
 color3 = "#ffffff"
 color4 = "#D56162"
+color5 = "#0081D5"
 
 myBorderWidth = 3
 
@@ -59,17 +60,18 @@ myBrowser = "brave"
 
 myXmobarConfig = "~/.xmonad/xmobar.hs"
 
-myDmenu =
-  "dmenu_run -nb "
-    ++ show color3
-    ++ " -nf "
-    ++ show color0
-    ++ " -sb "
-    ++ show color0
-    ++ " -sf "
-    ++ show color3
+myDmenuConfig =
+  "-nb "
+    <> show color3
+    <> " -nf "
+    <> show color0
+    <> " -sb "
+    <> show color5
+    <> " -sf "
+    <> show color3
 
--- myWorkspaces = applyN 4 pad <$> ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+myDmenu = "dmenu_run " <> myDmenuConfig
+
 myWorkspaces = ("    " <>) . show <$> [1..9]
 
 myModMask = mod4Mask
@@ -79,35 +81,36 @@ myModMask = mod4Mask
 ------------------------------------------------------------------------
 myKeys =
     -- XMonad
-    [ ("M-S-q",        io exitSuccess)                 -- Quit XMonad
+    [ ("M-S-q",        io exitSuccess)                       -- Quit XMonad
 
     -- Programs
-    , ("M-<Return>",   spawn myTerminal)               -- Launch terminal
-    , ("M-w",          spawn myBrowser)                -- Launch browser
-    , ("M-d",          spawn myDmenu)                  -- Launch dmenu
-    , ("M-r",          spawn myFileManager)            -- Launch file-manager
-    , ("M-q",          kill)                           -- Close the focused window
-    , ("M-n",          refresh)                        -- Resize viewed windows to the correct siz
+    , ("M-<Return>",   spawn myTerminal)                     -- Launch terminal
+    , ("M-w",          spawn myBrowser)                      -- Launch browser
+    , ("M-d",          spawn myDmenu)                        -- Launch dmenu
+    , ("M-r",          spawn myFileManager)                  -- Launch file-manager
+    , ("M-c",          spawn $ "clipmenu " <> myDmenuConfig) -- Launch clipmenu
+    , ("M-q",          kill)                                 -- Close the focused window
+    , ("M-n",          refresh)                              -- Resize viewed windows to the correct siz
 
     -- Workspaces
-    , ("M-<Tab>",      windows W.focusDown)            -- Move focus to the next window
-    , ("M-S-<Tab>",    windows W.focusUp)              -- Move focus to the previous window
-    , ("M-j",          windows W.focusDown)            -- Move focus to the next window
-    , ("M-k",          windows W.focusUp)              -- Move focus to the previous window
-    , ("M-m",          windows W.focusMaster)          -- Move focus to the master window
-    , ("M-S-<Return>", windows W.swapMaster)           -- Swap the focused window and the master window
-    , ("M-S-j",        windows W.swapDown)             -- Swap the focused window with the next window
-    , ("M-S-k",        windows W.swapUp)               -- Swap the focused window with the previous window
-    , ("M-<Space>",    sendMessage NextLayout)         -- Rotate through available layouts
-    , ("M-h",          sendMessage Shrink)             -- Shrink the master area
-    , ("M-l",          sendMessage Expand)             -- Expand the master area
-    , ("M-i",          sendMessage (IncMasterN 1))     -- Increment the number of windows in the master area
-    , ("M-o",          sendMessage (IncMasterN (-1)))  -- Deincrement the number of windows in the master area
-    , ("M-t",          withFocused $ windows . W.sink) -- Push window back into tiling
+    , ("M-<Tab>",      windows W.focusDown)                  -- Move focus to the next window
+    , ("M-S-<Tab>",    windows W.focusUp)                    -- Move focus to the previous window
+    , ("M-j",          windows W.focusDown)                  -- Move focus to the next window
+    , ("M-k",          windows W.focusUp)                    -- Move focus to the previous window
+    , ("M-m",          windows W.focusMaster)                -- Move focus to the master window
+    , ("M-S-<Return>", windows W.swapMaster)                 -- Swap the focused window and the master window
+    , ("M-S-j",        windows W.swapDown)                   -- Swap the focused window with the next window
+    , ("M-S-k",        windows W.swapUp)                     -- Swap the focused window with the previous window
+    , ("M-<Space>",    sendMessage NextLayout)               -- Rotate through available layouts
+    , ("M-h",          sendMessage Shrink)                   -- Shrink the master area
+    , ("M-l",          sendMessage Expand)                   -- Expand the master area
+    , ("M-i",          sendMessage (IncMasterN 1))           -- Increment the number of windows in the master area
+    , ("M-o",          sendMessage (IncMasterN (-1)))        -- Deincrement the number of windows in the master area
+    , ("M-t",          withFocused $ windows . W.sink)       -- Push window back into tiling
 
     -- Monitors
-    , ("M-.",          nextScreen)                     -- Switch focus to next monitor
-    , ("M-,",          prevScreen)                     -- Switch focus to prev monitor
+    , ("M-.",          nextScreen)                           -- Switch focus to next monitor
+    , ("M-,",          prevScreen)                           -- Switch focus to prev monitor
     ]
 
 ------------------------------------------------------------------------
