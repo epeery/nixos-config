@@ -1,5 +1,5 @@
-import System.Exit
 import Data.Char
+import System.Exit
 import XMonad
 import XMonad.Actions.CycleWS
 import XMonad.Hooks.DynamicLog
@@ -82,17 +82,6 @@ myModMask = mod4Mask
 myKeys =
     -- XMonad
     [ ("M-S-q",        io exitSuccess)                       -- Quit XMonad
-
-    -- Programs
-    , ("M-<Return>",   spawn myTerminal)                     -- Launch terminal
-    , ("M-w",          spawn myBrowser)                      -- Launch browser
-    , ("M-d",          spawn myDmenu)                        -- Launch dmenu
-    , ("M-r",          spawn myFileManager)                  -- Launch file-manager
-    , ("M-c",          spawn $ "clipmenu " <> myDmenuConfig) -- Launch clipmenu
-    , ("M-q",          kill)                                 -- Close the focused window
-    , ("M-n",          refresh)                              -- Resize viewed windows to the correct siz
-
-    -- Workspaces
     , ("M-<Tab>",      windows W.focusDown)                  -- Move focus to the next window
     , ("M-S-<Tab>",    windows W.focusUp)                    -- Move focus to the previous window
     , ("M-j",          windows W.focusDown)                  -- Move focus to the next window
@@ -107,6 +96,16 @@ myKeys =
     , ("M-i",          sendMessage (IncMasterN 1))           -- Increment the number of windows in the master area
     , ("M-o",          sendMessage (IncMasterN (-1)))        -- Deincrement the number of windows in the master area
     , ("M-t",          withFocused $ windows . W.sink)       -- Push window back into tiling
+    , ("M-b",          sendMessage ToggleStruts)             -- Toggle bar
+
+    -- Programs
+    , ("M-<Return>",   spawn myTerminal)                     -- Launch terminal
+    , ("M-w",          spawn myBrowser)                      -- Launch browser
+    , ("M-d",          spawn myDmenu)                        -- Launch dmenu
+    , ("M-r",          spawn myFileManager)                  -- Launch file-manager
+    , ("M-c",          spawn $ "clipmenu " <> myDmenuConfig) -- Launch clipmenu
+    , ("M-q",          kill)                                 -- Close the focused window
+
 
     -- Monitors
     , ("M-.",          nextScreen)                           -- Switch focus to next monitor
