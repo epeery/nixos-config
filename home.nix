@@ -144,6 +144,10 @@ in rec {
             autocmd FileType markdown,mkd call pencil#init()
             autocmd FileType text         call pencil#init()
           augroup END
+
+          " File formatting
+          let g:neoformat_haskell_ormolu = { 'exe': 'ormolu', 'args': [] }
+          let g:neoformat_enabled_haskell = ['ormolu']
         '';
 
         packages.customVim = let
