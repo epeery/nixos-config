@@ -488,6 +488,7 @@ in rec {
       niv
       nix-prefetch-git
       nixfmt
+      nodePackages.prettier
       nodejs
       pandoc
       papirus-icon-theme
