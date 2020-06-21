@@ -1,10 +1,6 @@
 { pkgs, ... }:
 
 let
-  name = "Eli Peery";
-  email = "eli.g.peery@gmail.com";
-
-  # Paths
   home_directory = builtins.getEnv "HOME";
   files = "${home_directory}/files";
 in rec {
@@ -23,8 +19,8 @@ in rec {
 
     git = {
       enable = true;
-      userName = name;
-      userEmail = email;
+      userName = "Eli Peery";
+      userEmail = "eli.g.peery@gmail.com";
     };
 
     direnv.enable = true;
