@@ -136,7 +136,7 @@ instance Shrinker CustomShrink where
 myLayout =
   noBorders $
     ( avoidStruts $ noFrillsDeco CustomShrink topBarTheme
-          $ spacingRaw True (Border 10 10 10 10) True (Border 10 10 10 10) True
+          $ spacingRaw False (Border 10 10 10 10) True (Border 10 10 10 10) True
           $ Tall 1 (3 / 100) (61.8 / 100)
       )
       ||| Full
