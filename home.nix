@@ -317,6 +317,12 @@ in rec {
         port = 6600;
       };
       musicDirectory = xdg.userDirs.music;
+      extraConfig = ''
+        audio_output {
+              type            "pulse"
+              name            "Local Pulse Audio"
+        }
+      '';
     };
 
     clipmenu.enable = true;
