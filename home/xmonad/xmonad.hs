@@ -5,6 +5,7 @@ import XMonad.Actions.CycleWS
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.NoBorders
 import XMonad.Layout.NoFrillsDecoration
 import XMonad.Layout.Spacing
@@ -18,7 +19,7 @@ main = do
   h <- spawnPipe "xmobar"
   xmonad $ docks $
     def
-      { manageHook = manageDocks <+> insertPosition End Newer <+> namedScratchpadManageHook scratchpads,
+      { manageHook = myManageHook,
         layoutHook = myLayout,
         startupHook = myStartupHook,
         logHook = do
@@ -40,6 +41,13 @@ main = do
         focusedBorderColor = color3
       }
       `additionalKeysP` myKeys
+
+-- https://wiki.haskell.org/Xmonad/General_xmonad.hs_config_tips#ManageHook_examples
+myManageHook :: ManageHook
+myManageHook =
+  manageDocks
+    <+> insertPosition End Newer
+    <+> namedScratchpadManageHook scratchpads
 
 ------------------------------------------------------------------------
 --                             Autostart                              --
@@ -136,9 +144,9 @@ instance Shrinker CustomShrink where
 myLayout =
   noBorders $
     ( avoidStruts $ noFrillsDeco CustomShrink topBarTheme
-          $ spacingRaw False (Border 10 10 10 10) True (Border 10 10 10 10) True
-          $ Tall 1 (3 / 100) (61.8 / 100)
-      )
+        $ spacingRaw False (Border 10 10 10 10) True (Border 10 10 10 10) True
+        $ Tall 1 (3 / 100) (61.8 / 100)
+    )
       ||| Full
   where
     topBarTheme =
