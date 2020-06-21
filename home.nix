@@ -202,9 +202,11 @@ in rec {
 
       shellAliases = {
         v = "$EDITOR";
-        m = "$MUSIC";
+        vx = "$EDITOR ~/.config/nixpkgs/home/xmonad/xmonad.hs";
 
         h = "cd ${xdg.configHome}/nixpkgs";
+        hms = "home-manager switch";
+        hme = "home-manager edit";
         P = "cd ${files}/Projects";
         G = "cd ${files}/Git";
         M = "cd ${files}/Music";
