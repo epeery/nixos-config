@@ -1,4 +1,6 @@
 import Data.Char
+import Data.GI.Base
+import qualified GI.Gtk as Gtk
 import System.Exit
 import XMonad
 import XMonad.Actions.CycleWS
@@ -25,11 +27,11 @@ main = do
           dynamicLogWithPP
             . namedScratchpadFilterOutWorkspacePP
             $ def
-              { ppCurrent = wrap ("<fc=" <> color5 <> ">") "</fc>",
+              { ppCurrent = wrap "<fn=1>" "</fn>",
                 ppLayout = const "",
                 ppOutput = hPutStrLn h,
                 ppTitle = const "",
-                ppVisible = wrap ("<fc=" <> color2 <> ">") "</fc>",
+                ppVisible = wrap ("<fc=" <> color5 <> ">") "</fc>",
                 ppWsSep = " "
               },
         workspaces = myWorkspaces,
@@ -97,7 +99,7 @@ myWorkspaces = ("    " <>) . show <$> [1 .. 9]
 myModMask = mod4Mask
 
 scratchpads =
-  [ NS "ncmpcpp" (myTerminal <> " -n ncmpcpp 'ncmpcpp'") (resource =? "ncmpcpp") (customFloating $ W.RationalRect (1 / 4) (1 / 4) (1 / 2) (1 / 2))
+  [ NS "ncmpcpp" (myTerminal <> " -A 200 -n ncmpcpp 'ncmpcpp'") (resource =? "ncmpcpp") (customFloating $ W.RationalRect (1 / 4) (1 / 4) (1 / 2) (1 / 2))
   ]
 
 ------------------------------------------------------------------------

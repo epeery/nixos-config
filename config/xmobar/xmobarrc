@@ -1,7 +1,9 @@
 Config {
-       font = "xft:Inter UI:pixelsize=14,FontAwesome:pixelsize=14",
-       fgColor = "#000000",
+       font = "xft:Inter UI Extra Light:pixelsize=14,FontAwesome:pixelsize=14",
+       additionalFonts = ["xft:Inter UI Medium:pixelsize=14,FontAwesome:pixelsize=14"],
+       fgColor = "#ffffff",
        bgColor = "#ffffff",
+       alpha = 50,
        commands = [
                 -- Ithaca, NY
                 Run Weather "KITH" ["-t"," <tempF>°F"] 36000,
@@ -19,6 +21,6 @@ Config {
                 ],
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %date%    %KITH%      %battery%    "
+       , template = "%StdinReader% }{ <fn=1> %date%    %KITH%      %battery%    </fn>"
        }
 
