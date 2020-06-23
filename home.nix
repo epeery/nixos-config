@@ -1,6 +1,7 @@
 { pkgs, ... }:
 
 let
+  pkgsUnstable = import <nixpkgs> { };
   home_directory = builtins.getEnv "HOME";
   files = "${home_directory}/files";
 in rec {
@@ -244,9 +245,9 @@ in rec {
         name = "picom-custom";
         version = "1.0";
         src = builtins.fetchGit {
-          url = "https://github.com/tryone144/compton";
-          ref = "feature/dual_kawase";
-          rev = "c67d7d7b2c36f29846c6693a2f39a2e191a2fcc4";
+          url = "https://github.com/ibhagwan/picom";
+          ref = "next";
+          rev = "82ecc90b51fa2489d26ef3f08abe1f06efcb53d8";
         };
       });
     in {
@@ -256,7 +257,10 @@ in rec {
       experimentalBackends = true;
       extraOptions = ''
         blur-method = "dual_kawase";
-        blur-strength = 15;
+        blur-strength = 10;
+        background = false;
+        background-frame = false;
+        background-fixed = false;
         frame-opacity = 0.7;
       '';
     };
@@ -270,7 +274,7 @@ in rec {
       };
       settings = {
         global = {
-          geometry = "400x5-9+30";
+          geometry = "400x5-0+0";
           padding = 8;
           horizontal_padding = 8;
           frame_width = 0;
@@ -284,21 +288,20 @@ in rec {
         };
 
         urgency_low = {
-          background = "#ffffff";
+          background = "#ffffff50";
           foreground = "#000000";
           timeout = 10;
         };
 
         urgency_normal = {
-          background = "#ffffff";
+          background = "#ffffff50";
           foreground = "#000000";
           timeout = 10;
         };
 
         urgency_critical = {
-          background = "#D56162";
-          foreground = "#ffffff";
-          frame_color = "#D56162";
+          background = "#ffffff50";
+          foreground = "#000000";
         };
       };
     };
@@ -461,9 +464,7 @@ in rec {
       INPUTRC = "${xdg.configHome}/inputrc";
     };
 
-    packages = let
-      dunst = pkgs.dunst.override { dunstify = true; };
-      trigger = pkgs.callPackage ./packages/trigger { };
+    packages = let trigger = pkgs.callPackage ./packages/trigger { };
     in with pkgs; [
       brave
       cabal-install
@@ -508,4 +509,18 @@ in rec {
       zoom-us
     ];
   };
+
+  nixpkgs.overlays = [
+    (self: super: {
+      dunst = (pkgsUnstable.dunst.override { dunstify = true; }).overrideAttrs
+        (old: {
+          name = "dunst-custom";
+          version = "1.0";
+          src = builtins.fetchGit {
+            url = "https://github.com/dunst-project/dunst";
+            rev = "1ca271084ab5774f18cddd3d8c0aeedf1027ccce";
+          };
+        });
+    })
+  ];
 }

@@ -1,6 +1,7 @@
 Config {
        font = "xft:Inter UI Extra Light:pixelsize=14,FontAwesome:pixelsize=14",
        additionalFonts = ["xft:Inter UI Medium:pixelsize=14,FontAwesome:pixelsize=14"],
+       position = TopSize C 100 28,
        fgColor = "#ffffff",
        bgColor = "#ffffff",
        alpha = 50,

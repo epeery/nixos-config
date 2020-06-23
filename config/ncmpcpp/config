@@ -40,4 +40,4 @@ statusbar_color = "yellow"
 current_item_inactive_column_prefix = "$(blue)"
 
 # Send notification on song change
-execute_on_song_change = art && dunstify "$(mpc --format '%title% \n%artist% - %album%' current)" -i /tmp/cover.png -r 564568756 &
+execute_on_song_change = art && dunstify -C 564568756 && dunstify "$(mpc --format '%title% \n%artist% - %album%' current)" -i /tmp/cover.png -r 564568756 &
