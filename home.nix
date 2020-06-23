@@ -256,7 +256,7 @@ in rec {
       experimentalBackends = true;
       extraOptions = ''
         blur-method = "dual_kawase";
-        blur-strength = 10;
+        blur-strength = 15;
         frame-opacity = 0.7;
       '';
     };
