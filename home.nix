@@ -276,8 +276,9 @@ in rec {
         global = {
           geometry = "400x5-0+0";
           padding = 8;
-          horizontal_padding = 8;
-          frame_width = 0;
+          horizontal_padding = 7;
+          frame_width = 7;
+          frame_color = "#ffffff20";
           separator_color = "frame";
           vertical_alighment = "center";
           font = "Inter UI 12";
