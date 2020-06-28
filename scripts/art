@@ -5,7 +5,7 @@
 # ffmpeg version                #
 #-------------------------------#
 
-MUSIC_DIR="$HOME/files/Music"
+MUSIC_DIR="$HOME/Music"
 COVER="/tmp/cover.png"
 COVER_SIZE=300
 

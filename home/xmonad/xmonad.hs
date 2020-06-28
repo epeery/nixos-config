@@ -1,4 +1,10 @@
+{-# LANGUAGE OverloadedLabels #-}
+{-# LANGUAGE OverloadedStrings #-}
+
+import Control.Monad (void)
 import Data.Char
+import Data.GI.Base
+import qualified GI.Gtk as Gtk
 import System.Exit
 import XMonad
 import XMonad.Actions.CycleWS
@@ -30,7 +36,7 @@ main = do
                 ppOutput = hPutStrLn h,
                 ppTitle = const "",
                 ppVisible = wrap ("<fc=" <> color5 <> ">") "</fc>",
-                ppWsSep = " "
+                ppWsSep = "  "
               },
         workspaces = myWorkspaces,
         modMask = myModMask,
@@ -97,7 +103,11 @@ myWorkspaces = ("    " <>) . show <$> [1 .. 9]
 myModMask = mod4Mask
 
 scratchpads =
-  [ NS "ncmpcpp" (myTerminal <> " -n ncmpcpp 'ncmpcpp'") (resource =? "ncmpcpp") (customFloating $ W.RationalRect (1 / 4) (1 / 4) (1 / 2) (1 / 2))
+  [ NS
+      "ncmpcpp"
+      (myTerminal <> " -n ncmpcpp 'ncmpcpp'")
+      (resource =? "ncmpcpp")
+      (customFloating $ W.RationalRect (1 / 4) (1 / 4) (1 / 2) (1 / 2))
   ]
 
 ------------------------------------------------------------------------
@@ -131,7 +141,8 @@ myKeys =
     ("M-m", namedScratchpadAction scratchpads "ncmpcpp"),
     -- Monitors
     ("M-.", nextScreen), -- Switch focus to next monitor
-    ("M-,", prevScreen) -- Switch focus to prev monitor
+    ("M-,", prevScreen), -- Switch focus to prev monitor
+    ("M-p", void $ xfork runMain) -- Switch focus to prev monitor
   ]
 
 ------------------------------------------------------------------------
@@ -160,3 +171,24 @@ myLayout =
           urgentTextColor = color3,
           decoHeight = 20
         }
+
+runMain :: IO ()
+runMain = do
+  Gtk.init Nothing
+
+  win <- new Gtk.Window [#title := "Introduction"]
+  on win #destroy Gtk.mainQuit
+  #resize win 640 480
+
+  box <- new Gtk.Box [#orientation := Gtk.OrientationVertical]
+  #add win box
+
+  msg <- new Gtk.Label [#label := "Hello"]
+  #packStart box msg True False 10
+
+  btn <- new Gtk.Button [#label := "Click me!"]
+  #packStart box btn False False 10
+  on btn #clicked (set msg [#label := "Clicked"])
+
+  #showAll win
+  Gtk.main

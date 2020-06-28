@@ -3,12 +3,24 @@
 let
   pkgsUnstable = import <nixpkgs> { };
   home_directory = builtins.getEnv "HOME";
-  files = "${home_directory}/files";
 in rec {
   imports = [ ./scripts.nix ];
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.pulseaudio = true;
+  nixpkgs.overlays = [
+    (self: super: {
+      dunst = (pkgsUnstable.dunst.override { dunstify = true; }).overrideAttrs
+        (old: {
+          name = "dunst-custom";
+          version = "1.0";
+          src = builtins.fetchGit {
+            url = "https://github.com/dunst-project/dunst";
+            rev = "7735c9a4f60ef8cd645a39a98557c8950d0fa9ec";
+          };
+        });
+    })
+  ];
 
   fonts.fontconfig.enable = true;
 
@@ -204,9 +216,9 @@ in rec {
         h = "cd ${xdg.configHome}/nixpkgs";
         hms = "home-manager switch";
         hme = "home-manager edit";
-        P = "cd ${files}/Projects";
-        G = "cd ${files}/Git";
-        M = "cd ${files}/Music";
+        P = "cd ${home_directory}/Projects";
+        G = "cd ${home_directory}/Git";
+        M = "cd ${home_directory}/Music";
         D = "cd ${xdg.userDirs.documents}";
         d = "cd ${xdg.userDirs.download}";
 
@@ -222,6 +234,12 @@ in rec {
 
         source ${xdg.configHome}/user-dirs.dirs
       '';
+    };
+
+    rofi = {
+      enable = true;
+      font = "Inter UI 14";
+      scrollbar = false;
     };
 
     pazi = {
@@ -274,8 +292,8 @@ in rec {
       };
       settings = {
         global = {
-          geometry = "400x5-0+0";
-          padding = 8;
+          geometry = "400x5-13+41";
+          padding = 7;
           horizontal_padding = 7;
           frame_width = 7;
           frame_color = "#ffffff20";
@@ -290,7 +308,7 @@ in rec {
 
         urgency_low = {
           background = "#ffffff50";
-          foreground = "#000000";
+          foreground = "#00000";
           timeout = 10;
         };
 
@@ -355,6 +373,11 @@ in rec {
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
+      extraPackages = haskellPackages:
+        with haskellPackages; [
+          gi-gtk
+          haskell-gi-base
+        ];
       config =
         pkgs.writeText "xmonad.hs" (builtins.readFile ./home/xmonad/xmonad.hs);
     };
@@ -368,14 +391,14 @@ in rec {
 
     userDirs = {
       enable = true;
-      desktop = "${files}/Desktop";
-      documents = "${files}/Documents";
-      download = "${files}/Downloads";
-      pictures = "${files}/Pictures";
-      videos = "${files}/Videos";
-      music = "${files}/Music";
-      publicShare = "${files}/Public";
-      templates = "${files}/Templates";
+      desktop = "${home_directory}/Desktop";
+      documents = "${home_directory}/Documents";
+      download = "${home_directory}/Downloads";
+      pictures = "${home_directory}/Pictures";
+      videos = "${home_directory}/Videos";
+      music = "${home_directory}/Music";
+      publicShare = "${home_directory}/Public";
+      templates = "${home_directory}/Templates";
     };
 
     configFile = let
@@ -487,6 +510,7 @@ in rec {
       mpc_cli
       mpv
       ncmpcpp
+      cinnamon.nemo
       niv
       nix-prefetch-git
       nixfmt
@@ -510,18 +534,4 @@ in rec {
       zoom-us
     ];
   };
-
-  nixpkgs.overlays = [
-    (self: super: {
-      dunst = (pkgsUnstable.dunst.override { dunstify = true; }).overrideAttrs
-        (old: {
-          name = "dunst-custom";
-          version = "1.0";
-          src = builtins.fetchGit {
-            url = "https://github.com/dunst-project/dunst";
-            rev = "1ca271084ab5774f18cddd3d8c0aeedf1027ccce";
-          };
-        });
-    })
-  ];
 }
