@@ -16,7 +16,7 @@ in rec {
           version = "1.0";
           src = builtins.fetchGit {
             url = "https://github.com/dunst-project/dunst";
-            rev = "7735c9a4f60ef8cd645a39a98557c8950d0fa9ec";
+            rev = "0de8610b6715697cc044816358193856115dff40";
           };
         });
     })
