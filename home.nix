@@ -494,6 +494,7 @@ in rec {
       cabal-install
       cabal2nix
       cachix
+      cinnamon.nemo
       dmenu
       dunst
       feh
@@ -510,7 +511,6 @@ in rec {
       mpc_cli
       mpv
       ncmpcpp
-      cinnamon.nemo
       niv
       nix-prefetch-git
       nixfmt
