@@ -19,6 +19,7 @@ import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
+import XMonad.Util.XUtils
 
 main = do
   h <- spawnPipe "xmobar"
@@ -107,6 +108,11 @@ scratchpads =
       "ncmpcpp"
       (myTerminal <> " -n ncmpcpp 'ncmpcpp'")
       (resource =? "ncmpcpp")
+      (customFloating $ W.RationalRect (1 / 4) (1 / 4) (1 / 2) (1 / 2)),
+    NS
+      "transmission-gtk"
+      "transmission-gtk"
+      (resource =? "transmission-gtk")
       (customFloating $ W.RationalRect (1 / 4) (1 / 4) (1 / 2) (1 / 2))
   ]
 
@@ -139,10 +145,10 @@ myKeys =
     ("M-c", spawn $ "clipmenu " <> myDmenuConfig), -- Launch clipmenu
     ("M-q", kill), -- Close the focused window
     ("M-m", namedScratchpadAction scratchpads "ncmpcpp"),
+    ("M-p", namedScratchpadAction scratchpads "transmission-gtk"),
     -- Monitors
     ("M-.", nextScreen), -- Switch focus to next monitor
-    ("M-,", prevScreen), -- Switch focus to prev monitor
-    ("M-p", void $ xfork runMain) -- Switch focus to prev monitor
+    ("M-,", prevScreen) -- Switch focus to prev monitor
   ]
 
 ------------------------------------------------------------------------
