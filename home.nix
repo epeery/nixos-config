@@ -506,6 +506,7 @@ in rec {
       imagemagick
       inkscape
       insomnia
+      kdenlive
       killall
       libnotify
       mpc_cli
