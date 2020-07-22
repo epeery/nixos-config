@@ -176,10 +176,12 @@ in rec {
             haskell-vim
             neoformat
             targets-vim
+            typescript-vim
             ultisnips
             vim-commentary
             vim-easy-align
             vim-exchange
+            vim-jsx-typescript
             vim-nix
             vim-pencil
             vim-slash
@@ -253,7 +255,7 @@ in rec {
       enable = true;
       latitude = "42.443962";
       longitude = "-76.501884";
-      brightness.night = "0.55";
+      brightness.night = "0.75";
       temperature.night = 2000;
       temperature.day = 6000;
     };
