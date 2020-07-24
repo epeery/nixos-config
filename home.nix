@@ -157,6 +157,42 @@ in rec {
           " File formatting
           let g:neoformat_haskell_ormolu = { 'exe': 'ormolu', 'args': [] }
           let g:neoformat_enabled_haskell = ['ormolu']
+
+          " ALE
+          let g:ale_linters_explicit = 1
+
+          map <leader>e :ALEDetail<CR>
+
+          let g:ale_sign_error = '✖'
+          let g:ale_sign_warning = '⚠'
+          highlight clear ALEErrorSign
+          highlight clear ALEWarningSign
+
+          " Coc.nvim
+          " Use K to show documentation in preview window
+          nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+          function! s:show_documentation()
+            if (index(['vim','help'], &filetype) >= 0)
+              execute 'h '.expand('<cword>')
+            else
+              call CocActionAsync('doHover')
+            endif
+          endfunction
+
+          " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+          xmap <leader>a  <Plug>(coc-codeaction-selected)
+          nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+          " Remap for do codeAction of current line
+          nmap <leader>ac  <Plug>(coc-codeaction)
+
+          " Remap keys for gotos
+          nmap <silent> <leader>d <Plug>(coc-definition)
+          nmap <silent> <leader>r <Plug>(coc-references)
+
+          " Remap for rename current word
+          nmap <leader>rn <Plug>(coc-rename)
         '';
 
         packages.customVim = let
@@ -168,9 +204,33 @@ in rec {
               rev = "1948542d12e37f286ef4edd87db4f29e4c7fd771";
             };
           };
+
+          vim-hexokinase = pkgs.vimUtils.buildVimPlugin {
+            pname = "vim-hexokinase";
+            version = "1.0";
+            src = builtins.fetchGit {
+              url = "https://github.com/RRethy/vim-hexokinase";
+              rev = "1788753bd7eb713f1eab089796e1b70c2e410ec5";
+            };
+            buildPhase = let
+              hexokinase = pkgs.buildGoPackage {
+                name = "hexokinase";
+                version = "1.0";
+                goPackagePath = "github.com/RRethy/hexokinase";
+                src = builtins.fetchGit {
+                  url = "https://github.com/RRethy/hexokinase";
+                  rev = "b3057127451ab2ca9b7011c76e84b29fd44b703f";
+                };
+              };
+            in ''
+              cp ${hexokinase}/bin/hexokinase ./hexokinase/hexokinase
+            '';
+          };
         in with pkgs.vimPlugins; {
           start = [
             ReplaceWithRegister
+            ale
+            coc-nvim
             fzf-vim
             goyo
             haskell-vim
@@ -181,6 +241,7 @@ in rec {
             vim-commentary
             vim-easy-align
             vim-exchange
+            vim-hexokinase
             vim-jsx-typescript
             vim-nix
             vim-pencil
@@ -406,7 +467,7 @@ in rec {
     configFile = let
       ugly = builtins.fetchGit {
         url = "https://github.com/epeery/vim-ugly";
-        rev = "35d269b55c9b4e1649dab497c53d8dcde894bda0";
+        rev = "493a5a6ee10b30bbf494475cf3a34cf8dc5de1b3";
       };
     in {
       "fontconfig/fonts.conf".source = ./config/fontconfig/fonts.conf;
