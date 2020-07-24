@@ -281,8 +281,9 @@ in rec {
         P = "cd ${home_directory}/Projects";
         G = "cd ${home_directory}/Git";
         M = "cd ${home_directory}/Music";
-        D = "cd ${xdg.userDirs.documents}";
-        d = "cd ${xdg.userDirs.download}";
+        V = "cd ${home_directory}/Videos";
+        D = "cd ${xdg.userDirs.download}";
+        d = "cd ${xdg.userDirs.documents}";
 
         cp = "cp -iv";
 
