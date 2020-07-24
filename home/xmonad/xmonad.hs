@@ -3,8 +3,7 @@
 
 import Control.Monad (void)
 import Data.Char
-import Data.GI.Base
-import qualified GI.Gtk as Gtk
+import qualified Data.Map as M
 import System.Exit
 import XMonad
 import XMonad.Actions.CycleWS
@@ -14,6 +13,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Layout.NoBorders
 import XMonad.Layout.NoFrillsDecoration
 import XMonad.Layout.Spacing
+import qualified XMonad.StackSet as W
 import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
@@ -154,15 +154,22 @@ myKeys =
 ------------------------------------------------------------------------
 --                              Layouts                               --
 ------------------------------------------------------------------------
+
+data AllFloats = AllFloats deriving (Read, Show)
+
+instance SetsAmbiguous AllFloats where
+  hiddens _ wset _ _ _ = M.keys $ W.floating wset
+
 instance Shrinker CustomShrink where
   shrinkIt _ _ = [""]
 
 myLayout =
-  noBorders $
-    ( avoidStruts $ noFrillsDeco CustomShrink topBarTheme
-        $ spacingRaw False (Border 10 10 10 10) True (Border 10 10 10 10) True
-        $ Tall 1 (3 / 100) (61.8 / 100)
-    )
+  lessBorders AllFloats
+    . noBorders
+    $ ( avoidStruts $ noFrillsDeco CustomShrink topBarTheme
+          $ spacingRaw False (Border 10 10 10 10) True (Border 10 10 10 10) True
+          $ Tall 1 (3 / 100) (61.8 / 100)
+      )
       ||| Full
   where
     topBarTheme =
@@ -177,24 +184,3 @@ myLayout =
           urgentTextColor = color3,
           decoHeight = 20
         }
-
-runMain :: IO ()
-runMain = do
-  Gtk.init Nothing
-
-  win <- new Gtk.Window [#title := "Introduction"]
-  on win #destroy Gtk.mainQuit
-  #resize win 640 480
-
-  box <- new Gtk.Box [#orientation := Gtk.OrientationVertical]
-  #add win box
-
-  msg <- new Gtk.Label [#label := "Hello"]
-  #packStart box msg True False 10
-
-  btn <- new Gtk.Button [#label := "Click me!"]
-  #packStart box btn False False 10
-  on btn #clicked (set msg [#label := "Clicked"])
-
-  #showAll win
-  Gtk.main
