@@ -230,7 +230,6 @@ in rec {
           start = [
             ReplaceWithRegister
             ale
-            coc-nvim
             fzf-vim
             goyo
             haskell-vim
@@ -250,7 +249,7 @@ in rec {
             vim-surround
             vim-textmanip
           ];
-          opt = [ ];
+          opt = with pkgs.vimPlugins; [ coc-nvim ];
         };
       };
     };
