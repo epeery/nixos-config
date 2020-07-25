@@ -61,7 +61,7 @@ in rec {
           filetype plugin on
           set encoding=utf-8
 
-          colorscheme ugly
+          colorscheme new
           set termguicolors
 
           set tabstop=4
@@ -244,6 +244,7 @@ in rec {
             vim-jsx-typescript
             vim-nix
             vim-pencil
+            vim-repeat
             vim-slash
             vim-snippets
             vim-surround
@@ -391,7 +392,7 @@ in rec {
     screen-locker = {
       enable = true;
       lockCmd =
-        "${pkgs.i3lock}/bin/i3lock -n -c CDCBCD -i ${xdg.configHome}/lockscreen.png -p win";
+        "${pkgs.i3lock}/bin/i3lock -n -c CDCBCD -i ${xdg.configHome}/wallpaper -p win";
       inactiveInterval = 5;
     };
 
@@ -471,7 +472,6 @@ in rec {
       };
     in {
       "fontconfig/fonts.conf".source = ./config/fontconfig/fonts.conf;
-      "lockscreen.png".source = ./config/lockscreen.png;
       "ncmpcpp/bindings".source = ./config/ncmpcpp/bindings;
       "ncmpcpp/config".source = ./config/ncmpcpp/config;
       "npm".source = ./config/npm;
@@ -493,32 +493,51 @@ in rec {
         onChange = ''
           if [[ -v DISPLAY ]] ; then
             $DRY_RUN_CMD setbg
+            $DRY_RUN_CMD xmonad --restart
           fi
         '';
       };
 
       "Xresources" = {
         text = ''
+          ! special
           *foreground:   #FFFFFF
-          *background:   #000000
+          *background:   #312968
+          *cursorColor:  #FFFFFF
+
+          ! black
           *color0:       #000000
-          *color1:       #D56162
-          *color2:       #83FA62
-          *color3:       #D5D2FF
-          *color4:       #00A9FF
-          *color5:       #AC61FF
-          *color6:       #00D2D5
-          *color7:       #ACA9AC
           *color8:       #ACA9AC
-          *color9:       #D56162
-          *color10:      #83FA62
-          *color11:      #D5D2FF
-          *color12:      #00A9FF
-          *color13:      #AC61FF
-          *color14:      #00D2D5
+
+          ! red
+          *color1:       #F45B69
+          *color9:       #F45B69
+
+          ! green
+          *color2:       #40F99B
+          *color10:      #40F99B
+
+          ! yellow
+          *color3:       #F9DC5C
+          *color11:      #F9DC5C
+
+          ! blue
+          *color4:       #0ABEFF
+          *color12:      #0ABEFF
+
+          ! magenta
+          *color5:       #C65CFD
+          *color13:      #C65CFD
+
+          ! cyan
+          *color6:       #14FFF7
+          *color14:      #14FFF7
+
+          ! white
+          *color7:       #ACA9AC
           *color15:      #FFFFFF
           st*font:       Iosevka:size=12:antialias=true:autohint=true
-          st*opacity:    150
+          st*opacity:    225
           st*bold_font:  0
           st.borderpx:   20
         '';
