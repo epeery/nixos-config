@@ -434,16 +434,18 @@ in rec {
       fi
     '';
 
-    windowManager.xmonad = {
-      enable = true;
-      enableContribAndExtras = true;
-      extraPackages = haskellPackages:
-        with haskellPackages; [
-          gi-gtk
-          haskell-gi-base
-        ];
-      config =
-        pkgs.writeText "xmonad.hs" (builtins.readFile ./home/xmonad/xmonad.hs);
+    windowManager = {
+      xmonad = {
+        enable = true;
+        enableContribAndExtras = true;
+        extraPackages = haskellPackages:
+          with haskellPackages; [
+            gi-gtk
+            haskell-gi-base
+          ];
+        config = pkgs.writeText "xmonad.hs"
+          (builtins.readFile ./home/xmonad/xmonad.hs);
+      };
     };
   };
 
