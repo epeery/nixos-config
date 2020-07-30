@@ -266,13 +266,6 @@ in rec {
       enableAutosuggestions = true;
       dotDir = ".config/zsh";
 
-      oh-my-zsh = {
-        enable = true;
-        custom = "${./config/zsh_custom}";
-        theme = "terminalpartied";
-        plugins = [ "extract" ];
-      };
-
       shellAliases = {
         v = "$EDITOR";
         vx = "$EDITOR ~/.config/nixpkgs/home/xmonad/xmonad.hs";
@@ -298,6 +291,61 @@ in rec {
         [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec sx
 
         source ${xdg.configHome}/user-dirs.dirs
+
+        setopt PROMPT_SUBST
+        autoload colors
+        colors
+
+        # Taken from https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/git.zsh
+
+        function __git_prompt_git() {
+          GIT_OPTIONAL_LOCKS=0 command git "$@"
+        }
+
+        function git_prompt_info() {
+          local ref
+          if [[ "$(__git_prompt_git config --get oh-my-zsh.hide-status 2>/dev/null)" != "1" ]]; then
+            ref=$(__git_prompt_git symbolic-ref HEAD 2> /dev/null) || \
+            ref=$(__git_prompt_git rev-parse --short HEAD 2> /dev/null) || return 0
+            echo "$ZSH_THEME_GIT_PROMPT_PREFIX''${ref#refs/heads/}$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_SUFFIX"
+          fi
+        }
+
+        # Checks if working tree is dirty
+        function parse_git_dirty() {
+          local STATUS
+          local -a FLAGS
+          FLAGS=('--porcelain')
+          if [[ "$(__git_prompt_git config --get oh-my-zsh.hide-dirty)" != "1" ]]; then
+            if [[ "''${DISABLE_UNTRACKED_FILES_DIRTY:-}" == "true" ]]; then
+              FLAGS+='--untracked-files=no'
+            fi
+            case "''${GIT_STATUS_IGNORE_SUBMODULES:-}" in
+              git)
+                # let git decide (this respects per-repo config in .gitmodules)
+                ;;
+              *)
+                # if unset: ignore dirty submodules
+                # other values are passed to --ignore-submodules
+                FLAGS+="--ignore-submodules=''${GIT_STATUS_IGNORE_SUBMODULES:-dirty}"
+                ;;
+            esac
+            STATUS=$(__git_prompt_git status ''${FLAGS} 2> /dev/null | tail -n1)
+          fi
+          if [[ -n $STATUS ]]; then
+            echo "$ZSH_THEME_GIT_PROMPT_DIRTY"
+          else
+            echo "$ZSH_THEME_GIT_PROMPT_CLEAN"
+          fi
+        }
+
+        PROMPT='%(?,%{$fg[cyan]%},%{$fg[red]%})  '
+        RPS1='%{$fg_bold[black]%}%2~/$(git_prompt_info)%{$reset_color%}'
+
+        ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[white]%}"
+        ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+        ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[cyan]%}  "
+        ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}  "
       '';
     };
 
