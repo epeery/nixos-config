@@ -241,6 +241,7 @@ in rec {
             vim-easy-align
             vim-exchange
             vim-hexokinase
+            vim-javascript
             vim-jsx-typescript
             vim-nix
             vim-pencil
@@ -391,8 +392,7 @@ in rec {
 
     screen-locker = {
       enable = true;
-      lockCmd =
-        "${pkgs.i3lock}/bin/i3lock -n -c CDCBCD -i ${xdg.configHome}/wallpaper -p win";
+      lockCmd = "${pkgs.betterlockscreen}/bin/betterlockscreen -l";
       inactiveInterval = 5;
     };
 
@@ -574,6 +574,7 @@ in rec {
 
     packages = let trigger = pkgs.callPackage ./packages/trigger { };
     in with pkgs; [
+      betterlockscreen
       brave
       cabal-install
       cabal2nix
@@ -586,7 +587,6 @@ in rec {
       fzf
       gimp
       haskellPackages.xmobar
-      i3lock
       imagemagick
       inkscape
       insomnia

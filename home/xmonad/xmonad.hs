@@ -1,6 +1,3 @@
-{-# LANGUAGE OverloadedLabels #-}
-{-# LANGUAGE OverloadedStrings #-}
-
 import Control.Monad (void)
 import Data.Char
 import qualified Data.Map as M
@@ -10,11 +7,11 @@ import XMonad.Actions.CycleWS
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.IndependentScreens
 import XMonad.Layout.NoBorders
 import XMonad.Layout.NoFrillsDecoration
 import XMonad.Layout.Spacing
-import qualified XMonad.StackSet as W
 import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
@@ -22,6 +19,7 @@ import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
 import XMonad.Util.XUtils
 
+main :: IO ()
 main = do
   nScreens <- countScreens
   hs <- sequence $ (spawnPipe . ("xmobar -x" <>) . show) <$> [0 .. nScreens - 1]
@@ -31,18 +29,26 @@ main = do
         layoutHook = myLayout,
         startupHook = myStartupHook,
         logHook = do
+          (S current) <- currentScreenId
           dynamicLogWithPP
             . namedScratchpadFilterOutWorkspacePP
             $ def
               { ppCurrent = wrap "<fn=1>" "</fn>",
                 ppLayout = const "",
-                ppOutput = \s -> mapM_ (`hPutStrLn` s) hs,
+                ppOutput = \s ->
+                  mapM_
+                    ( \(i, h) ->
+                        if i == current
+                          then hPutStrLn h s
+                          else hPutStrLn h ""
+                    )
+                    $ zip [0 ..] hs,
                 ppTitle = const "",
                 ppVisible = wrap ("<fc=" <> color5 <> ">") "</fc>",
                 ppWsSep = "  "
               },
         workspaces = myWorkspaces,
-        modMask = myModMask,
+        modMask = mod4Mask,
         terminal = myTerminal,
         borderWidth = myBorderWidth,
         normalBorderColor = color1,
@@ -50,45 +56,58 @@ main = do
       }
       `additionalKeysP` myKeys
 
--- https://wiki.haskell.org/Xmonad/General_xmonad.hs_config_tips#ManageHook_examples
 myManageHook :: ManageHook
 myManageHook =
-  manageDocks
-    <+> insertPosition End Newer
+  composeOne
+    [ className =? "Gimp" -?> doFloat,
+      isDialog -?> doCenterFloat,
+      pure True -?> insertPosition End Newer
+    ]
+    <+> manageDocks
     <+> namedScratchpadManageHook scratchpads
 
-------------------------------------------------------------------------
---                             Autostart                              --
-------------------------------------------------------------------------
+myStartupHook :: X ()
 myStartupHook = do
   spawnOnce "setbg &"
   spawnOnce "xrdb ~/.config/Xresources &"
 
-------------------------------------------------------------------------
---                             Variables                              --
-------------------------------------------------------------------------
+currentScreenId :: X ScreenId
+currentScreenId = withWindowSet $ return . W.screen . W.current
+
+color0 :: String
 color0 = "#000000"
 
+color1 :: String
 color1 = "#7f7f7f"
 
+color2 :: String
 color2 = "#CDCBCD"
 
+color3 :: String
 color3 = "#ffffff"
 
+color4 :: String
 color4 = "#F45B69"
 
+color5 :: String
 color5 = "#0087B8"
 
+myBorderWidth :: Dimension
 myBorderWidth = 3
 
+myTerminal :: String
 myTerminal = "xst"
 
+myFileManager :: String
 myFileManager = myTerminal <> " -e ranger"
 
+myBrowser :: String
 myBrowser = "brave"
 
+myXmobarConfig :: String
 myXmobarConfig = "~/.xmonad/xmobar.hs"
 
+myDmenuConfig :: String
 myDmenuConfig =
   "-nb "
     <> show color3
@@ -101,26 +120,13 @@ myDmenuConfig =
 
 myDmenu = "dmenu_run " <> myDmenuConfig
 
+myWorkspaces :: [String]
 myWorkspaces = ("    " <>) . show <$> [1 .. 9]
-
-myModMask = mod4Mask
-
-scratchpads =
-  [ NS
-      "ncmpcpp"
-      (myTerminal <> " -n ncmpcpp 'ncmpcpp'")
-      (resource =? "ncmpcpp")
-      (customFloating $ W.RationalRect (1 / 4) (1 / 4) (1 / 2) (1 / 2)),
-    NS
-      "transmission-gtk"
-      "transmission-gtk"
-      (resource =? "transmission-gtk")
-      (customFloating $ W.RationalRect (1 / 4) (1 / 4) (1 / 2) (1 / 2))
-  ]
 
 ------------------------------------------------------------------------
 --                            Keybindings                             --
 ------------------------------------------------------------------------
+myKeys :: [(String, X ())]
 myKeys =
   -- XMonad
   [ ("M-S-q", io exitSuccess), -- Quit XMonad
@@ -137,8 +143,6 @@ myKeys =
     ("M-i", sendMessage (IncMasterN 1)), -- Increment the number of windows in the master area
     ("M-o", sendMessage (IncMasterN (-1))), -- Deincrement the number of windows in the master area
     ("M-t", withFocused $ windows . W.sink), -- Push window back into tiling
-    -- ("M-b", sendMessage ToggleStruts), -- Toggle bar
-
     -- Programs
     ("M-<Return>", spawn myTerminal), -- Launch terminal
     ("M-w", spawn myBrowser), -- Launch browser
@@ -186,3 +190,17 @@ myLayout =
           urgentTextColor = color3,
           decoHeight = 20
         }
+
+scratchpads :: [NamedScratchpad]
+scratchpads =
+  [ NS
+      "ncmpcpp"
+      (myTerminal <> " -n ncmpcpp 'ncmpcpp'")
+      (resource =? "ncmpcpp")
+      (customFloating $ W.RationalRect (1 / 4) (1 / 4) (1 / 2) (1 / 2)),
+    NS
+      "transmission-gtk"
+      "transmission-gtk"
+      (resource =? "transmission-gtk")
+      (customFloating $ W.RationalRect (1 / 4) (1 / 4) (1 / 2) (1 / 2))
+  ]
