@@ -38,11 +38,29 @@
   };
 
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
+
+  hardware.pulseaudio = {
+    enable = true;
+  };
 
   services.xserver = {
     enable = true;
-    displayManager.startx.enable = true;
+
+    displayManager.startx.enable = false;
+
+    displayManager.lightdm = {
+      enable = true;
+      background = ../config/wallpaper;
+    };
+
+    windowManager.session = [{
+      name = "home-manager";
+      start = ''
+        ${pkgs.runtimeShell} $HOME/.xinitrc &
+        waitPID=$!
+      '';
+    }];
+    displayManager.defaultSession = "none+home-manager";
   };
 
   users = {
@@ -64,7 +82,7 @@
     users.eli = {
       isNormalUser = true;
       uid = 1000;
-      extraGroups = [ "wheel" "networkmanager" ];
+      extraGroups = [ "wheel" "networkmanager" "jackaudio" ];
       openssh.authorizedKeys.keys = [
         (builtins.readFile (builtins.fetchurl {
           url = "https://github.com/epeery.keys";

@@ -83,6 +83,9 @@ in rec {
           " Enable background buffers
           set hidden
 
+          " Disable automatic commenting:
+          autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
           " Enable Normal more inside of :terminal
           tnoremap <Esc> <C-\><C-n>
 
@@ -233,6 +236,7 @@ in rec {
             fzf-vim
             goyo
             haskell-vim
+            matchit-zip
             neoformat
             targets-vim
             typescript-vim
@@ -251,7 +255,7 @@ in rec {
             vim-surround
             vim-textmanip
           ];
-          opt = with pkgs.vimPlugins; [ coc-nvim ];
+          opt = [ coc-nvim ];
         };
       };
     };
@@ -265,6 +269,7 @@ in rec {
       enable = true;
       enableAutosuggestions = true;
       dotDir = ".config/zsh";
+      autocd = true;
 
       shellAliases = {
         v = "$EDITOR";
@@ -288,13 +293,16 @@ in rec {
       };
 
       initExtra = ''
-        [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec sx
+        # [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec sx
 
         source ${xdg.configHome}/user-dirs.dirs
 
         setopt PROMPT_SUBST
         autoload colors
         colors
+
+        bindkey "^A" vi-beginning-of-line
+        bindkey "^E" vi-end-of-line
 
         # Taken from https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/git.zsh
 
@@ -459,6 +467,8 @@ in rec {
       '';
     };
 
+    fluidsynth.enable = true;
+
     clipmenu.enable = true;
 
     lorri.enable = true;
@@ -486,11 +496,6 @@ in rec {
       xmonad = {
         enable = true;
         enableContribAndExtras = true;
-        extraPackages = haskellPackages:
-          with haskellPackages; [
-            gi-gtk
-            haskell-gi-base
-          ];
         config = pkgs.writeText "xmonad.hs"
           (builtins.readFile ./home/xmonad/xmonad.hs);
       };
@@ -611,7 +616,7 @@ in rec {
       MUSIC = "ncmpcpp";
 
       # Cleaning up $HOME
-      XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
+      # XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
       STACK_ROOT = "${xdg.dataHome}/stack";
       NPM_CONFIG_USERCONFIG = "${xdg.configHome}/npm/npmrc";
       LESSHISTFILE = "-";

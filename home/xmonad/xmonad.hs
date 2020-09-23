@@ -22,7 +22,7 @@ import XMonad.Util.XUtils
 main :: IO ()
 main = do
   nScreens <- countScreens
-  hs <- sequence $ (spawnPipe . ("xmobar -x" <>) . show) <$> [0 .. nScreens - 1]
+  hs <- traverse (spawnPipe . ("xmobar -x" <>) . show) [0 .. nScreens - 1]
   xmonad $ docks $
     def
       { manageHook = myManageHook,
