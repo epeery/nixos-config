@@ -375,7 +375,7 @@ in rec {
       latitude = "42.443962";
       longitude = "-76.501884";
       brightness.night = "0.75";
-      temperature.night = 2000;
+      temperature.night = 3000;
       temperature.day = 6000;
     };
 
