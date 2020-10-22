@@ -82,7 +82,7 @@
     users.eli = {
       isNormalUser = true;
       uid = 1000;
-      extraGroups = [ "wheel" "networkmanager" "jackaudio" ];
+      extraGroups = [ "wheel" "networkmanager" ];
       openssh.authorizedKeys.keys = [
         (builtins.readFile (builtins.fetchurl {
           url = "https://github.com/epeery.keys";
