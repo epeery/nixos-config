@@ -45,219 +45,255 @@ in rec {
       viAlias = true;
       vimAlias = true;
       withNodeJs = true;
-      configure = {
-        customRC = ''
-          let mapleader=","
+      extraConfig = ''
+        let mapleader=","
 
-          set clipboard=unnamedplus
-          set nocompatible
+        set clipboard=unnamedplus
+        set nocompatible
 
-          set undofile
-          set undodir=${xdg.configHome}/nvim/undodir
+        set undofile
+        set undodir=${xdg.configHome}/nvim/undodir
 
-          set nobackup
-          set nowritebackup
+        set nobackup
+        set nowritebackup
 
-          filetype plugin on
-          set encoding=utf-8
+        filetype plugin on
+        set encoding=utf-8
 
-          colorscheme new
-          set termguicolors
+        colorscheme new
+        set termguicolors
 
-          set tabstop=4
-          set expandtab
-          set softtabstop=2
-          set shiftwidth=2
-          set shiftround
+        set tabstop=4
+        set expandtab
+        set softtabstop=2
+        set shiftwidth=2
+        set shiftround
 
-          set splitbelow splitright
+        set splitbelow splitright
 
-          " Make whitespace visible
-          set list
-          set listchars=tab:··,trail:·
+        " Make whitespace visible
+        set list
+        set listchars=tab:··,trail:·
 
-          " Better searching
-          set ignorecase
-          set smartcase
+        " Better searching
+        set ignorecase
+        set smartcase
 
-          " Enable background buffers
-          set hidden
+        " Enable background buffers
+        set hidden
 
-          " Disable automatic commenting:
-          autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+        " Disable automatic commenting:
+        autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-          " Enable Normal more inside of :terminal
-          tnoremap <Esc> <C-\><C-n>
+        " Enable Normal more inside of :terminal
+        tnoremap <Esc> <C-\><C-n>
 
-          " Scroll faster
-          nnoremap <C-e> 3<C-e>
-          nnoremap <C-y> 3<C-y>
+        " Scroll faster
+        nnoremap <C-e> 3<C-e>
+        nnoremap <C-y> 3<C-y>
 
-          " Replace all
-          nnoremap S :%s//g<Left><Left>
+        " Replace all
+        nnoremap S :%s//g<Left><Left>
 
-          " Delete whitespace on save
-          autocmd BufWritePre * %s/\s\+$//e
+        " Delete whitespace on save
+        autocmd BufWritePre * %s/\s\+$//e
 
-          map <leader>f :Files<CR>
-          map <leader>b :Buffers<CR>
+        map <leader>f :Files<CR>
+        map <leader>b :Buffers<CR>
 
-          " Toggle spellcheck
-          map <leader>s :setlocal spell! spelllang=en_us<CR>
+        " Toggle spellcheck
+        map <leader>s :setlocal spell! spelllang=en_us<CR>
 
-          " Prettify
-          map <leader>p :Neoformat<CR>
+        " Prettify
+        map <leader>p :Neoformat<CR>
 
-          " Start interactive EasyAlign in visual mode (e.g. vipga)
-          xmap ga <Plug>(EasyAlign)
+        " Start interactive EasyAlign in visual mode (e.g. vipga)
+        xmap ga <Plug>(EasyAlign)
 
-          " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-          nmap ga <Plug>(EasyAlign)
+        " Start interactive EasyAlign for a motion/text object (e.g. gaip)
+        nmap ga <Plug>(EasyAlign)
 
-          " Center view after search
-          noremap <Plug>(slash-after) zz
+        " Center view after search
+        noremap <Plug>(slash-after) zz
 
-          " Toggle hidden
-          function! ToggleHiddenAll()
-              if s:hidden_all  == 0
-                  let s:hidden_all = 1
-                  set nonumber
-                  set relativenumber!
-                  set noshowmode
-                  set noruler
-                  set laststatus=0
-                  set noshowcmd
-              else
-                  let s:hidden_all = 0
-                  set number relativenumber
-                  set showmode
-                  set ruler
-                  set laststatus=2
-                  set showcmd
-              endif
-          endfunction
-          nnoremap <M-h> :call ToggleHiddenAll()<CR>:<Del>
-
-          let s:hidden_all = 0
-          set number relativenumber
-          call ToggleHiddenAll()
-
-          " Rearrange lines
-          xmap <DOWN> <Plug>(textmanip-move-down)
-          xmap <UP> <Plug>(textmanip-move-up)
-          xmap <LEFT> <Plug>(textmanip-move-left)
-          xmap <RIGHT> <Plug>(textmanip-move-right)
-
-          let g:pencil#wrapModeDefault = 'soft'
-
-          " Enable writer mode
-          augroup pencil
-            autocmd!
-            autocmd FileType markdown,mkd call pencil#init()
-            autocmd FileType text         call pencil#init()
-          augroup END
-
-          " File formatting
-          let g:neoformat_haskell_ormolu = { 'exe': 'ormolu', 'args': [] }
-          let g:neoformat_enabled_haskell = ['ormolu']
-
-          " ALE
-          let g:ale_linters_explicit = 1
-
-          map <leader>e :ALEDetail<CR>
-
-          let g:ale_sign_error = '✖'
-          let g:ale_sign_warning = '⚠'
-          highlight clear ALEErrorSign
-          highlight clear ALEWarningSign
-
-          " Coc.nvim
-          " Use K to show documentation in preview window
-          nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-          function! s:show_documentation()
-            if (index(['vim','help'], &filetype) >= 0)
-              execute 'h '.expand('<cword>')
+        " Toggle hidden
+        function! ToggleHiddenAll()
+            if s:hidden_all  == 0
+                let s:hidden_all = 1
+                set nonumber
+                set relativenumber!
+                set noshowmode
+                set noruler
+                set laststatus=0
+                set noshowcmd
             else
-              call CocActionAsync('doHover')
+                let s:hidden_all = 0
+                set number relativenumber
+                set showmode
+                set ruler
+                set laststatus=2
+                set showcmd
             endif
-          endfunction
+        endfunction
+        nnoremap <M-h> :call ToggleHiddenAll()<CR>:<Del>
 
-          " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-          xmap <leader>a  <Plug>(coc-codeaction-selected)
-          nmap <leader>a  <Plug>(coc-codeaction-selected)
+        let s:hidden_all = 0
+        set number relativenumber
+        call ToggleHiddenAll()
 
-          " Remap for do codeAction of current line
-          nmap <leader>ac  <Plug>(coc-codeaction)
+        " Rearrange lines
+        xmap <DOWN> <Plug>(textmanip-move-down)
+        xmap <UP> <Plug>(textmanip-move-up)
+        xmap <LEFT> <Plug>(textmanip-move-left)
+        xmap <RIGHT> <Plug>(textmanip-move-right)
 
-          " Remap keys for gotos
-          nmap <silent> <leader>d <Plug>(coc-definition)
-          nmap <silent> <leader>r <Plug>(coc-references)
+        let g:pencil#wrapModeDefault = 'soft'
 
-          " Remap for rename current word
-          nmap <leader>rn <Plug>(coc-rename)
-        '';
+        " Enable writer mode
+        augroup pencil
+          autocmd!
+          autocmd FileType markdown,mkd call pencil#init()
+          autocmd FileType text         call pencil#init()
+        augroup END
 
-        packages.customVim = let
-          vim-textmanip = pkgs.vimUtils.buildVimPlugin {
-            pname = "vim-textmanip";
-            version = "2.0";
-            src = builtins.fetchGit {
-              url = "https://github.com/t9md/vim-textmanip";
-              rev = "1948542d12e37f286ef4edd87db4f29e4c7fd771";
-            };
+        " File formatting
+        let g:neoformat_haskell_ormolu = { 'exe': 'ormolu', 'args': [] }
+        let g:neoformat_enabled_haskell = ['ormolu']
+
+        " ALE
+        let g:ale_linters_explicit = 1
+
+        map <leader>e :ALEDetail<CR>
+
+        let g:ale_sign_error = '✖'
+        let g:ale_sign_warning = '⚠'
+        highlight clear ALEErrorSign
+        highlight clear ALEWarningSign
+
+        " Coc.nvim
+        " Use K to show documentation in preview window
+        nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+        function! s:show_documentation()
+          if (index(['vim','help'], &filetype) >= 0)
+            execute 'h '.expand('<cword>')
+          else
+            call CocActionAsync('doHover')
+          endif
+        endfunction
+
+        " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+        xmap <leader>a  <Plug>(coc-codeaction-selected)
+        nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+        " Remap for do codeAction of current line
+        nmap <leader>ac  <Plug>(coc-codeaction)
+
+        " Remap keys for gotos
+        nmap <silent> <leader>d <Plug>(coc-definition)
+        nmap <silent> <leader>r <Plug>(coc-references)
+
+        " Remap for rename current word
+        nmap <leader>rn <Plug>(coc-rename)
+      '';
+
+      plugins = let
+        vim-textmanip = pkgs.vimUtils.buildVimPlugin {
+          pname = "vim-textmanip";
+          version = "2.0";
+          src = builtins.fetchGit {
+            url = "https://github.com/t9md/vim-textmanip";
+            rev = "1948542d12e37f286ef4edd87db4f29e4c7fd771";
           };
+        };
 
-          vim-hexokinase = pkgs.vimUtils.buildVimPlugin {
-            pname = "vim-hexokinase";
-            version = "1.0";
-            src = builtins.fetchGit {
-              url = "https://github.com/RRethy/vim-hexokinase";
-              rev = "1788753bd7eb713f1eab089796e1b70c2e410ec5";
-            };
-            buildPhase = let
-              hexokinase = pkgs.buildGoPackage {
-                name = "hexokinase";
-                version = "1.0";
-                goPackagePath = "github.com/RRethy/hexokinase";
-                src = builtins.fetchGit {
-                  url = "https://github.com/RRethy/hexokinase";
-                  rev = "b3057127451ab2ca9b7011c76e84b29fd44b703f";
-                };
+        vim-hexokinase = pkgs.vimUtils.buildVimPlugin {
+          pname = "vim-hexokinase";
+          version = "1.0";
+          src = builtins.fetchGit {
+            url = "https://github.com/RRethy/vim-hexokinase";
+            rev = "1788753bd7eb713f1eab089796e1b70c2e410ec5";
+          };
+          buildPhase = let
+            hexokinase = pkgs.buildGoPackage {
+              name = "hexokinase";
+              version = "1.0";
+              goPackagePath = "github.com/RRethy/hexokinase";
+              src = builtins.fetchGit {
+                url = "https://github.com/RRethy/hexokinase";
+                rev = "b3057127451ab2ca9b7011c76e84b29fd44b703f";
               };
-            in ''
-              cp ${hexokinase}/bin/hexokinase ./hexokinase/hexokinase
+            };
+          in ''
+            cp ${hexokinase}/bin/hexokinase ./hexokinase/hexokinase
+          '';
+        };
+
+        markdown-preview = let
+          src = pkgs.fetchFromGitHub {
+            owner = "iamcco";
+            repo = "markdown-preview.nvim";
+            rev = "d319eaac9ef155d2e2cb846c6754a22e9e8a494a";
+            sha256 = "1mch9s2fbk068q2hrxz5ksrw4b15h8vdxg1zi9ads9s4v8rb3hcg";
+          };
+          app = pkgs.mkYarnPackage {
+            name = "markdown-preview-app";
+            src = "${src}/app";
+            packageJSON = ./plugins/markdown-preview/package.json;
+            yarnLock = ./plugins/markdown-preview/yarn.lock;
+            yarnNix = ./plugins/markdown-preview/yarn.nix;
+            installPhase = ''
+              mkdir $out
+              mv node_modules $out/node_modules
+              mv deps $out/deps
+            '';
+            distPhase = ''
+              true
             '';
           };
-        in with pkgs.vimPlugins; {
-          start = [
-            ReplaceWithRegister
-            ale
-            fzf-vim
-            goyo
-            haskell-vim
-            matchit-zip
-            neoformat
-            targets-vim
-            typescript-vim
-            ultisnips
-            vim-commentary
-            vim-easy-align
-            vim-exchange
-            vim-hexokinase
-            vim-javascript
-            vim-jsx-typescript
-            vim-nix
-            vim-pencil
-            vim-repeat
-            vim-slash
-            vim-snippets
-            vim-surround
-            vim-textmanip
+
+        in pkgs.vimUtils.buildVimPluginFrom2Nix {
+          pname = "markdown-preview";
+          version = "2020-09-09";
+          src = src;
+          patches = [
+            (pkgs.substituteAll {
+              src = ./plugins/markdown-preview/node-path.patch;
+              node = "${pkgs.nodejs}/bin/node";
+            })
           ];
-          opt = [ coc-nvim ];
+          buildPhase = ''
+            rm -r app
+            ln -s ${app}/deps/markdown-preview-vim app
+          '';
         };
-      };
+      in with pkgs.vimPlugins; [
+        ReplaceWithRegister
+        ale
+        coc-nvim
+        fzf-vim
+        goyo
+        haskell-vim
+        markdown-preview
+        matchit-zip
+        neoformat
+        targets-vim
+        typescript-vim
+        ultisnips
+        vim-commentary
+        vim-easy-align
+        vim-exchange
+        vim-hexokinase
+        vim-javascript
+        vim-jsx-typescript
+        vim-nix
+        vim-pencil
+        vim-repeat
+        vim-slash
+        vim-snippets
+        vim-surround
+        vim-textmanip
+      ];
     };
 
     emacs = {
@@ -413,6 +449,7 @@ in rec {
       };
       settings = {
         global = {
+          allow-markup = "yes";
           geometry = "400x5-13+41";
           padding = 7;
           horizontal_padding = 7;
@@ -447,7 +484,7 @@ in rec {
     };
 
     screen-locker = {
-      enable = true;
+      enable = false;
       lockCmd = "${pkgs.betterlockscreen}/bin/betterlockscreen -l";
       inactiveInterval = 5;
     };
@@ -556,45 +593,45 @@ in rec {
       "Xresources" = {
         text = ''
           ! special
-          *foreground:   #FFFFFF
-          *background:   #312968
-          *cursorColor:  #FFFFFF
+          *foreground:    #FFFFFF
+          *background:    #312968
+          *cursorColor:   #FFFFFF
 
           ! black
-          *color0:       #000000
-          *color8:       #ACA9AC
+          *color0:        #000000
+          *color8:        #ACA9AC
 
           ! red
-          *color1:       #F45B69
-          *color9:       #F45B69
+          *color1:        #F45B69
+          *color9:        #F45B69
 
           ! green
-          *color2:       #40F99B
-          *color10:      #40F99B
+          *color2:        #40F99B
+          *color10:       #40F99B
 
           ! yellow
-          *color3:       #F9DC5C
-          *color11:      #F9DC5C
+          *color3:        #F9DC5C
+          *color11:       #F9DC5C
 
           ! blue
-          *color4:       #0ABEFF
-          *color12:      #0ABEFF
+          *color4:        #0ABEFF
+          *color12:       #0ABEFF
 
           ! magenta
-          *color5:       #C65CFD
-          *color13:      #C65CFD
+          *color5:        #C65CFD
+          *color13:       #C65CFD
 
           ! cyan
-          *color6:       #14FFF7
-          *color14:      #14FFF7
+          *color6:        #14FFF7
+          *color14:       #14FFF7
 
           ! white
-          *color7:       #ACA9AC
-          *color15:      #FFFFFF
-          st*font:       Iosevka:size=12:antialias=true:autohint=true
-          st*opacity:    225
-          st*bold_font:  0
-          st.borderpx:   20
+          *color7:        #ACA9AC
+          *color15:       #FFFFFF
+          st*font:        Iosevka:size=12:antialias=true:autohint=true
+          st*opacity:     225
+          st*disablebold: 1
+          st.borderpx:    20
         '';
         onChange = ''
           if [[ -v DISPLAY ]] ; then
@@ -623,11 +660,16 @@ in rec {
       HISTFILE = "${xdg.dataHome}/bash/history";
       WGETRC = "${xdg.configHome}/wget/wgetrc";
       INPUTRC = "${xdg.configHome}/inputrc";
+
+      # Other variables
+      FZF_DEFAULT_COMMAND =
+        "rg --files --follow --no-ignore-vcs --hidden -g '!{node_modules/*,.git/*}'";
     };
 
     packages = let trigger = pkgs.callPackage ./packages/trigger { };
     in with pkgs; [
       betterlockscreen
+      binutils
       brave
       cabal-install
       cabal2nix

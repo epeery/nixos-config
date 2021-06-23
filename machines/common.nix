@@ -5,6 +5,13 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "ntfs" ];
+
+  # fileSystems."/path/to/mount/to" = {
+  #   device = "/path/to/the/device";
+  #   fsType = "ntfs";
+  #   options = [ "rw" "uid=theUidOfYourUser" ];
+  # };
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -19,7 +26,7 @@
 
   fonts = let
   in {
-    enableFontDir = true;
+    fontDir.enable = true;
     fontconfig.enable = true;
     fonts = with pkgs; [
       (iosevka.override {
@@ -39,9 +46,7 @@
 
   sound.enable = true;
 
-  hardware.pulseaudio = {
-    enable = true;
-  };
+  hardware.pulseaudio = { enable = true; };
 
   services.xserver = {
     enable = true;
@@ -86,7 +91,7 @@
       openssh.authorizedKeys.keys = [
         (builtins.readFile (builtins.fetchurl {
           url = "https://github.com/epeery.keys";
-          sha256 = "1kf1b883iwnx0bqpvyad80vwpnlg912pbr1jmi07lyyy768h2ryn";
+          sha256 = "0mdqa9w1p6cmli6976v4wi0sw9r4p5prkj7lzfd1877wk11c9c73";
         }))
       ];
 
