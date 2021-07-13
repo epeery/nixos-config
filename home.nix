@@ -10,7 +10,7 @@ in rec {
   nixpkgs.config.pulseaudio = true;
   nixpkgs.overlays = [
     (self: super: {
-      dunst = (pkgsUnstable.dunst.override { dunstify = true; }).overrideAttrs
+      dunst = pkgsUnstable.dunst.overrideAttrs
         (old: {
           name = "dunst-custom";
           version = "1.0";
@@ -270,7 +270,7 @@ in rec {
       in with pkgs.vimPlugins; [
         ReplaceWithRegister
         ale
-        coc-nvim
+        # coc-nvim
         fzf-vim
         goyo
         haskell-vim
@@ -310,10 +310,12 @@ in rec {
       shellAliases = {
         v = "$EDITOR";
         vx = "$EDITOR ~/.config/nixpkgs/home/xmonad/xmonad.hs";
+        td = "cd $TODOS; bash ./todos";
 
         h = "cd ${xdg.configHome}/nixpkgs";
         hms = "home-manager switch";
         hme = "home-manager edit";
+
         P = "cd ${home_directory}/Projects";
         G = "cd ${home_directory}/Git";
         M = "cd ${home_directory}/Music";
@@ -652,6 +654,9 @@ in rec {
       EDITOR = "nvim";
       MUSIC = "ncmpcpp";
 
+      # Common locations
+      TODOS = "~/Documents/todos";
+
       # Cleaning up $HOME
       # XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
       STACK_ROOT = "${xdg.dataHome}/stack";
@@ -668,7 +673,7 @@ in rec {
 
     packages = let trigger = pkgs.callPackage ./packages/trigger { };
     in with pkgs; [
-      betterlockscreen
+      # betterlockscreen
       binutils
       brave
       cabal-install
@@ -712,6 +717,7 @@ in rec {
       wget
       yarn
       zoom-us
+      tor-browser-bundle-bin
     ];
   };
 }

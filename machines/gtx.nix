@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{ ... }: {
   imports = [ ./common.nix ];
 
   networking.hostName = "eliPC";

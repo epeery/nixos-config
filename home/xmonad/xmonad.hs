@@ -1,3 +1,6 @@
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+
 import Control.Monad (void)
 import Data.Char
 import qualified Data.Map as M
@@ -9,6 +12,7 @@ import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.IndependentScreens
+import XMonad.Layout.LayoutModifier
 import XMonad.Layout.NoBorders
 import XMonad.Layout.NoFrillsDecoration
 import XMonad.Layout.Spacing
@@ -23,38 +27,39 @@ main :: IO ()
 main = do
   nScreens <- countScreens
   hs <- traverse (spawnPipe . ("xmobar -x" <>) . show) [0 .. nScreens - 1]
-  xmonad $ docks $
-    def
-      { manageHook = myManageHook,
-        layoutHook = myLayout,
-        startupHook = myStartupHook,
-        logHook = do
-          (S current) <- currentScreenId
-          dynamicLogWithPP
-            . namedScratchpadFilterOutWorkspacePP
-            $ def
-              { ppCurrent = wrap "<fn=1>" "</fn>",
-                ppLayout = const "",
-                ppOutput = \s ->
-                  mapM_
-                    ( \(i, h) ->
-                        if i == current
-                          then hPutStrLn h s
-                          else hPutStrLn h ""
-                    )
-                    $ zip [0 ..] hs,
-                ppTitle = const "",
-                ppVisible = wrap ("<fc=" <> color5 <> ">") "</fc>",
-                ppWsSep = "  "
-              },
-        workspaces = myWorkspaces,
-        modMask = mod4Mask,
-        terminal = myTerminal,
-        borderWidth = myBorderWidth,
-        normalBorderColor = color1,
-        focusedBorderColor = color3
-      }
-      `additionalKeysP` myKeys
+  xmonad $
+    docks $
+      def
+        { manageHook = myManageHook,
+          layoutHook = myLayout,
+          startupHook = myStartupHook,
+          logHook = do
+            (S current) <- currentScreenId
+            dynamicLogWithPP
+              . namedScratchpadFilterOutWorkspacePP
+              $ def
+                { ppCurrent = wrap "<fn=1>" "</fn>",
+                  ppLayout = const "",
+                  ppOutput = \s ->
+                    mapM_
+                      ( \(i, h) ->
+                          if i == current
+                            then hPutStrLn h s
+                            else hPutStrLn h ""
+                      )
+                      $ zip [0 ..] hs,
+                  ppTitle = const "",
+                  ppVisible = wrap ("<fc=" <> color5 <> ">") "</fc>",
+                  ppWsSep = "  "
+                },
+          workspaces = myWorkspaces,
+          modMask = mod4Mask,
+          terminal = myTerminal,
+          borderWidth = myBorderWidth,
+          normalBorderColor = color1,
+          focusedBorderColor = color3
+        }
+        `additionalKeysP` myKeys
 
 myManageHook :: ManageHook
 myManageHook =
@@ -143,7 +148,7 @@ myKeys =
     ("M-i", sendMessage (IncMasterN 1)), -- Increment the number of windows in the master area
     ("M-o", sendMessage (IncMasterN (-1))), -- Deincrement the number of windows in the master area
     ("M-t", withFocused $ windows . W.sink), -- Push window back into tiling
-    -- Programs
+    -- PHi, there, How areyourograms
     ("M-<Return>", spawn myTerminal), -- Launch terminal
     ("M-w", spawn myBrowser), -- Launch browser
     ("M-d", spawn myDmenu), -- Launch dmenu
@@ -169,28 +174,6 @@ instance SetsAmbiguous AllFloats where
 instance Shrinker CustomShrink where
   shrinkIt _ _ = [""]
 
-myLayout =
-  lessBorders AllFloats
-    . noBorders
-    $ ( avoidStruts $ noFrillsDeco CustomShrink topBarTheme
-          $ spacingRaw False (Border 10 10 10 10) True (Border 10 10 10 10) True
-          $ Tall 1 (3 / 100) (61.8 / 100)
-      )
-      ||| Full
-  where
-    topBarTheme =
-      def
-        { inactiveBorderColor = color2,
-          inactiveColor = color2,
-          inactiveTextColor = color3,
-          activeBorderColor = color3,
-          activeColor = color3,
-          activeTextColor = color0,
-          urgentBorderColor = color4,
-          urgentTextColor = color3,
-          decoHeight = 20
-        }
-
 scratchpads :: [NamedScratchpad]
 scratchpads =
   [ NS
@@ -204,3 +187,29 @@ scratchpads =
       (resource =? "transmission-gtk")
       (customFloating $ W.RationalRect (1 / 4) (1 / 4) (1 / 2) (1 / 2))
   ]
+
+myLayout = layout1 ||| Full
+  where
+    lessB = lessBorders AllFloats . noBorders
+    layout1 =
+      lessB $
+        avoidStruts $
+          noFrillsDeco CustomShrink topBarTheme $
+            spacingRaw False (Border 10 10 10 10) True (Border 10 10 10 10) True $
+              Tall 1 (3 / 100) (61.8 / 100)
+    topBarTheme =
+      def
+        { inactiveBorderColor = color2,
+          inactiveColor = color2,
+          inactiveTextColor = color3,
+          activeBorderColor = color3,
+          activeColor = color3,
+          activeTextColor = color0,
+          urgentBorderColor = color4,
+          urgentTextColor = color3,
+          decoHeight = 20
+        }
+
+lerp :: Num a => a -> a -> a -> a
+lerp alpha u v = alpha * u + (1 - alpha) * v
+{-# INLINE lerp #-}

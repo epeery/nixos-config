@@ -22,6 +22,11 @@
 
   time.timeZone = "America/New_York";
 
+  nix.package = pkgs.nixUnstable;
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
+
   environment.systemPackages = with pkgs; [ bash git xst ];
 
   fonts = let
@@ -29,13 +34,13 @@
     fontDir.enable = true;
     fontconfig.enable = true;
     fonts = with pkgs; [
-      (iosevka.override {
-        set = "custom";
-        privateBuildPlan = {
-          family = "Iosevka";
-          design = [ "common styles" "sans" "ligset-haskell" ];
-        };
-      })
+      # (iosevka.override {
+      #   set = "custom";
+      #   privateBuildPlan = {
+      #     family = "Iosevka";
+      #     design = [ "common styles" "sans" "ligset-haskell" ];
+      #   };
+      # })
 
       gohufont
       iosevka
