@@ -165,8 +165,8 @@ in rec {
 
         map <leader>e :ALEDetail<CR>
 
-        let g:ale_sign_error = '✖'
-        let g:ale_sign_warning = '⚠'
+        let g:ale_sign_error = '✖ '
+        let g:ale_sign_warning = '⚠ '
         highlight clear ALEErrorSign
         highlight clear ALEWarningSign
 
@@ -270,7 +270,7 @@ in rec {
       in with pkgs.vimPlugins; [
         ReplaceWithRegister
         ale
-        # coc-nvim
+        coc-nvim
         fzf-vim
         goyo
         haskell-vim
@@ -393,12 +393,6 @@ in rec {
         ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[cyan]%}  "
         ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}  "
       '';
-    };
-
-    rofi = {
-      enable = true;
-      font = "Inter UI 14";
-      scrollbar = false;
     };
 
     pazi = {
