@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "log4js": "3.0.6",
+    "log4js": "6.4.0",
     "neovim": "4.2.1",
     "socket.io": "2.1.1",
     "tslib": "1.9.3",
