@@ -1,37 +1,49 @@
 {
+  description = "My config";
+
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-20.03";
-    home-manager.url = "github:nix-community/home-manager";
-  };
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
 
-  outputs = { self, nixpkgs, home-manager }: {
-
-    nixosConfigurations.container = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        ({ pkgs, ... }: {
-          boot.isContainer = true;
-
-          # Let 'nixos-version --json' know about the Git revision
-          # of this flake.
-          system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
-
-          # Network configuration.
-          networking.useDHCP = false;
-          networking.firewall.allowedTCPPorts = [ 80 ];
-
-          # Enable a web server.
-          services.httpd = { enable = true; };
-        })
-
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.jdoe = import ./home.nix;
-        }
-      ];
+    neovim = {
+      url = "github:neovim/neovim?dir=contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    home-manager = {
+      url = "github:nix-community/home-manager/release-21.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
+
+  outputs = { self, nixpkgs, home-manager, neovim, ... }:
+    let
+      system = "x86_64-linux";
+
+      pkgs = import nixpkgs {
+        inherit system;
+        config = { allowUnfree = true; };
+      };
+
+      lib = nixpkgs.lib;
+    in {
+      homeConfigurations = {
+        eli = home-manager.lib.homeManagerConfiguration {
+          inherit system pkgs;
+          username = "eli";
+          homeDirectory = "/home/eli";
+          configuration = { imports = [ ./home.nix ]; };
+        };
+      };
+
+      nixosConfigurations = {
+        eliPC = lib.nixosSystem {
+          inherit system;
+
+          modules = [ ./modules/common.nix ];
+        };
+      };
+
+      eli = self.homeConfigurations.eli.activationPackage;
+      defaultPackage.x86_64-linux = self.eli;
+    };
 }

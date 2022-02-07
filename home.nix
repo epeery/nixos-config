@@ -2,7 +2,7 @@
 
 let
   pkgsUnstable = import <nixpkgs> { };
-  home_directory = builtins.getEnv "HOME";
+  home_directory = "/home/eli";
 in rec {
   imports = [ ./scripts.nix ];
 
@@ -48,7 +48,7 @@ in rec {
       extraConfig = ''
         let mapleader=","
 
-        set clipboard=unnamedplus
+        set clipboard+=unnamedplus
         set nocompatible
 
         set undofile
@@ -554,16 +554,16 @@ in rec {
     };
 
     configFile = let
-      ugly = builtins.fetchGit {
-        url = "https://github.com/epeery/vim-ugly";
-        rev = "493a5a6ee10b30bbf494475cf3a34cf8dc5de1b3";
+      colorscheme = builtins.fetchGit {
+        url = "https://github.com/epeery/colorscheme";
+        rev = "4907ca6149db295c49770a805c2f7d3c09a73427";
       };
     in {
       "fontconfig/fonts.conf".source = ./config/fontconfig/fonts.conf;
       "ncmpcpp/bindings".source = ./config/ncmpcpp/bindings;
       "ncmpcpp/config".source = ./config/ncmpcpp/config;
       "npm".source = ./config/npm;
-      "nvim/colors/ugly.vim".source = "${ugly}/colors/ugly.vim";
+      "nvim/colors/new.vim".source = "${colorscheme}/colors/new.vim";
       "pulse/default.pa".source = ./config/pulse/default.pa;
       "wget".source = ./config/wget;
 
@@ -705,13 +705,14 @@ in rec {
       spotify
       sxiv
       texlive.combined.scheme-small
+      tor-browser-bundle-bin
       transmission-gtk
       trigger
       unzip
       wget
+      xclip
       yarn
       zoom-us
-      tor-browser-bundle-bin
     ];
   };
 }
