@@ -274,7 +274,7 @@ in rec {
         fzf-vim
         goyo
         haskell-vim
-        markdown-preview
+        # markdown-preview
         matchit-zip
         neoformat
         targets-vim
