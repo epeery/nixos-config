@@ -705,7 +705,6 @@ in rec {
       spotify
       sxiv
       texlive.combined.scheme-small
-      tor-browser-bundle-bin
       transmission-gtk
       trigger
       unzip
